@@ -120,9 +120,15 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
       // Cleanup on unmount
       const scanner = scannerRef.current
       if (scanner) {
-        scanner.isScanning
-          ? scanner.stop().then(() => scanner.clear()).catch(() => { })
-          : scanner.clear().catch(() => { })
+        if (scanner.isScanning) {
+          scanner.stop()
+            .then(() => {
+              try { scanner.clear() } catch (e) {}
+            })
+            .catch(() => { })
+        } else {
+          try { scanner.clear() } catch (e) {}
+        }
         scannerRef.current = null
       }
     }

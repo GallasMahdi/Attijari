@@ -1,0 +1,172 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --wafa-dark:        #003d2b;
+  --wafa-green:       #006633;
+  --wafa-light:       #7dc242;
+  --wafa-gold:        #C9A84C;
+  --wafa-gold-light:  #f5c518;
+  --wafa-cream:       #f9f5ee;
+  --wafa-very-dark:   #001a0f;
+  /* Cinematic canvas tokens */
+  --wafa-navy:        #050810;
+  --wafa-navy-mid:    #0d0f1e;
+  --wafa-navy-deep:   #08091a;
+  --section-padding:  clamp(4rem, 8vw, 8rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--wafa-very-dark);
+  color: white;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global link reset — prevent browser default blue */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  color: var(--wafa-gold);
+}
+
+/* Gold shimmer text utility */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--wafa-gold) 0%,
+    var(--wafa-gold-light) 40%,
+    var(--wafa-gold) 60%,
+    var(--wafa-gold-light) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Glassmorphism card */
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08) 0%,
+    rgba(255,255,255,0.03) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201,168,76,0.2);
+}
+
+/* Animated gold border */
+.gold-border-animated {
+  position: relative;
+}
+.gold-border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    var(--angle, 0deg),
+    var(--wafa-gold),
+    var(--wafa-gold-light),
+    var(--wafa-dark),
+    var(--wafa-gold)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate-border 4s linear infinite;
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotate-border {
+  to { --angle: 360deg; }
+}
+
+/* Lenis smooth scroll */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Three.js canvas */
+canvas { display: block; outline: none; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--wafa-very-dark); }
+::-webkit-scrollbar-thumb { 
+  background: var(--wafa-gold); 
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--wafa-gold);
+  color: var(--wafa-dark);
+}
+
+/* Section base */
+.section-padding {
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
+}
+
+/* Timeline line draw animation */
+.timeline-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+.timeline-line.animated {
+  animation: draw-line 2s ease-in-out forwards;
+}
+
+/* Flip card */
+.flip-card { perspective: 600px; }
+.flip-card-inner {
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  transform-style: preserve-3d;
+}
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateX(-180deg);
+  position: absolute;
+  inset: 0;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  * { -webkit-tap-highlight-color: transparent; }
+  input, select, textarea { font-size: 16px !important; } /* prevent zoom */
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .will-change-transform { will-change: transform; }
+  .gpu { transform: translateZ(0); }
+}

@@ -147,7 +147,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             >
               Connect
               {/* Subtle underline glow */}
-              <motion.div 
+              <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: isInView ? 1 : 0 }}
                 transition={{ delay: 1.5, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
@@ -201,27 +201,6 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
         </motion.div>
       </SectionWrapper>
 
-      {/* ── Scroll Indicator ──────────────────────────────────────────── */}
-      <motion.div
-        variants={scrollReveal}
-        initial="hidden"
-        animate={(isInView && startAnimation) ? "visible" : "hidden"}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-10"
-      >
-        <span
-          className="font-montserrat text-[10px] uppercase tracking-[0.4em] opacity-40 font-medium"
-          style={{ color: '#C9A84C' }}
-        >
-          Découvrir
-        </span>
-        <div className="w-[1px] h-12 relative overflow-hidden bg-white/10">
-          <motion.div
-            animate={{ y: ['-100%', '100%'] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-wafa-gold to-transparent"
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }

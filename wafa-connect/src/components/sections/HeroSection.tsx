@@ -179,12 +179,12 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           {/* 05. Action Group */}
           <motion.div
             variants={cinematicRise}
-            className="flex flex-col sm:flex-row items-center gap-5"
+            className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
           >
             <GoldButton
               size="lg"
               onClick={scrollToConfirm}
-              className="w-full sm:w-auto px-10 py-5 text-base shadow-[0_10px_30px_rgba(201,168,76,0.15)] hover:shadow-[0_15px_40px_rgba(201,168,76,0.25)] transition-all"
+              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base shadow-[0_10px_30px_rgba(201,168,76,0.15)] hover:shadow-[0_15px_40px_rgba(201,168,76,0.25)] transition-all"
             >
               Confirmer Ma Présence
             </GoldButton>
@@ -192,7 +192,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
               variant="outline"
               size="lg"
               href="#programme"
-              className="w-full sm:w-auto px-10 py-5 text-base backdrop-blur-xl border-white/10 hover:border-wafa-gold/40"
+              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base backdrop-blur-xl border-white/10 hover:border-wafa-gold/40"
               style={{ background: 'rgba(255,255,255,0.03)' }}
             >
               Découvrir le Programme

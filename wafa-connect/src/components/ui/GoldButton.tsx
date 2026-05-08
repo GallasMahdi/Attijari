@@ -51,14 +51,20 @@ export const GoldButton = React.forwardRef<HTMLButtonElement, GoldButtonProps>(
     if (href) {
       const isExternal = href.startsWith('http')
       
+      // Extract width classes to apply on the wrapper so w-full works on mobile
+      const wrapperClass = [className].flat().join(' ').match(/(w-\S+|sm:w-\S+|md:w-\S+)/g)?.join(' ') ?? ''
       return (
-        <motion.div whileHover={!isLoading && !props.disabled ? { scale: 1.02 } : {}} whileTap={!isLoading && !props.disabled ? { scale: 0.98 } : {}} className="inline-block">
+        <motion.div
+          whileHover={!isLoading && !props.disabled ? { scale: 1.02 } : {}}
+          whileTap={!isLoading && !props.disabled ? { scale: 0.98 } : {}}
+          className={cn('inline-block', wrapperClass)}
+        >
           {isExternal ? (
-            <a href={href} className={classes} target="_blank" rel="noopener noreferrer" aria-disabled={isLoading || props.disabled}>
+            <a href={href} className={cn(classes, 'w-full')} target="_blank" rel="noopener noreferrer" aria-disabled={isLoading || props.disabled}>
               {content}
             </a>
           ) : (
-            <Link href={href} className={classes} aria-disabled={isLoading || props.disabled}>
+            <Link href={href} className={cn(classes, 'w-full')} aria-disabled={isLoading || props.disabled}>
               {content}
             </Link>
           )}

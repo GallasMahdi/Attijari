@@ -103,7 +103,7 @@ export function Footer() {
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <div className="relative w-56 h-20 mb-5">
               <Image
-                src="/logo1.png"
+                src="/logo2.png"
                 alt="Attijari Assurance Logo"
                 fill
                 className="object-contain object-left"

@@ -44,7 +44,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen min-h-[640px] w-full overflow-hidden flex items-center justify-center bg-wafa-cream"
+      className="relative min-h-[100dvh] md:h-screen w-full overflow-hidden flex items-center justify-center bg-wafa-cream py-8 md:py-0"
     >
       {/* ── 3D Cinematic Background (Memorized) ────────────────────────
       <div className="absolute inset-0 z-0">
@@ -75,7 +75,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
       />
 
       {/* ── Content Layer ────────────────────────────────────────────── */}
-      <SectionWrapper className="container relative z-10 mx-auto px-4 pt-12">
+      <SectionWrapper className="container relative z-10 mx-auto px-4 pt-6 md:pt-12">
         <motion.div
           variants={cinematicContainer}
           initial="hidden"
@@ -85,7 +85,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           {/* 01. Date/Location Badge with floating effect */}
           <motion.div
             variants={cinematicFadeIn}
-            className="mb-8 md:mb-10 inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]"
+            className="mb-6 md:mb-10 inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]"
           >
             <motion.span
               animate={{ opacity: [0.4, 1, 0.4] }}
@@ -126,7 +126,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           {/* 03. Logo — High Priority Rapid Load */}
           <motion.div
             variants={cinematicFadeUp}
-            className="mb-10 w-full flex justify-center"
+            className="mb-6 md:mb-10 w-full flex justify-center"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -144,7 +144,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           {/* 04. Description — High Legibility & Elegant Fade */}
           <motion.div
             variants={cinematicFadeIn}
-            className="font-montserrat max-w-3xl mb-14 leading-relaxed tracking-wide"
+            className="font-montserrat max-w-3xl mb-8 md:mb-14 leading-relaxed tracking-wide"
           >
             <div className="text-gray-700 font-light space-y-1.5 text-center" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}>
               <p>

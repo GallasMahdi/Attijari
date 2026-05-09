@@ -53,7 +53,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
       ────────────────────────────────────────────────────────────── */}
 
       <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden">
-        <TexturePattern src="/pattern4.jpeg" opacity={1} blendMode="normal" />
+        <TexturePattern src="/pattern4.jpeg" opacity={0.5} blendMode="normal" />
       </div>
 
       {/* ── Cinematic gradient overlay — light vignette ────────────────── */}
@@ -187,7 +187,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
               variant="outline"
               size="lg"
               href="#programme"
-              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base backdrop-blur-xl border-wafa-gold/30 text-wafa-dark hover:border-wafa-gold/60"
+              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base bg-white/60 md:backdrop-blur-xl border border-wafa-gold/30 text-wafa-dark hover:border-wafa-gold/60"
             >
               Découvrir le Programme
             </GoldButton>

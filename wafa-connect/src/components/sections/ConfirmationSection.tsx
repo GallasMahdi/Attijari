@@ -43,11 +43,11 @@ export function ConfirmationSection({ onSuccess }: ConfirmationSectionProps) {
     }
   }
 
-  const inputClasses = "w-full bg-wafa-very-dark/50 border border-wafa-gold/20 rounded-xl px-4 py-3.5 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-wafa-gold/50 focus:border-wafa-gold/50 transition-all font-montserrat"
-  const labelClasses = "block text-sm font-medium text-white/80 mb-2 font-montserrat"
+  const inputClasses = "w-full bg-white border border-gray-300 rounded-xl px-4 py-3.5 text-wafa-dark placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-wafa-gold/50 focus:border-wafa-gold/50 transition-all font-montserrat"
+  const labelClasses = "block text-sm font-medium text-gray-700 mb-2 font-montserrat"
 
   return (
-    <section id="confirmer" className="section-padding relative bg-wafa-very-dark overflow-hidden z-10">
+    <section id="confirmer" className="section-padding relative bg-white overflow-hidden z-10">
       <TexturePattern opacity={0.15} blendMode="normal" />
       
       <SectionWrapper className="container mx-auto px-4 max-w-3xl relative z-10">
@@ -65,7 +65,7 @@ export function ConfirmationSection({ onSuccess }: ConfirmationSectionProps) {
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-wafa-gold/60" />
             </div>
 
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-6">
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-wafa-dark mb-6">
               Confirmez{' '}
               <span className="relative inline-block">
                 <span className="text-wafa-gold">Votre Présence</span>
@@ -85,7 +85,7 @@ export function ConfirmationSection({ onSuccess }: ConfirmationSectionProps) {
                 </svg>
               </span>
             </h2>
-            <p className="font-montserrat text-white/70">
+            <p className="font-montserrat text-gray-600">
               Remplissez ce formulaire pour générer votre accès personnel.
             </p>
           </div>
@@ -128,8 +128,8 @@ export function ConfirmationSection({ onSuccess }: ConfirmationSectionProps) {
             <div>
               <label htmlFor="fonction" className={labelClasses}>Fonction / Statut</label>
               <select id="fonction" {...register('fonction')} className={inputClasses}>
-                <option value="Invité" className="bg-wafa-dark">Invité</option>
-                <option value="Journaliste" className="bg-wafa-dark">Journaliste</option>
+                <option value="Invité" className="bg-white">Invité</option>
+                <option value="Journaliste" className="bg-white">Journaliste</option>
               </select>
               {errors.fonction && <p className="mt-2 text-xs text-red-400 font-montserrat">{errors.fonction.message}</p>}
             </div>

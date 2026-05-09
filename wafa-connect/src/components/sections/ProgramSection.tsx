@@ -6,8 +6,8 @@ import { DiamondPattern } from '@/components/ui/DiamondPattern'
 
 export function ProgramSection() {
   return (
-    <section id="programme" className="section-padding bg-wafa-very-dark relative overflow-hidden">
-      <DiamondPattern opacity={0.03} color="#ffffff" />
+    <section id="programme" className="section-padding bg-wafa-cream relative overflow-hidden">
+      <DiamondPattern opacity={0.03} color="#003d2b" />
       
       <SectionWrapper className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 relative">
@@ -25,7 +25,7 @@ export function ProgramSection() {
             <div className="h-px w-16 bg-gradient-to-l from-transparent to-wafa-gold/60" />
           </div>
 
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-wafa-dark mb-6">
             <span className="relative inline-block">
               Le <span className="text-wafa-gold">Programme</span>
               <svg

@@ -5,13 +5,13 @@ import { JOURNEY_STEPS } from '@/lib/constants'
 
 export function JourneySection() {
   return (
-    <section className="section-padding bg-wafa-very-dark relative">
+    <section className="section-padding bg-white relative">
       <SectionWrapper className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-wafa-dark mb-4">
             Votre Parcours <span className="text-wafa-gold italic">Digital</span>
           </h2>
-          <p className="font-montserrat text-white/60 max-w-2xl mx-auto">
+          <p className="font-montserrat text-gray-600 max-w-2xl mx-auto">
             Une expérience fluide et sans contact, de votre invitation jusqu'à votre accueil.
           </p>
         </div>

@@ -22,8 +22,8 @@ export function Footer() {
   }
 
   return (
-    <footer className="relative bg-wafa-very-dark overflow-hidden border-t border-wafa-gold/10">
-      <DiamondPattern opacity={0.03} color="#ffffff" />
+    <footer className="relative bg-wafa-cream overflow-hidden border-t border-wafa-gold/10">
+      <DiamondPattern opacity={0.03} color="#003d2b" />
 
       {/* ── Welcome Banner ── */}
       <div className="relative border-b border-wafa-gold/10">
@@ -49,7 +49,7 @@ export function Footer() {
             Un moment d'exception vous attend
           </p>
 
-          <h2 className="font-playfair text-3xl md:text-5xl font-bold text-white leading-snug mb-4">
+          <h2 className="font-playfair text-3xl md:text-5xl font-bold text-wafa-dark leading-snug mb-4">
             Nous serons heureux{' '}
             <span className="relative inline-block">
               <span className="text-wafa-gold">de vous accueillir</span>
@@ -72,7 +72,7 @@ export function Footer() {
             &amp; de vous voir.
           </h2>
 
-          <p className="font-montserrat text-sm text-white/50 max-w-md mx-auto mt-6">
+          <p className="font-montserrat text-sm text-gray-600 max-w-md mx-auto mt-6">
             Rejoignez-nous pour une soirée placée sous le signe de l'élégance, du partage et de la reconnaissance.
           </p>
 
@@ -85,7 +85,7 @@ export function Footer() {
             ].map(({ Icon, label }) => (
               <div
                 key={label}
-                className="flex items-center gap-2 px-4 py-2 rounded-full border border-wafa-gold/20 bg-wafa-gold/5 text-white/70 text-xs font-montserrat"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-wafa-gold/30 bg-white/50 text-gray-700 text-xs font-montserrat"
               >
                 <Icon className="w-3.5 h-3.5 text-wafa-gold" />
                 {label}
@@ -109,8 +109,8 @@ export function Footer() {
                 className="object-contain object-left"
               />
             </div>
-            <h3 className="font-playfair text-xl font-bold text-white mb-2">{EVENT.name}</h3>
-            <p className="font-montserrat text-xs text-white/50 leading-relaxed max-w-xs">
+            <h3 className="font-playfair text-xl font-bold text-wafa-dark mb-2">{EVENT.name}</h3>
+            <p className="font-montserrat text-xs text-gray-600 leading-relaxed max-w-xs">
               Un événement organisé avec soin pour célébrer l'excellence et renforcer nos liens.
             </p>
           </div>
@@ -123,14 +123,14 @@ export function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-wafa-gold hover:border-wafa-gold hover:bg-wafa-gold/10 transition-all duration-300"
+                  className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-wafa-gold hover:border-wafa-gold hover:bg-wafa-gold/10 transition-all duration-300"
                   aria-label="Social link"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
-            <p className="font-montserrat text-xs text-white/40 leading-relaxed">
+            <p className="font-montserrat text-xs text-gray-500 leading-relaxed">
               Pour toute question, contactez<br />
               <a href="mailto:contact@attijari-assurance.tn" className="text-wafa-gold/70 hover:text-wafa-gold transition-colors">
                 contact@attijari-assurance.tn
@@ -144,12 +144,12 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
-          <p className="font-montserrat text-xs text-white/30">
+          <p className="font-montserrat text-xs text-gray-500">
             &copy; {new Date().getFullYear()} {EVENT.organizer}. Tous droits réservés.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="font-montserrat text-xs text-white/30 hover:text-wafa-gold transition-colors">Mentions légales</a>
-            <a href="#" className="font-montserrat text-xs text-white/30 hover:text-wafa-gold transition-colors">Politique de confidentialité</a>
+            <a href="#" className="font-montserrat text-xs text-gray-500 hover:text-wafa-gold transition-colors">Mentions légales</a>
+            <a href="#" className="font-montserrat text-xs text-gray-500 hover:text-wafa-gold transition-colors">Politique de confidentialité</a>
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@ export function Footer() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-wafa-dark border border-wafa-gold text-wafa-gold flex items-center justify-center shadow-gold-sm hover:bg-wafa-gold hover:text-wafa-dark transition-colors focus:outline-none focus:ring-2 focus:ring-wafa-gold"
+            className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white border border-wafa-gold text-wafa-gold flex items-center justify-center shadow-gold-sm hover:bg-wafa-gold hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-wafa-gold"
             aria-label="Retour en haut"
           >
             <ChevronUp className="w-6 h-6" />

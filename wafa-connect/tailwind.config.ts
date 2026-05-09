@@ -40,17 +40,16 @@ const config: Config = {
       backgroundImage: {
         'gradient-wafa':  'linear-gradient(135deg, #003d2b 0%, #006633 50%, #003d2b 100%)',
         'gradient-gold':  'linear-gradient(90deg, #C9A84C 0%, #f5c518 50%, #C9A84C 100%)',
-        'gradient-hero':  'linear-gradient(180deg, rgba(5,8,16,0) 0%, rgba(5,8,16,0.5) 60%, rgba(0,61,43,0.95) 100%)',
-        'gradient-card':  'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)',
-        'gradient-navy':  'linear-gradient(180deg, #050810 0%, #0d0f1e 100%)',
-
+        'gradient-hero':  'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(249,245,238,0.5) 60%, rgba(249,245,238,0.95) 100%)',
+        'gradient-card':  'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 100%)',
+        'gradient-navy':  'linear-gradient(180deg, #ffffff 0%, #f9f5ee 100%)',
       },
       boxShadow: {
-        'gold-sm':  '0 0 15px rgba(201,168,76,0.3)',
-        'gold-md':  '0 0 30px rgba(201,168,76,0.4)',
-        'gold-lg':  '0 0 60px rgba(201,168,76,0.5)',
-        'green-glow':'0 0 40px rgba(0,102,51,0.5)',
-        'glass':    '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+        'gold-sm':  '0 0 15px rgba(201,168,76,0.2)',
+        'gold-md':  '0 0 30px rgba(201,168,76,0.3)',
+        'gold-lg':  '0 0 60px rgba(201,168,76,0.4)',
+        'green-glow':'0 0 40px rgba(0,102,51,0.2)',
+        'glass':    '0 8px 32px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,1)',
       },
       animation: {
         shimmer:      'shimmer 3s linear infinite',

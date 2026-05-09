@@ -36,21 +36,21 @@ export const TimelineItem = React.memo(function TimelineItem({ time, label, icon
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5, delay: 0.1 }}
         className={cn(
-          "w-[calc(100%-4rem)] md:w-[calc(50%-1.5rem)] flex items-center gap-4 ml-16 md:ml-0",
-          isEven ? "md:pr-8 md:justify-end text-right" : "md:pl-8 md:justify-start text-left"
+          "w-[calc(100%-4rem)] md:w-[calc(50%-1.5rem)] flex items-center gap-4 ml-16 md:ml-0 text-left",
+          isEven ? "md:pr-8 md:justify-end md:text-right" : "md:pl-8 md:justify-start"
         )}
       >
         <div className={cn("flex items-center gap-4 w-full", isEven ? "md:flex-row-reverse" : "md:flex-row")}>
           <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-xl shadow-glass flex-shrink-0 border-wafa-gold/30">
             {icon}
           </div>
-          <div className={cn("flex flex-col gap-1.5 flex-1", isEven ? "md:items-end" : "md:items-start")}>
+          <div className={cn("flex flex-col gap-1.5 flex-1 items-start", isEven ? "md:items-end" : "md:items-start")}>
             <span className="inline-block px-3 py-1 bg-wafa-gold text-wafa-dark rounded-full font-montserrat text-xs font-bold w-fit tracking-wider">
               {time}
             </span>
             <h3 className={cn(
               "font-playfair text-lg md:text-xl font-medium",
-              highlight ? "text-wafa-gold" : "text-white/90"
+              highlight ? "text-wafa-gold" : "text-wafa-dark"
             )}>
               {label}
             </h3>

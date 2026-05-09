@@ -52,7 +52,7 @@ export function CountdownUnit({ value, label }: CountdownUnitProps) {
       </div>
 
       <span className="font-montserrat text-xs sm:text-sm font-medium 
-                       tracking-[0.2em] uppercase text-wafa-gold/70">
+                       tracking-[0.2em] uppercase text-gray-600">
         {label}
       </span>
     </div>

@@ -44,7 +44,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen min-h-[640px] w-full overflow-hidden flex items-center justify-center bg-wafa-dark"
+      className="relative h-screen min-h-[640px] w-full overflow-hidden flex items-center justify-center bg-wafa-cream"
     >
       {/* ── 3D Cinematic Background (Memorized) ────────────────────────
       <div className="absolute inset-0 z-0">
@@ -52,16 +52,16 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
       </div>
       ────────────────────────────────────────────────────────────── */}
 
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <TexturePattern src="/pattern3.jpeg" opacity={0.35} blendMode="normal" />
+      <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden">
+        <TexturePattern src="/pattern4.jpeg" opacity={1} blendMode="normal" />
       </div>
 
-      {/* ── Cinematic gradient overlay — navy vignette ────────────────── */}
+      {/* ── Cinematic gradient overlay — light vignette ────────────────── */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 90% 70% at 50% 50%, transparent 20%, rgba(5,8,16,0.3) 65%, rgba(5,8,16,0.85) 100%)',
+            'radial-gradient(ellipse 90% 70% at 50% 50%, transparent 20%, rgba(255,255,255,0.3) 65%, rgba(249,245,238,0.9) 100%)',
         }}
       />
 
@@ -70,7 +70,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
         className="absolute bottom-0 left-0 right-0 h-48 z-[2] pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, transparent 0%, rgba(5,8,16,0.5) 40%, rgba(3,5,10,1) 100%)',
+            'linear-gradient(to bottom, transparent 0%, rgba(249,245,238,0.5) 40%, rgba(255,255,255,1) 100%)',
         }}
       />
 
@@ -85,21 +85,20 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           {/* 01. Date/Location Badge with floating effect */}
           <motion.div
             variants={cinematicFadeIn}
-            className="mb-10 inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 backdrop-blur-md"
-            style={{
-              background: 'rgba(255,255,255,0.03)',
-            }}
+            className="mb-8 md:mb-10 inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]"
           >
             <motion.span
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-2 h-2 rounded-full shadow-[0_0_10px_#C9A84C]"
+              className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shadow-[0_0_10px_#C9A84C] shrink-0"
               style={{ background: '#C9A84C' }}
             />
             <span
-              className="font-montserrat text-white/70 text-[10px] md:text-[11px] tracking-[0.25em] uppercase font-medium"
+              className="font-montserrat text-gray-700 text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.25em] uppercase font-medium flex flex-wrap justify-center items-center gap-x-2 text-center"
             >
-              {EVENT.dateLabel} &nbsp;·&nbsp; {EVENT.venue}
+              <span className="whitespace-nowrap">{EVENT.dateLabel}</span>
+              <span className="hidden xs:inline opacity-40">·</span>
+              <span className="whitespace-nowrap">{EVENT.venue}</span>
             </span>
           </motion.div>
 
@@ -124,55 +123,51 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             />
           </motion.div>
 
-          {/* 03. Main Title — Luxury Reveal */}
-          <motion.h1
+          {/* 03. Logo — High Priority Rapid Load */}
+          <motion.div
             variants={cinematicFadeUp}
-            className="font-playfair font-bold text-white mb-8 leading-[1.1] will-change-[transform,filter,opacity]"
-            style={{
-              fontSize: 'clamp(2.2rem, 6.5vw, 3.8rem)',
-            }}
+            className="mb-10 w-full flex justify-center"
           >
-            Wafa{' '}
-            <span
-              className="italic relative inline-block px-1"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/wafa.png"
+              alt="Wafa Assurance"
+              className="h-24 md:h-32 object-contain"
+              fetchPriority="high"
+              decoding="sync"
               style={{
-                background:
-                  'linear-gradient(90deg, #C9A84C 0%, #F3D991 45%, #C9A84C 100%)',
-                backgroundSize: '200% auto',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                animation: 'shimmer 4s linear infinite',
+                filter: 'drop-shadow(0 0 20px rgba(201,168,76,0.2))'
               }}
-            >
-              Connect
-              {/* Subtle underline glow */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: isInView ? 1 : 0 }}
-                transition={{ delay: 1.5, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute -bottom-1 left-0 right-0 h-px bg-wafa-gold/30 blur-[1px]"
-              />
-            </span>
-          </motion.h1>
+            />
+          </motion.div>
 
           {/* 04. Description — High Legibility & Elegant Fade */}
           <motion.div
             variants={cinematicFadeIn}
             className="font-montserrat max-w-3xl mb-14 leading-relaxed tracking-wide"
           >
-            <p className="mb-6 text-wafa-gold font-playfair italic text-2xl md:text-4xl opacity-90">
-              Inauguration du Nouveau Siège
-            </p>
-            <div className="text-white/80 font-light space-y-4" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}>
+            <div className="text-gray-700 font-light space-y-1.5 text-center" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}>
               <p>
-                M. <span className="text-white font-semibold">Boubker JAI</span>, Président Directeur Général du Groupe Wafa Assurance,
-                et l&apos;équipe dirigeante de <span className="text-white font-semibold">Attijari Assurance Tunisie</span>,
+                Monsieur <span className="text-wafa-dark font-semibold">Boubker JAI</span>,
               </p>
               <p>
-                ont le plaisir de vous convier à un cocktail dinatoire le
-                <span className="text-wafa-gold font-bold ml-2 border-b border-wafa-gold/30 pb-0.5">Jeudi 21 Mai 2026</span>.
+                Président Directeur Général du Groupe Wafa Assurance,
               </p>
+              <p>
+                et l&apos;équipe dirigeante de <span className="text-wafa-dark font-semibold">Attijari Assurance Tunisie</span>
+              </p>
+              <p className="pt-4">
+                ont le plaisir de vous convier à une soirée de célébration et de partage
+              </p>
+              <p>
+                à l&apos;occasion de l&apos;inauguration du nouveau siège d&apos;Attijari Assurance Tunisie.
+              </p>
+              
+              <div className="pt-6 md:pt-10">
+                <p className="text-wafa-gold font-medium tracking-[0.05em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm leading-relaxed max-w-[280px] md:max-w-none mx-auto">
+                  Siège Attijari Assurance <span className="hidden xs:inline mx-1">|</span> <br className="xs:hidden" /> Centre Urbain Nord Tunis
+                </p>
+              </div>
             </div>
           </motion.div>
 
@@ -192,8 +187,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
               variant="outline"
               size="lg"
               href="#programme"
-              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base backdrop-blur-xl border-white/10 hover:border-wafa-gold/40"
-              style={{ background: 'rgba(255,255,255,0.03)' }}
+              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base backdrop-blur-xl border-wafa-gold/30 text-wafa-dark hover:border-wafa-gold/60"
             >
               Découvrir le Programme
             </GoldButton>

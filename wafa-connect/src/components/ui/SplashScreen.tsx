@@ -125,7 +125,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
                 width: '100%',
               }}
             >
-              {/* First Logo: Wafa */}
+              {/* First Logo: Attijari */}
               <motion.div
                 initial={{ opacity: 0, x: -25, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
@@ -134,8 +134,8 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/wafa.png"
-                  alt="Wafa Assurance"
+                  src="/logo1.png"
+                  alt="Attijariwafa Bank"
                   width={200}
                   height={200}
                   fetchPriority="high"
@@ -163,7 +163,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
                 }}
               />
 
-              {/* Second Logo: Logo1 */}
+              {/* Second Logo: Wafa */}
               <motion.div
                 initial={{ opacity: 0, x: 25, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
@@ -172,8 +172,8 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/logo1.png"
-                  alt="Attijariwafa Bank"
+                  src="/wafa.png"
+                  alt="Wafa Assurance"
                   width={200}
                   height={200}
                   fetchPriority="high"

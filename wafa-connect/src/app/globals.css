@@ -26,8 +26,8 @@ html {
 }
 
 body {
-  background-color: var(--wafa-very-dark);
-  color: white;
+  background-color: #ffffff;
+  color: var(--wafa-dark);
   font-family: var(--font-montserrat), system-ui, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -63,12 +63,12 @@ a:hover {
 .glass {
   background: linear-gradient(
     135deg,
-    rgba(255,255,255,0.08) 0%,
-    rgba(255,255,255,0.03) 100%
+    rgba(255,255,255,0.8) 0%,
+    rgba(255,255,255,0.5) 100%
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201,168,76,0.2);
+  border: 1px solid rgba(201,168,76,0.3);
 }
 
 /* Animated gold border */
@@ -115,7 +115,7 @@ canvas { display: block; outline: none; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--wafa-very-dark); }
+::-webkit-scrollbar-track { background: #f0f0f0; }
 ::-webkit-scrollbar-thumb { 
   background: var(--wafa-gold); 
   border-radius: 2px;

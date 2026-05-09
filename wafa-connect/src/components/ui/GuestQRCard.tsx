@@ -33,7 +33,7 @@ export function GuestQRCard({ guest }: GuestQRCardProps) {
       await new Promise(resolve => setTimeout(resolve, 300))
 
       const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: '#03050a',
+        backgroundColor: '#ffffff',
         scale: 3, // Ultra-sharp
         useCORS: true,
         allowTaint: true,
@@ -64,7 +64,7 @@ export function GuestQRCard({ guest }: GuestQRCardProps) {
       {/* Success message */}
       <motion.div
         variants={fadeUp}
-        className="flex items-center gap-3 text-wafa-light"
+        className="flex items-center gap-3 text-wafa-dark"
       >
         <CheckCircle className="w-6 h-6" />
         <p className="font-montserrat font-medium text-base">
@@ -78,12 +78,12 @@ export function GuestQRCard({ guest }: GuestQRCardProps) {
         variants={scaleIn}
         className={cn(
           'relative w-full max-w-sm',
-          'bg-wafa-very-dark rounded-[2.5rem] overflow-hidden',
-          'border border-wafa-gold/30 shadow-2xl'
+          'bg-white rounded-[2.5rem] overflow-hidden',
+          'border border-gray-200 shadow-2xl'
         )}
       >
         {/* Top Section */}
-        <div className="relative p-8 pb-8 bg-gradient-to-br from-wafa-dark to-wafa-very-dark overflow-hidden">
+        <div className="relative p-8 pb-8 bg-gradient-to-br from-wafa-cream to-white overflow-hidden">
           {/* Subtle texture */}
           <div className="absolute inset-0 opacity-[0.08] pointer-events-none">
             <TexturePattern src="/pattern.jpeg" opacity={1} />
@@ -105,7 +105,7 @@ export function GuestQRCard({ guest }: GuestQRCardProps) {
               <p className="font-montserrat text-wafa-gold text-[10px] tracking-[0.4em] uppercase mb-2">
                 Invitation Officielle
               </p>
-              <h3 className="font-playfair font-bold text-white text-3xl tracking-tight leading-none">
+              <h3 className="font-playfair font-bold text-wafa-dark text-3xl tracking-tight leading-none">
                 Wafa <span className="text-wafa-gold italic">Connect</span>
               </h3>
             </div>
@@ -116,17 +116,17 @@ export function GuestQRCard({ guest }: GuestQRCardProps) {
         </div>
 
         {/* Perforated Divider */}
-        <div className="relative h-6 bg-wafa-very-dark flex items-center justify-between">
-          <div className="absolute left-0 -translate-x-1/2 w-6 h-6 rounded-full bg-wafa-very-dark border-r border-wafa-gold/20" />
-          <div className="w-full border-t border-dashed border-wafa-gold/30 mx-4" />
-          <div className="absolute right-0 translate-x-1/2 w-6 h-6 rounded-full bg-wafa-very-dark border-l border-wafa-gold/20" />
+        <div className="relative h-6 bg-white flex items-center justify-between">
+          <div className="absolute left-0 -translate-x-1/2 w-6 h-6 rounded-full bg-white border-r border-gray-200" />
+          <div className="w-full border-t border-dashed border-gray-300 mx-4" />
+          <div className="absolute right-0 translate-x-1/2 w-6 h-6 rounded-full bg-white border-l border-gray-200" />
         </div>
 
         {/* Bottom Section */}
         <div className="relative p-8 pt-6 flex flex-col items-center gap-8">
           <div className="text-center space-y-1">
-            <p className="font-montserrat text-white/40 text-[10px] uppercase tracking-[0.2em]">Accès Privilégié</p>
-            <h4 className="font-playfair font-bold text-white text-2xl">
+            <p className="font-montserrat text-gray-500 text-[10px] uppercase tracking-[0.2em]">Accès Privilégié</p>
+            <h4 className="font-playfair font-bold text-wafa-dark text-2xl">
               {guest.prenom} {guest.nom}
             </h4>
             <p className="font-montserrat text-wafa-gold/80 text-xs font-medium leading-none">{guest.fonction}</p>
@@ -152,12 +152,12 @@ export function GuestQRCard({ guest }: GuestQRCardProps) {
           {/* Info */}
           <div className="grid grid-cols-2 w-full gap-4 pt-4 border-t border-wafa-gold/10">
             <div className="space-y-1">
-              <p className="text-[10px] text-white/30 uppercase font-montserrat tracking-wider">Date & Heure</p>
-              <p className="text-sm text-white/80 font-montserrat font-medium">{EVENT.dateLabel}</p>
+              <p className="text-[10px] text-gray-400 uppercase font-montserrat tracking-wider">Date & Heure</p>
+              <p className="text-sm text-gray-700 font-montserrat font-medium">{EVENT.dateLabel}</p>
             </div>
             <div className="space-y-1 text-right">
-              <p className="text-[10px] text-white/30 uppercase font-montserrat tracking-wider">Lieu</p>
-              <p className="text-sm text-white/80 font-montserrat font-medium">{EVENT.city}</p>
+              <p className="text-[10px] text-gray-400 uppercase font-montserrat tracking-wider">Lieu</p>
+              <p className="text-sm text-gray-700 font-montserrat font-medium">{EVENT.city}</p>
             </div>
           </div>
 

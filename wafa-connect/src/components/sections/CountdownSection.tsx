@@ -11,15 +11,15 @@ export function CountdownSection() {
   if (isExpired) return null
 
   return (
-    <section className="py-20 relative overflow-hidden bg-wafa-dark border-y border-wafa-gold/20">
-      <DiamondPattern opacity={0.05} />
+    <section className="py-20 relative overflow-hidden bg-white border-y border-wafa-gold/20">
+      <DiamondPattern opacity={0.05} color="#003d2b" />
       
       {/* Subtle radial gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.1)_0%,transparent_70%)]" />
 
       <SectionWrapper className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-2">
+          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-wafa-dark mb-2">
             Le Compte à Rebours
           </h2>
           <p className="font-montserrat text-wafa-gold uppercase tracking-widest text-sm">

@@ -25,7 +25,7 @@ export function MapSection() {
   return (
     <section
       id="localisation"
-      className="section-padding bg-wafa-very-dark relative border-t border-wafa-gold/10 overflow-hidden"
+      className="section-padding bg-wafa-cream relative border-t border-wafa-gold/10 overflow-hidden"
     >
       <TexturePattern src="/pattern.jpeg" opacity={0.15} blendMode="normal" />
 
@@ -46,7 +46,7 @@ export function MapSection() {
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-wafa-gold/60" />
             </div>
 
-            <h2 className="font-playfair text-3xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold text-wafa-dark mb-6">
               Nous{' '}
               <span className="relative inline-block">
                 <span className="text-wafa-gold italic">Rejoindre</span>
@@ -66,7 +66,7 @@ export function MapSection() {
                 </svg>
               </span>
             </h2>
-            <p className="font-montserrat text-white/80 text-lg mb-8 leading-relaxed max-w-lg">
+            <p className="font-montserrat text-gray-700 text-lg mb-8 leading-relaxed max-w-lg">
               Le nouveau siège d'Attijari Assurance est idéalement situé au Centre Urbain Nord,
               facilement accessible et doté d'un parking dédié pour nos invités.
             </p>
@@ -77,9 +77,9 @@ export function MapSection() {
                   <MapPin className="w-6 h-6 text-wafa-gold" />
                 </div>
                 <div>
-                  <h3 className="font-montserrat font-bold text-white text-xl mb-1">Adresse</h3>
-                  <p className="font-montserrat text-white/70">{EVENT.venue}</p>
-                  <p className="font-montserrat text-white/70">{EVENT.city}</p>
+                  <h3 className="font-montserrat font-bold text-wafa-dark text-xl mb-1">Adresse</h3>
+                  <p className="font-montserrat text-gray-600">{EVENT.venue}</p>
+                  <p className="font-montserrat text-gray-600">{EVENT.city}</p>
                 </div>
               </div>
             </GlassCard>
@@ -88,7 +88,7 @@ export function MapSection() {
               href={EVENT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-wafa-gold font-montserrat font-bold hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 text-wafa-gold font-montserrat font-bold hover:text-wafa-dark transition-colors"
             >
               <Navigation className="w-5 h-5" />
               Ouvrir dans Google Maps

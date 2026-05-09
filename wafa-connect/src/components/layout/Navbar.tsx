@@ -25,7 +25,7 @@ export function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMenuOpen(false)
-    
+
     // Use Lenis if available for smoother/more reliable scrolling
     const lenis = (window as any).lenis
     if (lenis) {
@@ -52,7 +52,7 @@ export function Navbar() {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
           scrolled
-            ? 'bg-wafa-dark/95 backdrop-blur-md border-b border-wafa-gold/15 py-3 shadow-lg'
+            ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 py-3 shadow-sm'
             : 'bg-transparent py-5'
         )}
         initial={{ y: -100, opacity: 0 }}
@@ -68,7 +68,7 @@ export function Navbar() {
           >
             <div className="relative w-48 h-14 md:w-72 md:h-24 flex items-center justify-start transition-all duration-300">
               <Image
-                src="/logo1.png"
+                src="/logo2.png"
                 alt="Attijari Assurance Logo"
                 fill
                 className="object-contain object-left"
@@ -83,9 +83,9 @@ export function Navbar() {
               <button
                 key={href}
                 onClick={() => handleNavClick(href)}
-                className="font-montserrat text-sm font-medium text-white/70
+                className="font-montserrat text-sm font-medium text-wafa-dark
                            hover:text-wafa-gold px-4 py-2 rounded-lg
-                           hover:bg-white/5 transition-all duration-200
+                           hover:bg-gray-100 transition-all duration-200
                            focus:outline-none focus-visible:ring-2 
                            focus-visible:ring-wafa-gold"
               >
@@ -107,7 +107,7 @@ export function Navbar() {
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden p-2 text-white hover:text-wafa-gold
+            className="md:hidden p-2 text-wafa-dark hover:text-wafa-gold
                        transition-colors focus:outline-none 
                        focus-visible:ring-2 focus-visible:ring-wafa-gold rounded"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -147,7 +147,7 @@ export function Navbar() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-40 bg-wafa-very-dark/80 
+              className="fixed inset-0 z-40 bg-wafa-dark/80 
                          backdrop-blur-sm md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -158,7 +158,7 @@ export function Navbar() {
             {/* Drawer */}
             <motion.div
               className={cn(
-                "fixed left-0 right-0 z-40 md:hidden bg-wafa-dark border-b border-wafa-gold/20 shadow-xl overflow-hidden",
+                "fixed left-0 right-0 z-40 md:hidden bg-white border-b border-gray-200 shadow-xl overflow-hidden",
                 scrolled ? "top-[72px]" : "top-[88px]"
               )}
               initial={{ height: 0, opacity: 0 }}
@@ -175,8 +175,8 @@ export function Navbar() {
                     transition={{ delay: i * 0.05 }}
                     onClick={() => handleNavClick(href)}
                     className="text-left px-4 py-3.5 font-montserrat 
-                               font-medium text-white/80 hover:text-wafa-gold
-                               hover:bg-white/5 rounded-xl transition-all
+                               font-medium text-wafa-dark hover:text-wafa-gold
+                               hover:bg-gray-50 rounded-xl transition-all
                                focus:outline-none border border-transparent
                                hover:border-wafa-gold/20"
                   >

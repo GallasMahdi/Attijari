@@ -29,7 +29,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ startAnimation = true }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
-  const isInView = useInView(sectionRef, { margin: '-10%' })
+  const isInView = useInView(sectionRef, { margin: '-10%', once: true })
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   const scrollToConfirm = () => {
@@ -148,13 +148,13 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           >
             <div className="text-gray-700 font-light space-y-1.5 text-center" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}>
               <p>
-                Monsieur <span className="text-wafa-dark font-semibold">Boubker JAI</span>,
+                Monsieur <span className="text-wafa-dark font-bold text-[1.05em]">Boubker JAI</span>,
               </p>
               <p>
                 Président Directeur Général du Groupe Wafa Assurance,
               </p>
               <p>
-                et l&apos;équipe dirigeante de <span className="text-wafa-dark font-semibold">Attijari Assurance Tunisie</span>
+                et l&apos;équipe dirigeante de <span className="text-wafa-dark font-bold text-[1.05em]">Attijari Assurance Tunisie</span>
               </p>
               <p className="pt-4">
                 ont le plaisir de vous convier à une soirée de célébration et de partage

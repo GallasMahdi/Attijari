@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
         nom: updatedGuest.nom,
         prenom: updatedGuest.prenom,
         fonction: updatedGuest.fonction,
-        arrivedAt: updatedGuest.arrivedAt.toISOString(),
+        arrivedAt: updatedGuest.arrivedAt?.toISOString() ?? new Date().toISOString(),
       },
       message: `✅ Bienvenue, ${updatedGuest.prenom} ${updatedGuest.nom} !`,
     }, { status: 200 })

@@ -9,6 +9,25 @@ interface QRScannerProps {
   isProcessing: boolean
 }
 
+const playBeep = () => {
+  try {
+    const context = new (window.AudioContext || (window as any).webkitAudioContext)()
+    const oscillator = context.createOscillator()
+    const gain = context.createGain()
+    oscillator.type = 'sine'
+    oscillator.frequency.setValueAtTime(880, context.currentTime) // A5 note
+    gain.gain.setValueAtTime(0, context.currentTime)
+    gain.gain.linearRampToValueAtTime(0.1, context.currentTime + 0.01)
+    gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.2)
+    oscillator.connect(gain)
+    gain.connect(context.destination)
+    oscillator.start()
+    oscillator.stop(context.currentTime + 0.2)
+  } catch (e) {
+    console.warn('Audio feedback failed:', e)
+  }
+}
+
 export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
   const [active, setActive] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -81,8 +100,10 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
         { facingMode: 'environment' },
         { fps: 15, qrbox: { width: 260, height: 260 } },
         (decodedText) => {
-          // Fix #1 applied: use ref, never the closure value
-          if (!isProcessingRef.current) onScan(decodedText)
+          if (!isProcessingRef.current) {
+            playBeep()
+            onScan(decodedText)
+          }
         },
         () => { /* suppress frame-level decode errors */ }
       )
@@ -162,10 +183,10 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
         )}
 
         {!active && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-wafa-very-dark/80">
-            <Camera className="w-12 h-12 text-wafa-gold/40" />
-            <p className="font-montserrat text-xs text-white/40 text-center px-6">
-              Cliquez "Démarrer" pour activer la caméra
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gray-50/90 backdrop-blur-sm">
+            <Camera className="w-12 h-12 text-wafa-gold/30" />
+            <p className="font-montserrat text-xs text-gray-400 text-center px-6 font-medium">
+              Cliquez sur le bouton ci-dessous pour activer la caméra
             </p>
           </div>
         )}
@@ -201,19 +222,19 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
         </div>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex gap-4">
         {!active ? (
           <button
             onClick={startScanner}
-            className="flex items-center gap-2 px-6 py-3 bg-wafa-gold text-wafa-dark font-montserrat font-bold text-sm rounded-xl hover:bg-wafa-gold-light transition-colors"
+            className="flex items-center gap-2 px-8 py-4 bg-wafa-gold hover:bg-wafa-dark text-white font-montserrat font-bold text-sm rounded-xl transition-all shadow-gold-sm hover:shadow-lg active:scale-95"
           >
             <Camera className="w-4 h-4" />
-            Démarrer le scan
+            Démarrer le Scanner
           </button>
         ) : (
           <button
             onClick={stopScanner}
-            className="flex items-center gap-2 px-6 py-3 bg-white/10 text-white font-montserrat font-bold text-sm rounded-xl hover:bg-white/20 transition-colors border border-white/20"
+            className="flex items-center gap-2 px-8 py-4 bg-white border border-red-200 text-red-500 font-montserrat font-bold text-sm rounded-xl hover:bg-red-50 transition-all shadow-sm active:scale-95"
           >
             <CameraOff className="w-4 h-4" />
             Arrêter

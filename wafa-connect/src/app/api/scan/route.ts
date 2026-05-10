@@ -8,7 +8,9 @@ import type { QRPayload, ScanResult } from '@/types/guest'
 // Admin auth middleware
 function isAuthorized(request: NextRequest): boolean {
   const auth = request.headers.get('x-admin-token')
-  return auth === process.env.ADMIN_PASSWORD
+  const expectedPassword = process.env.ADMIN_PASSWORD
+  if (!expectedPassword) return false // CRITICAL: Fail closed if env var is missing
+  return auth === expectedPassword
 }
 
 export async function POST(request: NextRequest) {
@@ -62,19 +64,19 @@ export async function POST(request: NextRequest) {
 
   try {
     await connectDB()
-    const guest = await Guest.findOne({ guestId: id })
+
+    // 1. Check if already scanned (we still need to fetch details for already_scanned state)
+    let guest = await Guest.findOne({ guestId: id })
 
     if (!guest) {
-      const result: ScanResult = {
+      return NextResponse.json({
         status: 'invalid',
-        message: 'Invité introuvable dans la base de données.',
-      }
-      return NextResponse.json(result, { status: 200 })
+        message: 'Invité introuvable dans la base de données.'
+      }, { status: 200 })
     }
 
-    // Already scanned — no-op, return who and when
     if (guest.arrived) {
-      const result: ScanResult = {
+      return NextResponse.json({
         status: 'already_scanned',
         guest: {
           guestId: guest.guestId,
@@ -88,28 +90,43 @@ export async function POST(request: NextRequest) {
             ? new Date(guest.arrivedAt).toLocaleTimeString('fr-TN', { hour: '2-digit', minute: '2-digit' })
             : 'heure inconnue'
         }.`,
-      }
-      return NextResponse.json(result, { status: 200 })
+      }, { status: 200 })
     }
 
-    // First scan — mark arrival
-    guest.arrived = true
-    guest.arrivedAt = new Date()
-    guest.scannedBy = scannedBy
-    await guest.save()
+    // 2. Atomic update to mark as arrived
+    // Using findOneAndUpdate with { arrived: false } filter ensures only one scanner wins
+    const now = new Date()
+    const updatedGuest = await Guest.findOneAndUpdate(
+      { guestId: id, arrived: false },
+      { 
+        $set: { 
+          arrived: true, 
+          arrivedAt: now,
+          scannedBy: scannedBy
+        } 
+      },
+      { new: true } // Return the updated document
+    )
 
-    const result: ScanResult = {
+    if (!updatedGuest) {
+      // If someone else updated it between our first check and now
+      return NextResponse.json({
+        status: 'already_scanned',
+        message: 'Déjà enregistré par un autre poste à l\'instant.'
+      }, { status: 200 })
+    }
+
+    return NextResponse.json({
       status: 'valid',
       guest: {
-        guestId: guest.guestId,
-        nom: guest.nom,
-        prenom: guest.prenom,
-        fonction: guest.fonction,
-        arrivedAt: guest.arrivedAt.toISOString(),
+        guestId: updatedGuest.guestId,
+        nom: updatedGuest.nom,
+        prenom: updatedGuest.prenom,
+        fonction: updatedGuest.fonction,
+        arrivedAt: updatedGuest.arrivedAt.toISOString(),
       },
-      message: `✅ Bienvenue, ${guest.prenom} ${guest.nom} !`,
-    }
-    return NextResponse.json(result, { status: 200 })
+      message: `✅ Bienvenue, ${updatedGuest.prenom} ${updatedGuest.nom} !`,
+    }, { status: 200 })
   } catch (err) {
     console.error('[/api/scan]', err)
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 })

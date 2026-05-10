@@ -153,7 +153,7 @@ export function GuestQRCard({ guest }: GuestQRCardProps) {
           <div className="grid grid-cols-2 w-full gap-4 pt-4 border-t border-wafa-gold/10">
             <div className="space-y-1">
               <p className="text-[10px] text-gray-400 uppercase font-montserrat tracking-wider">Date & Heure</p>
-              <p className="text-sm text-gray-700 font-montserrat font-medium">{EVENT.dateLabel}</p>
+              <p className="text-sm text-gray-700 font-montserrat font-medium">{EVENT.dateLabel} — 18h00</p>
             </div>
             <div className="space-y-1 text-right">
               <p className="text-[10px] text-gray-400 uppercase font-montserrat tracking-wider">Lieu</p>

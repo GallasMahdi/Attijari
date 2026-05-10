@@ -162,7 +162,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
               <p>
                 à l&apos;occasion de l&apos;inauguration du nouveau siège d&apos;Attijari Assurance Tunisie.
               </p>
-              
+
               <div className="pt-6 md:pt-10">
                 <p className="text-wafa-gold font-medium tracking-[0.05em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm leading-relaxed max-w-[280px] md:max-w-none mx-auto">
                   Siège Attijari Assurance <span className="hidden xs:inline mx-1">|</span> <br className="xs:hidden" /> Centre Urbain Nord Tunis

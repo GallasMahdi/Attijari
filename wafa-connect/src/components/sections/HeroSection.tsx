@@ -213,33 +213,20 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
 
               <motion.div
                 variants={cinematicFadeUp}
-                className="pt-4 flex justify-center"
+                className="pt-4 flex flex-col items-center gap-1.5"
               >
-                {/* ── Google Maps Badge — clickable ── */}
+                {/* ── Google Maps Badge — always visibly clickable ── */}
                 <div className="relative group/map">
 
-                  {/* Tooltip */}
+                  {/* Outer glow ring — intensifies on hover */}
                   <motion.div
-                    initial={{ opacity: 0, y: 6, scale: 0.95 }}
-                    whileHover={{ opacity: 1, y: 0, scale: 1 }}
-                    className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg px-3 py-1.5 text-[10px] font-semibold tracking-widest uppercase z-20"
+                    className="absolute -inset-[3px] rounded-full pointer-events-none transition-opacity duration-500"
                     style={{
-                      background: 'linear-gradient(135deg, #C9A84C 0%, #e8c96d 100%)',
-                      color: '#1a1200',
-                      boxShadow: '0 4px 20px rgba(201,168,76,0.45)',
-                      opacity: 0,
+                      background: 'linear-gradient(135deg, rgba(201,168,76,0.25), rgba(232,201,109,0.1))',
+                      filter: 'blur(5px)',
+                      opacity: 0.6,
                     }}
-                  >
-                    Ouvrir dans Google Maps ↗
-                  </motion.div>
-
-                  {/* Outer glow ring — appears on hover */}
-                  <motion.div
-                    className="absolute -inset-[3px] rounded-full opacity-0 group-hover/map:opacity-100 pointer-events-none transition-opacity duration-500"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(201,168,76,0.35), rgba(232,201,109,0.15))',
-                      filter: 'blur(4px)',
-                    }}
+                    whileHover={{ opacity: 1 }}
                   />
 
                   <motion.a
@@ -247,13 +234,16 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{
-                      scale: 1.03,
-                      backgroundColor: 'rgba(255,255,255,0.82)',
-                      borderColor: 'rgba(201,168,76,0.6)',
+                      scale: 1.04,
+                      backgroundColor: 'rgba(255,255,255,0.88)',
                     }}
-                    whileTap={{ scale: 0.97 }}
-                    className="relative inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw] cursor-pointer transition-colors duration-300 overflow-hidden no-underline"
-                    style={{ textDecoration: 'none' }}
+                    whileTap={{ scale: 0.96 }}
+                    className="relative inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full backdrop-blur-md bg-white/60 max-w-[95vw] cursor-pointer overflow-hidden no-underline transition-colors duration-300"
+                    style={{
+                      textDecoration: 'none',
+                      border: '1.5px dashed rgba(201,168,76,0.7)',
+                      boxShadow: '0 0 0 3px rgba(201,168,76,0.08), 0 4px 16px rgba(201,168,76,0.12)',
+                    }}
                   >
                     {/* Shimmer sweep */}
                     <motion.div
@@ -266,13 +256,15 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
                     <motion.div
                       animate={{ y: [0, -4, 0], scale: [1, 1.15, 1] }}
                       transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-                      className="z-10 relative"
+                      className="z-10 relative shrink-0"
                     >
-                      <MapPin size={14} className="text-[#C9A84C] shrink-0" />
+                      <MapPin size={14} className="text-[#C9A84C]" />
                     </motion.div>
 
-                    {/* Address text */}
-                    <span className="relative z-10 font-montserrat text-gray-700 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.18em] uppercase font-medium text-center leading-relaxed">
+                    {/* Address text — always underlined */}
+                    <span className="relative z-10 font-montserrat text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.18em] uppercase font-semibold text-center leading-relaxed"
+                      style={{ color: '#8a6a1f', textDecorationColor: 'rgba(201,168,76,0.5)', textDecoration: 'underline', textUnderlineOffset: '3px' }}
+                    >
                       <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -282,16 +274,27 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
                       </motion.span>
                     </span>
 
-                    {/* External link icon — fades in on hover */}
+                    {/* External link icon — always visible */}
                     <motion.div
-                      initial={{ opacity: 0, x: -4 }}
-                      whileHover={{ opacity: 1, x: 0 }}
-                      className="z-10 relative shrink-0 opacity-0 group-hover/map:opacity-100 transition-opacity duration-300"
+                      animate={{ x: [0, 2, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                      className="z-10 relative shrink-0"
                     >
-                      <ExternalLink size={11} className="text-[#C9A84C]" />
+                      <ExternalLink size={12} style={{ color: '#C9A84C' }} />
                     </motion.div>
                   </motion.a>
                 </div>
+
+                {/* "Voir sur la carte" helper label — always visible */}
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 1.2 }}
+                  className="font-montserrat text-[8px] md:text-[9px] tracking-[0.22em] uppercase"
+                  style={{ color: '#C9A84C' }}
+                >
+                  Voir sur la carte →
+                </motion.span>
               </motion.div>
               {/* ─────────────────────────────────────────────────────────── */}
             </div>

@@ -16,7 +16,7 @@ export const TimelineItem = React.memo(function TimelineItem({ time, label, icon
 
   return (
     <div className={cn(
-      "relative flex items-center justify-between md:justify-normal w-full mb-8 last:mb-0",
+      "relative flex items-center justify-between md:justify-normal w-full mb-12 md:mb-20 last:mb-0",
       isEven ? "md:flex-row-reverse" : "md:flex-row"
     )}>
       <div className="hidden md:block w-[calc(50%-1.5rem)]" />

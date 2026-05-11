@@ -10,7 +10,7 @@ export function ProgramSection() {
       <DiamondPattern opacity={0.03} color="#003d2b" />
       
       <SectionWrapper className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16 relative">
+        <div className="text-center mb-24 relative">
           {/* Radial glow */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
             <div className="w-[400px] h-[150px] rounded-full bg-wafa-gold/5 blur-3xl" />

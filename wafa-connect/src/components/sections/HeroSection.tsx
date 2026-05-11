@@ -44,7 +44,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[100dvh] md:h-screen w-full overflow-hidden flex items-center justify-center bg-wafa-cream py-8 md:py-0"
+      className="relative min-h-[100dvh] md:h-screen w-full overflow-hidden flex items-center justify-center bg-wafa-cream py-8 md:py-0 pb-20 md:pb-16"
     >
       {/* ── 3D Cinematic Background (Memorized) ────────────────────────
       <div className="absolute inset-0 z-0">
@@ -67,7 +67,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
 
       {/* ── Bottom fade — blends into next section ────────────────────── */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-48 z-[2] pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-32 z-[2] pointer-events-none"
         style={{
           background:
             'linear-gradient(to bottom, transparent 0%, rgba(249,245,238,0.5) 40%, rgba(255,255,255,1) 100%)',
@@ -82,30 +82,10 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           animate={(isInView && startAnimation) ? "visible" : "hidden"}
           className="flex flex-col items-center text-center max-w-4xl mx-auto will-change-transform"
         >
-          {/* 01. Date/Location Badge with floating effect */}
-          <motion.div
-            variants={cinematicFadeIn}
-            className="mb-6 md:mb-10 inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]"
-          >
-            <motion.span
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shadow-[0_0_10px_#C9A84C] shrink-0"
-              style={{ background: '#C9A84C' }}
-            />
-            <span
-              className="font-montserrat text-gray-700 text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.25em] uppercase font-medium flex flex-wrap justify-center items-center gap-x-2 text-center"
-            >
-              <span className="whitespace-nowrap">{EVENT.dateLabel}</span>
-              <span className="hidden xs:inline opacity-40">·</span>
-              <span className="whitespace-nowrap">{EVENT.venue}</span>
-            </span>
-          </motion.div>
-
-          {/* 02. Eyebrow Reveal */}
+          {/* 01. Eyebrow Reveal */}
           <motion.div
             variants={cinematicEyebrow}
-            className="mb-8 flex items-center gap-6"
+            className="mb-1 mt- md:mt-16 flex items-center gap-6"
           >
             <motion.div
               variants={cinematicLine}
@@ -123,7 +103,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             />
           </motion.div>
 
-          {/* 03. Logo — High Priority Rapid Load */}
+          {/* 02. Logo — High Priority Rapid Load */}
           <motion.div
             variants={cinematicFadeUp}
             className="mb-6 md:mb-10 w-full flex justify-center"
@@ -141,7 +121,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             />
           </motion.div>
 
-          {/* 04. Description — High Legibility & Elegant Fade */}
+          {/* 03. Description — High Legibility & Elegant Fade */}
           <motion.div
             variants={cinematicFadeIn}
             className="font-montserrat max-w-3xl mb-8 md:mb-14 leading-relaxed tracking-wide"
@@ -168,13 +148,31 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
                   Siège Attijari Assurance <span className="hidden xs:inline mx-1">|</span> <br className="xs:hidden" /> Centre Urbain Nord Tunis
                 </p>
               </div>
+
+              {/* ── Date/Location Badge — moved from top ──────────────────── */}
+              <div className="pt-4 flex justify-center">
+                <div className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]">
+                  <motion.span
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shadow-[0_0_10px_#C9A84C] shrink-0"
+                    style={{ background: '#C9A84C' }}
+                  />
+                  <span className="font-montserrat text-700 text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.25em] uppercase font-medium flex flex-wrap justify-center items-center gap-x-2 text-center">
+                    <span className="whitespace-nowrap">{EVENT.dateLabel}</span>
+                    <span className="hidden xs:inline opacity-40">·</span>
+                    <span className="whitespace-nowrap">{EVENT.venue}</span>
+                  </span>
+                </div>
+              </div>
+              {/* ─────────────────────────────────────────────────────────── */}
             </div>
           </motion.div>
 
-          {/* 05. Action Group */}
+          {/* 04. Action Group */}
           <motion.div
             variants={cinematicRise}
-            className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-center gap-9 w-full sm:w-auto relative z-10 mb-8 md:mb-12"
           >
             <GoldButton
               size="lg"

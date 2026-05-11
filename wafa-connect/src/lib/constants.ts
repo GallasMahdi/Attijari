@@ -28,13 +28,9 @@ export const PROGRAM = [
   { time: '18h:00', label: 'Accueil invités', icon: '👋', highlight: false },
   { time: '18h:30', label: 'Cocktail d\'accueil', icon: '🍸', highlight: false },
   { time: '19h:30', label: 'Présentation et prise de paroles', icon: '🎤', highlight: true },
-  { time: '20h:30', label: 'Networking + Violoniste', icon: '🎻', highlight: false },
-  { time: '21h:00', label: 'Cocktail dinatoire', icon: '🍽️', highlight: false },
-  { time: '21h:30', label: 'Rana Zarrouk', icon: '🎤', highlight: true },
-  { time: '22h:00', label: 'Station Food', icon: '🍴', highlight: false },
-  { time: '22h:30', label: 'Rana Zarrouk', icon: '🎤', highlight: true },
-  { time: '23h:15', label: 'Dj', icon: '🎧', highlight: false },
-  { time: '00h:45', label: 'Clôture', icon: '✨', highlight: true },
+  { time: '20h:30', label: 'Networking & dîner', icon: '🍽️', highlight: false },
+  { time: '21h:00', label: 'Rana Zarrouk', icon: '🎤', highlight: true },
+  { time: '00h:00', label: 'Clôture', icon: '✨', highlight: true },
 ] as const
 
 export const JOURNEY_STEPS = [
@@ -67,6 +63,6 @@ export const JOURNEY_STEPS = [
 export const NAV_LINKS = [
   { label: 'Concept', href: '#concept' },
   { label: 'Programme', href: '#programme' },
-  { label: 'Confirmer', href: '#confirmer' },
+  // { label: 'Confirmer', href: '#confirmer' },
   { label: 'Localisation', href: '#localisation' },
 ] as const

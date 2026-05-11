@@ -16,6 +16,8 @@ import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { GoldButton } from '@/components/ui/GoldButton'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { TexturePattern } from '@/components/ui/TexturePattern'
+import { MapPin } from 'lucide-react'
+
 
 // Lazy load 3D canvas — SSR disabled
 const HeroCanvas = dynamic(() => import('@/components/three/HeroCanvas'), {
@@ -115,7 +117,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             <img
               src="/wafa.png"
               alt="Wafa Assurance"
-              className="h-24 md:h-32 object-contain"
+              className="h-22 md:h-32 object-contain"
               fetchPriority="high"
               decoding="sync"
               style={{
@@ -165,6 +167,19 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
                     <span className="whitespace-nowrap">{EVENT.dateLabel}</span>
                     <span className="hidden xs:inline opacity-40">·</span>
                     <span className="whitespace-nowrap">{EVENT.venue}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-4 flex justify-center">
+                <div className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]">
+                  <MapPin
+                    size={14}
+                    className="text-[#C9A84C] shrink-0"
+                  />
+
+                  <span className="font-montserrat text-gray-700 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.18em] uppercase font-medium text-center leading-relaxed">
+                    Attijari Assurance Tunisie · Lot N°A14, Bd de la Terre, 1082 Centre Urbain Nord - Tunis
                   </span>
                 </div>
               </div>

@@ -117,7 +117,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             <img
               src="/wafa.png"
               alt="Wafa Assurance"
-              className="h-22 md:h-32 object-contain"
+              className="h-21 md:h-32 object-contain"
               fetchPriority="high"
               decoding="sync"
               style={{
@@ -131,11 +131,11 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             variants={cinematicFadeIn}
             className="font-montserrat max-w-3xl mb-8 md:mb-14 leading-relaxed tracking-wide"
           >
-            <div className="text-gray-700 font-light space-y-1.5 text-center" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}>
+            <div className="text-gray-800 font-normal space-y-1.5 text-center" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}>
               <p>
                 Monsieur <span className="text-wafa-dark font-bold text-[1.05em]">Boubker JAI</span>,
               </p>
-              <p>
+              <p >
                 Président Directeur Général du Groupe Wafa Assurance,
               </p>
               <p>
@@ -148,41 +148,119 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
                 à l&apos;occasion de l&apos;inauguration du nouveau siège d&apos;Attijari Assurance Tunisie.
               </p>
 
-              <div className="pt-6 md:pt-10">
-                <p className="text-wafa-gold font-medium tracking-[0.05em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm leading-relaxed max-w-[280px] md:max-w-none mx-auto">
-                  Siège Attijari Assurance <span className="hidden xs:inline mx-1">|</span> <br className="xs:hidden" /> Centre Urbain Nord Tunis
-                </p>
-              </div>
 
-              {/* ── Date/Location Badge — moved from top ──────────────────── */}
-              <div className="pt-4 flex justify-center">
-                <div className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]">
-                  <motion.span
-                    animate={{ opacity: [0.4, 1, 0.4] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                    className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shadow-[0_0_10px_#C9A84C] shrink-0"
-                    style={{ background: '#C9A84C' }}
+              {/* ── Date/Location Badge ──────────────────── */}
+              <motion.div
+                variants={cinematicFadeUp}
+                className="pt-4 flex justify-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+                  className="group relative inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw] cursor-default transition-all duration-500 overflow-hidden"
+                >
+                  {/* Shimmer Effect */}
+                  <motion.div
+                    animate={{
+                      x: ['-100%', '200%'],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none z-0"
                   />
-                  <span className="font-montserrat text-700 text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.25em] uppercase font-medium flex flex-wrap justify-center items-center gap-x-2 text-center">
-                    <span className="whitespace-nowrap">{EVENT.dateLabel}</span>
+
+                  {/* Multi-layered Ripple Dot */}
+                  <div className="relative flex items-center justify-center w-2 h-2 md:w-2.5 md:h-2.5 shrink-0 z-10">
+                    <motion.span
+                      animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                      className="absolute inset-0 rounded-full"
+                      style={{ background: '#C9A84C', boxShadow: '0 0 10px rgba(201,168,76,0.4)' }}
+                    />
+                    {[1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        animate={{ scale: [1, 3.5], opacity: [0.4, 0] }}
+                        transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.8, ease: "easeOut" }}
+                        className="absolute inset-0 rounded-full border border-wafa-gold/40"
+                      />
+                    ))}
+                  </div>
+
+                  <span className="relative z-10 font-montserrat text-700 text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.25em] uppercase font-medium flex flex-wrap justify-center items-center gap-x-2 text-center">
+                    <motion.span
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="whitespace-nowrap"
+                    >
+                      {EVENT.dateLabel}
+                    </motion.span>
                     <span className="hidden xs:inline opacity-40">·</span>
-                    <span className="whitespace-nowrap">{EVENT.venue}</span>
+                    <motion.span
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="whitespace-nowrap"
+                    >
+                      {EVENT.venue}
+                    </motion.span>
                   </span>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div className="pt-4 flex justify-center">
-                <div className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw]">
-                  <MapPin
-                    size={14}
-                    className="text-[#C9A84C] shrink-0"
+              <motion.div
+                variants={cinematicFadeUp}
+                className="pt-4 flex justify-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+                  className="group relative inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full border border-gray-300 backdrop-blur-md bg-white/50 max-w-[95vw] cursor-default transition-all duration-500 overflow-hidden"
+                >
+                  <motion.div
+                    animate={{
+                      x: ['-100%', '200%'],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                      delay: 0.5,
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none z-0"
                   />
 
-                  <span className="font-montserrat text-gray-700 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.18em] uppercase font-medium text-center leading-relaxed">
-                    Attijari Assurance Tunisie · Lot N°A14, Bd de la Terre, 1082 Centre Urbain Nord - Tunis
+                  <motion.div
+                    animate={{
+                      y: [0, -4, 0],
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="z-10"
+                  >
+                    <MapPin
+                      size={14}
+                      className="text-[#C9A84C] shrink-0"
+                    />
+                  </motion.div>
+
+                  <span className="relative z-10 font-montserrat text-gray-700 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.18em] uppercase font-medium text-center leading-relaxed">
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
+                    >
+                      Attijari Assurance Tunisie · Lot N°A14, Bd de la Terre, 1082 Centre Urbain Nord - Tunis
+                    </motion.span>
                   </span>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
               {/* ─────────────────────────────────────────────────────────── */}
             </div>
           </motion.div>

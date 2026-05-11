@@ -6,7 +6,7 @@ import { GoldDivider } from '@/components/ui/GoldDivider'
 
 export function AboutSection() {
   return (
-    <section id="concept" className="section-padding relative bg-white z-10">
+    <section id="concept" className="pt-10   pb-20 relative bg-white z-10">
       <SectionWrapper className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-wafa-dark mb-6">
@@ -14,9 +14,9 @@ export function AboutSection() {
           </h2>
           <GoldDivider className="mb-8" />
           <p className="font-montserrat text-gray-700 text-lg leading-relaxed">
-            Plus qu'un bâtiment, le nouveau siège d'Attijari Assurance incarne notre vision 
-            d'avenir : moderne, innovante et profondément ancrée dans nos valeurs de 
-            proximité et de confiance. Un joyau architectural conçu pour offrir la meilleure 
+            Plus qu'un bâtiment, le nouveau siège d'Attijari Assurance incarne notre vision
+            d'avenir : moderne, innovante et profondément ancrée dans nos valeurs de
+            proximité et de confiance. Un joyau architectural conçu pour offrir la meilleure
             expérience à nos partenaires et collaborateurs.
           </p>
         </div>

@@ -83,7 +83,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           className="flex flex-col items-center text-center max-w-4xl mx-auto will-change-transform"
         >
           {/* 01. Eyebrow Reveal */}
-          <motion.div
+          {/* <motion.div
             variants={cinematicEyebrow}
             className="mb-1 mt- md:mt-16 flex items-center gap-6"
           >
@@ -101,12 +101,15 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
               variants={cinematicLine}
               className="h-[1px] origin-right bg-gradient-to-l from-transparent to-wafa-gold/60 w-12 md:w-16"
             />
-          </motion.div>
+          </motion.div> */}
 
           {/* 02. Logo — High Priority Rapid Load */}
           <motion.div
             variants={cinematicFadeUp}
-            className="mb-6 md:mb-10 w-full flex justify-center"
+            className="mb-6 mt-20 md:mb-10 w-full flex justify-center"
+            style={{
+              transform: 'translateY(30px)',
+            }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -172,7 +175,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
           {/* 04. Action Group */}
           <motion.div
             variants={cinematicRise}
-            className="flex flex-col sm:flex-row items-center gap-9 w-full sm:w-auto relative z-10 mb-8 md:mb-12"
+            className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto relative z-10 mb-8 md:mb-12"
           >
             <GoldButton
               size="lg"

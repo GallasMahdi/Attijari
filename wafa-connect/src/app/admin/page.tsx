@@ -1,9 +1,10 @@
 'use client'
 import dynamic from 'next/dynamic'
+import { TexturePattern } from '@/components/ui/TexturePattern'
 import Image from 'next/image'
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Lock, ShieldCheck, LogOut, Clock } from 'lucide-react'
+import { Lock, ShieldCheck, LogOut, Clock, Eye, EyeOff } from 'lucide-react'
 import type { ScanResult } from '@/types/guest'
 const ScanResultOverlay = dynamic(() => import('@/components/admin/ScanResultOverlay').then(mod => mod.ScanResultOverlay))
 const GuestTable = dynamic(() => import('@/components/admin/GuestTable').then(mod => mod.GuestTable))
@@ -19,6 +20,7 @@ const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? ''
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [authError, setAuthError] = useState('')
   const [scanResult, setScanResult] = useState<ScanResult | null>(null)
   const [recentScans, setRecentScans] = useState<ScanResult[]>([])
@@ -103,17 +105,18 @@ export default function AdminPage() {
   if (!authed) {
     return (
       <div className="min-h-screen bg-wafa-cream flex items-center justify-center p-4 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('/pattern4.jpeg')] bg-repeat bg-[length:300px]" />
-        </div>
+        <TexturePattern src="/pattern4.jpeg" opacity={0.5} blendMode="normal" />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-sm relative z-10"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-md relative z-10"
         >
+          {/* Subtle glow effect behind the form */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-wafa-gold/5 blur-[120px] rounded-full pointer-events-none z-0" />
           <div className="flex flex-col items-center gap-6 mb-10">
-            <div className="relative w-56 h-16">
+            <div className="relative w-72 h-24">
               <Image src="/logo2.png" alt="Attijari Assurance" fill className="object-contain" />
             </div>
             <div className="flex items-center gap-2 text-wafa-gold">
@@ -122,37 +125,63 @@ export default function AdminPage() {
             </div>
           </div>
 
-          <form onSubmit={handleLogin} className="bg-white rounded-3xl p-8 flex flex-col gap-5 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-wafa-gold/10">
-            <div className="space-y-1 text-center">
-              <h1 className="font-playfair text-2xl font-bold text-wafa-dark">Accès Réception</h1>
-              <p className="font-montserrat text-[10px] text-gray-400 uppercase tracking-wider">
-                Entrez le mot de passe organisateur
-              </p>
-            </div>
+          <div className="relative z-10 rounded-[2rem] p-[1px] bg-gradient-to-b from-wafa-gold/30 via-white/10 to-white/5 shadow-2xl">
+            <form onSubmit={handleLogin} className="bg-white/80 backdrop-blur-2xl rounded-[calc(2rem-1px)] p-10 flex flex-col gap-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]">
+              <div className="space-y-2 text-center">
+                <h1 className="font-playfair text-3xl font-bold bg-gradient-to-br from-wafa-dark via-wafa-dark/80 to-wafa-gold bg-clip-text text-transparent">Accès Réception</h1>
+                <p className="font-montserrat text-[10px] text-gray-500/80 uppercase tracking-[0.2em] font-medium">
+                  Entrez le mot de passe organisateur
+                </p>
+              </div>
 
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
-              <input
-                type="password"
-                placeholder="Mot de passe"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-xl font-montserrat text-sm text-wafa-dark placeholder-gray-400 focus:outline-none focus:border-wafa-gold/50 focus:bg-white transition-all shadow-inner"
-                autoFocus
-              />
-            </div>
+              <div className="relative group">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-wafa-gold/50 group-focus-within:text-wafa-gold transition-colors duration-300" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Mot de passe"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full pl-11 pr-11 py-4 bg-white/50 backdrop-blur-sm border border-wafa-gold/20 rounded-2xl font-montserrat text-sm text-wafa-dark placeholder-gray-400 focus:outline-none focus:border-wafa-gold focus:ring-4 focus:ring-wafa-gold/10 transition-all duration-300 shadow-sm"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-wafa-gold transition-colors duration-300"
+                  aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
 
-            {authError && (
-              <p className="font-montserrat text-xs text-red-500 text-center font-medium bg-red-50 py-2 rounded-lg">{authError}</p>
-            )}
+              {authError && (
+                <motion.p 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="font-montserrat text-xs text-red-500 text-center font-medium bg-red-50/80 backdrop-blur-md py-3 rounded-xl border border-red-100/50"
+                >
+                  {authError}
+                </motion.p>
+              )}
 
-            <button
-              type="submit"
-              className="py-4 bg-wafa-gold hover:bg-wafa-dark text-white font-montserrat font-bold rounded-xl transition-all shadow-gold-sm hover:shadow-lg active:scale-[0.98]"
-            >
-              Accéder au Portail
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="group relative overflow-hidden py-4 bg-wafa-dark text-white font-montserrat font-bold rounded-2xl transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-wafa-dark/20 hover:-translate-y-0.5 active:scale-[0.98]"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-wafa-gold via-wafa-gold/80 to-wafa-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  Accéder au Portail
+                  <motion.span
+                    initial={{ x: 0 }}
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                  >
+                    →
+                  </motion.span>
+                </span>
+              </button>
+            </form>
+          </div>
         </motion.div>
       </div>
     )

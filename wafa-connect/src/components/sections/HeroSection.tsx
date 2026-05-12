@@ -146,7 +146,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
               </p>
               <p>
                 à l&apos;occasion de l&apos;inauguration du nouveau siège d&apos;Attijari Assurance Tunisie
-                <span className="text-wafa-dark font-bold text-[1.05em]">  Le  Jeudi 21 Mai 2026
+                <span className="text-wafa-dark font-bold text-[1.05em]">  Le  Jeudi 21 Mai 2026 à 18h30
                 </span>
 
               </p>

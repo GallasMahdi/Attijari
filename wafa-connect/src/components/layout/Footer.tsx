@@ -182,8 +182,8 @@ export function Footer() {
             </div>
             <p className="font-montserrat text-xs text-gray-500 leading-relaxed">
               Pour toute question, contactez<br />
-              <a href="mailto:contact@attijari-assurance.tn" className="text-wafa-gold/70 hover:text-wafa-gold transition-colors">
-                contact@attijari-assurance.tn
+              <a href="mailto:invitation@attijariassurance-event.com" className="text-wafa-gold/70 hover:text-wafa-gold transition-colors">
+                invitation@attijariassurance-event.com
               </a>
             </p>
           </div>

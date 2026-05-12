@@ -50,6 +50,16 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: '/logof.png' },
+      { url: '/logof.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/logof.png' },
+    ],
+  },
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {
@@ -69,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          */}
         <link
           rel="preload"
-          href="/wafa.png"
+          href="/logof.png"
           as="image"
           type="image/png"
           fetchPriority="high"

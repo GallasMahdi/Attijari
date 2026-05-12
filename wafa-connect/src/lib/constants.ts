@@ -28,7 +28,7 @@ export const PROGRAM = [
   { time: '18h:00', label: 'Accueil invités', icon: '👋', highlight: false },
   { time: '18h:30', label: 'Cocktail d\'accueil', icon: '🍸', highlight: false },
   { time: '19h:30', label: 'Présentation et prise de paroles', icon: '🎤', highlight: true },
-  { time: '20h:30', label: 'Networking & dîner', icon: '🍽️', highlight: false },
+  { time: '20h:30', label: 'Cocktail Dinatoire', icon: '🍽️', highlight: false },
   { time: '21h:00', label: 'Rana Zarrouk', icon: '🎤', highlight: true },
   { time: '00h:00', label: 'Clôture', icon: '✨', highlight: true },
 ] as const

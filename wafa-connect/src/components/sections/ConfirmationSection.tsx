@@ -16,7 +16,7 @@ interface ConfirmationSectionProps {
 
 export function ConfirmationSection({ onSuccess }: ConfirmationSectionProps) {
   const { confirm, status, error } = useGuestConfirmation()
-  
+
   const {
     register,
     handleSubmit,
@@ -49,12 +49,12 @@ export function ConfirmationSection({ onSuccess }: ConfirmationSectionProps) {
   return (
     <section id="confirmer" className="section-padding relative bg-white overflow-hidden z-10">
       <TexturePattern opacity={0.15} blendMode="normal" />
-      
+
       <SectionWrapper className="container mx-auto px-4 max-w-3xl relative z-10">
         <div className="glass rounded-3xl p-8 md:p-12 border border-wafa-gold/30 shadow-2xl relative overflow-hidden">
           {/* Deco */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-wafa-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-          
+
           <div className="text-center mb-10 relative z-10">
             {/* Ornamental line + diamond */}
             <div className="flex items-center justify-center gap-4 mb-6">
@@ -111,7 +111,7 @@ export function ConfirmationSection({ onSuccess }: ConfirmationSectionProps) {
                 <input id="prenom" {...register('prenom')} className={inputClasses} placeholder="Votre prénom" />
                 {errors.prenom && <p className="mt-2 text-xs text-red-400 font-montserrat">{errors.prenom.message}</p>}
               </div>
-              
+
               <div>
                 <label htmlFor="nom" className={labelClasses}>Nom</label>
                 <input id="nom" {...register('nom')} className={inputClasses} placeholder="Votre nom" />

@@ -13,7 +13,7 @@ export function CountdownSection() {
   return (
     <section className="py-20 relative overflow-hidden bg-white border-y border-wafa-gold/20">
       <DiamondPattern opacity={0.05} color="#003d2b" />
-      
+
       {/* Subtle radial gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.1)_0%,transparent_70%)]" />
 

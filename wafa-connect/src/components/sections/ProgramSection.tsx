@@ -8,7 +8,7 @@ export function ProgramSection() {
   return (
     <section id="programme" className="section-padding bg-wafa-cream relative overflow-hidden">
       <DiamondPattern opacity={0.03} color="#003d2b" />
-      
+
       <SectionWrapper className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-24 relative">
           {/* Radial glow */}
@@ -52,7 +52,7 @@ export function ProgramSection() {
         <div className="relative max-w-4xl mx-auto">
           {/* Vertical Center Line for Desktop */}
           <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-wafa-gold/20 -translate-x-1/2 timeline-line animated" />
-          
+
           {/* Vertical Left Line for Mobile */}
           <div className="md:hidden absolute left-[35px] top-0 bottom-0 w-px bg-wafa-gold/20" />
 

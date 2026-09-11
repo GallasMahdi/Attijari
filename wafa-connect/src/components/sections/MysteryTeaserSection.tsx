@@ -91,11 +91,10 @@ export function MysteryTeaserSection() {
             {/* 1. Shrouded Cayenne E4 SUV Image */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/porsche-shrouded.jpg"
+                src="/porsche-shrouded.webp"
                 alt="Porsche Cayenne E4 Electric SUV — Silhouette & Dévoilement Mystère"
                 fill
                 priority
-                unoptimized
                 sizes="(max-width: 1280px) 100vw, 1280px"
                 className={`object-cover object-center transition-all duration-700 ease-out ${isLightsOn ? 'brightness-110 contrast-105 saturate-110' : 'brightness-90 saturate-85'
                   }`}

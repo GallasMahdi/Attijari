@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     title: 'Porsche Cayenne Electric (E4) Launch Event | Heritage × Future',
     description: 'Lancement officiel du Cayenne E4 au Domaine Neferis. Two worlds. One drive.',
     siteName: 'Porsche × 2K Events',
-    images: [{ url: '/porsche-cayenne-e4-hero.jpg', width: 1200, height: 675, alt: 'Porsche Cayenne E4 Electric Hero' }],
+    images: [{ url: '/porsche-cayenne-e4-hero.webp', width: 1200, height: 675, alt: 'Porsche Cayenne E4 Electric Hero' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Porsche Cayenne Electric (E4) Launch Event',
     description: 'Heritage × Future · Le Domaine Neferis · 2K Events × Porsche',
-    images: ['/porsche-cayenne-e4-hero.jpg'],
+    images: ['/porsche-cayenne-e4-hero.webp'],
   },
   robots: { index: true, follow: true },
   icons: {
@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               endDate: '2026-06-21T23:00:00+01:00',
               eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
               eventStatus: 'https://schema.org/EventScheduled',
-              image: ['https://porsche-experience.com/porsche-cayenne-e4-hero.jpg'],
+              image: ['https://porsche-experience.com/porsche-cayenne-e4-hero.webp'],
               location: {
                 '@type': 'Place',
                 name: 'Le Domaine Neferis',
@@ -114,17 +114,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Preload Avenue — LCP hero (first image shown on mount) */}
         <link
           rel="preload"
-          href="/domaine-neferis-entrance.jpg"
+          href="/domaine-neferis-entrance.webp"
           as="image"
-          type="image/jpeg"
+          type="image/webp"
           fetchPriority="high"
         />
         {/* Prefetch Cayenne E4 hero — ready for instant mode switch */}
         <link
           rel="prefetch"
-          href="/porsche-cayenne-e4-hero.jpg"
+          href="/porsche-cayenne-e4-hero.webp"
           as="image"
-          type="image/jpeg"
+          type="image/webp"
         />
         {/* Preload Porsche Next TT — primary brand typeface (TTF) */}
         <link

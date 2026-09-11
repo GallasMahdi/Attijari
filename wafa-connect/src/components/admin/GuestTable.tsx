@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search, RefreshCw, Users, CheckCircle2, Clock,
   ArrowUpDown, ArrowUp, ArrowDown, Download,
-  Wifi, WifiOff
+  Wifi, WifiOff, ShieldCheck
 } from 'lucide-react'
 import type { AdminGuest, EventStats } from '@/types/guest'
 
@@ -19,10 +19,14 @@ type SortDir = 'asc' | 'desc'
 
 // ─── CSV Export ────────────────────────────────────────────────────────────────
 function exportToCSV(guests: AdminGuest[]) {
-  const header = ['Prénom', 'Nom', 'Email', 'Fonction', 'Statut', "Heure d'arrivée"]
+  const header = ['Prénom', 'Nom', 'Email', 'Fonction', 'Formule d’Accès', 'Statut', "Heure d'arrivée"]
   const rows = guests.map(g => [
-    g.prenom, g.nom, g.email, g.fonction,
-    g.arrived ? 'Arrivé' : 'En attente',
+    g.prenom,
+    g.nom,
+    g.email,
+    g.fonction,
+    'Pass VIP Prestige · Accès Intégral',
+    g.arrived ? 'Présent au Domaine' : 'En attente',
     g.arrivedAt
       ? new Date(g.arrivedAt).toLocaleTimeString('fr-TN', { hour: '2-digit', minute: '2-digit' })
       : '',
@@ -32,7 +36,7 @@ function exportToCSV(guests: AdminGuest[]) {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `invités-${new Date().toISOString().slice(0, 10)}.csv`
+  a.download = `porsche-vip-invites-${new Date().toISOString().slice(0, 10)}.csv`
   a.click()
   URL.revokeObjectURL(url)
 }
@@ -130,15 +134,15 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
   const SortIcon = ({ col }: { col: SortKey }) => {
     if (sortKey !== col) return <ArrowUpDown className="w-3 h-3 opacity-30" />
     return sortDir === 'asc'
-      ? <ArrowUp className="w-3 h-3 text-wafa-gold" />
-      : <ArrowDown className="w-3 h-3 text-wafa-gold" />
+      ? <ArrowUp className="w-3 h-3 text-[#E0681C]" />
+      : <ArrowDown className="w-3 h-3 text-[#E0681C]" />
   }
 
   const displayedGuests = sortGuests(guests, sortKey, sortDir)
 
   const FILTER_OPTIONS: { key: FilterType; label: string }[] = [
-    { key: 'all', label: 'Tous' },
-    { key: 'arrived', label: 'Paddock Entré' },
+    { key: 'all', label: 'Tous les Invités' },
+    { key: 'arrived', label: 'Présents au Domaine' },
     { key: 'pending', label: 'En Attente' },
   ]
 
@@ -149,14 +153,14 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
       {stats && (
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: 'Accrédités', value: stats.total, icon: Users, color: 'text-white', bg: 'bg-white/5', border: 'border-white/10' },
-            { label: 'Au Paddock', value: stats.arrived, icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
-            { label: 'En Route', value: stats.pending, icon: Clock, color: 'text-red-400', bg: 'bg-red-600/10', border: 'border-red-500/20' },
+            { label: 'Accréditations VIP', value: stats.total, icon: Users, color: 'text-white', bg: 'bg-white/5', border: 'border-white/10' },
+            { label: 'Présents au Domaine', value: stats.arrived, icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+            { label: 'En Attente d’Arrivée', value: stats.pending, icon: Clock, color: 'text-[#E0681C]', bg: 'bg-[#E0681C]/10', border: 'border-[#E0681C]/25' },
           ].map(({ label, value, icon: Icon, color, bg, border }) => (
-            <div key={label} className={`rounded-2xl ${bg} border ${border} p-4 flex flex-col items-center gap-1 shadow-sm backdrop-blur-sm`}>
-              <Icon className={`w-5 h-5 ${color}`} />
-              <p className={`font-montserrat text-2xl font-black ${color}`}>{value}</p>
-              <p className="font-montserrat text-[9px] text-gray-400 font-bold uppercase tracking-widest">{label}</p>
+            <div key={label} className={`rounded-2xl ${bg} border ${border} p-3 sm:p-4 flex flex-col items-center text-center gap-1 shadow-sm backdrop-blur-sm`}>
+              <Icon className={`w-4 sm:w-5 h-4 sm:h-5 ${color}`} />
+              <p className={`font-outfit text-xl sm:text-2xl font-black ${color}`}>{value}</p>
+              <p className="font-mono text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-wider">{label}</p>
             </div>
           ))}
         </div>
@@ -166,7 +170,7 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
       {stats && (
         <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden border border-white/5">
           <motion.div
-            className="h-full bg-gradient-to-r from-red-600 via-red-500 to-amber-500"
+            className="h-full bg-gradient-to-r from-[#6D8080] via-[#E0681C] to-emerald-400"
             animate={{ width: `${stats.percentage}%` }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           />
@@ -181,15 +185,15 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Rechercher pilote, VIP..."
+            placeholder="Rechercher par nom, email..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-8 py-2.5 bg-black/40 border border-white/10 rounded-xl font-montserrat text-sm text-white placeholder-gray-500 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-all shadow-inner"
+            className="w-full pl-9 pr-8 py-2.5 bg-black/40 border border-white/10 rounded-xl font-sans text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#E0681C] focus:ring-1 focus:ring-[#E0681C]/40 transition-all shadow-inner"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs transition-colors cursor-pointer"
             >✕</button>
           )}
         </div>
@@ -200,8 +204,8 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
             <button
               key={key}
               onClick={() => setFilter(key)}
-              className={`px-3 py-1.5 rounded-lg font-montserrat text-[10px] uppercase font-bold tracking-wider transition-all ${filter === key
-                ? 'bg-red-600 text-white shadow-sm'
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-outfit text-[10px] uppercase font-bold tracking-wider transition-all cursor-pointer ${filter === key
+                ? 'bg-[#E0681C] text-white shadow-sm'
                 : 'text-gray-400 hover:text-white'
                 }`}
             >
@@ -213,9 +217,9 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
         {/* Auto-refresh toggle */}
         <button
           onClick={() => setAutoRefresh(v => !v)}
-          title={autoRefresh ? 'Télémétrie Live active' : 'Télémétrie en pause'}
-          className={`p-2.5 rounded-xl border transition-all ${autoRefresh
-            ? 'bg-red-600/10 border-red-500/30 text-red-400 shadow-sm'
+          title={autoRefresh ? 'Synchronisation continue active' : 'Synchronisation en pause'}
+          className={`p-2.5 rounded-xl border transition-all cursor-pointer ${autoRefresh
+            ? 'bg-[#E0681C]/15 border-[#E0681C]/35 text-[#E0681C] shadow-sm'
             : 'bg-black/30 border-white/10 text-gray-500 hover:text-gray-300'
             }`}
         >
@@ -225,8 +229,8 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
         {/* Manual refresh */}
         <button
           onClick={() => fetchData(search, filter)}
-          className="p-2.5 bg-black/30 border border-white/10 rounded-xl text-gray-400 hover:text-white hover:border-white/20 transition-all shadow-sm"
-          title="Actualiser"
+          className="p-2.5 bg-black/30 border border-white/10 rounded-xl text-gray-400 hover:text-white hover:border-white/20 transition-all shadow-sm cursor-pointer"
+          title="Actualiser le registre"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
         </button>
@@ -235,7 +239,7 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
         <button
           onClick={() => exportToCSV(displayedGuests)}
           disabled={displayedGuests.length === 0}
-          className="flex items-center gap-1.5 px-3 py-2.5 bg-white/10 border border-white/15 text-white rounded-xl font-montserrat text-[10px] font-bold uppercase tracking-wider hover:bg-red-600 hover:border-red-500 transition-all disabled:opacity-30 disabled:grayscale shadow-sm"
+          className="flex items-center gap-1.5 px-3 py-2.5 bg-white/10 border border-white/15 text-white rounded-xl font-outfit text-[10px] font-bold uppercase tracking-wider hover:bg-[#E0681C] hover:border-[#E0681C] transition-all disabled:opacity-30 disabled:grayscale shadow-sm cursor-pointer"
         >
           <Download className="w-3.5 h-3.5" />
           Export CSV
@@ -244,11 +248,11 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
 
       {/* ── Last refreshed timestamp ────────────────────────────────────────── */}
       {lastRefreshed && (
-        <p className="font-montserrat text-[10px] text-gray-400 text-right -mt-2 italic">
-          Dernière synchronisation : {lastRefreshed.toLocaleTimeString('fr-FR', {
+        <p className="font-mono text-[10px] text-gray-400 text-right -mt-2">
+          Synchronisé à : {lastRefreshed.toLocaleTimeString('fr-FR', {
             hour: '2-digit', minute: '2-digit', second: '2-digit'
           })}
-          {autoRefresh && <span className="ml-1 text-red-500 font-bold">· TELEMETRY SYNCED</span>}
+          {autoRefresh && <span className="ml-1.5 text-[#E0681C] font-bold">· LIVE SYNC</span>}
         </p>
       )}
 
@@ -256,16 +260,16 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
       <div className="flex items-center gap-3 px-3 pb-2 border-b border-white/10">
         <button
           onClick={() => handleSort('nom')}
-          className="flex items-center gap-1 font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-red-400 transition-colors flex-1"
+          className="flex items-center gap-1 font-outfit text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-[#E0681C] transition-colors flex-1 cursor-pointer"
         >
-          Pilote / Invité <SortIcon col="nom" />
+          Invité VIP <SortIcon col="nom" />
         </button>
-        <span className="font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 flex-1 hidden sm:block">
-          Contact & Rôle
+        <span className="font-outfit text-[10px] uppercase font-bold tracking-widest text-gray-400 flex-1 hidden sm:block">
+          Fonction & Statut
         </span>
         <button
           onClick={() => handleSort('arrivedAt')}
-          className="flex items-center gap-1 font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-red-400 transition-colors"
+          className="flex items-center gap-1 font-outfit text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-[#E0681C] transition-colors cursor-pointer"
         >
           Horodatage <SortIcon col="arrivedAt" />
         </button>
@@ -278,11 +282,11 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-10 text-white/40 font-montserrat text-xs"
+              className="text-center py-10 text-white/40 font-sans text-xs"
             >
               {search
-                ? `Aucun pilote ou invité trouvé pour "${search}".`
-                : 'Aucune accréditation confirmée pour le moment.'}
+                ? `Aucun invité VIP trouvé pour "${search}".`
+                : 'Aucune accréditation enregistrée pour le moment.'}
             </motion.div>
           )}
 
@@ -294,7 +298,7 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
               transition={{ delay: i * 0.02 }}
-              className={`flex items-center gap-4 p-3.5 rounded-2xl border transition-all ${g.arrived
+              className={`flex items-center gap-3 sm:gap-4 p-3.5 rounded-2xl border transition-all ${g.arrived
                 ? 'bg-emerald-950/20 border-emerald-500/30 shadow-sm'
                 : 'bg-black/30 border-white/5 hover:border-white/20'
                 }`}
@@ -303,25 +307,31 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
                 }`} />
 
               <div className="flex-1 min-w-0">
-                <p className="font-montserrat font-bold text-sm text-white truncate">
-                  {g.prenom} {g.nom}
-                </p>
-                <p className="font-montserrat text-[11px] text-gray-400 truncate mt-0.5">
-                  {g.email} · <span className="font-semibold text-red-400">{g.fonction}</span>
+                <div className="flex items-center gap-2">
+                  <p className="font-outfit font-bold text-sm text-white truncate">
+                    {g.prenom} {g.nom}
+                  </p>
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-[#6D8080] border border-white/10">
+                    <ShieldCheck className="w-2.5 h-2.5 text-[#E0681C]" />
+                    Pass Intégral
+                  </span>
+                </div>
+                <p className="font-sans text-[11px] text-gray-400 truncate mt-0.5">
+                  {g.email} · <span className="font-semibold text-[#E0681C]">{g.fonction}</span>
                 </p>
               </div>
 
               <div className="text-right flex-shrink-0">
                 {g.arrived && g.arrivedAt ? (
                   <div className="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
-                    <p className="font-montserrat text-[10px] font-bold text-emerald-400">
+                    <p className="font-mono text-[10px] font-bold text-emerald-400">
                       {new Date(g.arrivedAt).toLocaleTimeString('fr-FR', {
-                        hour: '2-digit', minute: '2-digit',
+                        hour: '2-digit', minute: '2-digit'
                       })}
                     </p>
                   </div>
                 ) : (
-                  <span className="px-2 py-1 rounded bg-white/5 font-montserrat text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+                  <span className="px-2.5 py-1 rounded-lg bg-white/5 font-mono text-[9px] font-bold text-gray-400 uppercase tracking-wider">
                     En attente
                   </span>
                 )}
@@ -333,9 +343,9 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
 
       {/* ── Footer count ───────────────────────────────────────────────────── */}
       {displayedGuests.length > 0 && (
-        <p className="font-montserrat text-[10px] text-white/30 text-center uppercase tracking-wider">
-          {displayedGuests.length} accréditation{displayedGuests.length > 1 ? 's' : ''} répertoriée{displayedGuests.length > 1 ? 's' : ''}
-          {search && ` · "${search}"`}
+        <p className="font-mono text-[10px] text-white/40 text-center uppercase tracking-wider">
+          {displayedGuests.length} invité{displayedGuests.length > 1 ? 's' : ''} VIP répertorié{displayedGuests.length > 1 ? 's' : ''}
+          {search && ` · Recherche : "${search}"`}
         </p>
       )}
     </div>

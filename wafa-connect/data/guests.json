@@ -37,5 +37,18 @@
     "arrived": false,
     "arrivedAt": null,
     "scannedBy": null
+  },
+  {
+    "guestId": "2K-MPXNVQC0",
+    "nom": "Gallas",
+    "prenom": "QWEWQE",
+    "email": "mehdi.gqwqwqallas.98@gmail.com",
+    "fonction": "Invité VIP — Dynamic Launch",
+    "sessionSlot": "Pass VIP Prestige — Accès Intégral",
+    "token": "4e99e922a0cc5833eb72e4c6f799a5791165b6694095480d1d0926bdaece2469",
+    "confirmedAt": "2026-09-11T15:46:42.323Z",
+    "arrived": false,
+    "arrivedAt": null,
+    "scannedBy": null
   }
 ]

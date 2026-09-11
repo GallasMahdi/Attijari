@@ -167,10 +167,9 @@ export function HeritageConceptSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group bg-black">
                 <Image
-                  src="/porsche-shrouded.jpg"
+                  src="/porsche-shrouded.webp"
                   alt="Porsche Cayenne E4 Electric SUV — Silhouette Shrouded"
                   fill
-                  unoptimized
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/70 border border-[#6D8080]/40 backdrop-blur-md">
@@ -218,7 +217,7 @@ export function HeritageConceptSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="relative aspect-[16/9] sm:aspect-[16/10] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black">
                 <Image
-                  src="/porsche-lounge-furniture.jpg"
+                  src="/porsche-lounge-furniture.webp"
                   alt="Salon VIP Domaine Neferis Furniture Moodboard"
                   fill
                   className="object-cover object-center"
@@ -255,7 +254,7 @@ export function HeritageConceptSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="relative aspect-[16/9] sm:aspect-[16/10] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black">
                 <Image
-                  src="/domaine-neferis-entrance.jpg"
+                  src="/domaine-neferis-entrance.webp"
                   alt="Entrée Domaine Neferis et Arche Porsche"
                   fill
                   className="object-cover object-center"

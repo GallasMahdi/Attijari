@@ -63,11 +63,10 @@ export function PorscheHeroVisualizer({
             className="absolute inset-0"
           >
             <Image
-              src="/porsche-cayenne-e4-hero.jpg"
+              src="/porsche-cayenne-e4-hero.webp"
               alt="Porsche Cayenne Electric (E4) — Domaine Neferis"
               fill
               priority
-              unoptimized
               sizes="(max-width: 768px) 100vw, 100vw"
               style={{
                 objectPosition: isMobile ? '38% 38%' : 'center 36%',
@@ -109,11 +108,10 @@ export function PorscheHeroVisualizer({
             className="absolute inset-0"
           >
             <Image
-              src="/domaine-neferis-entrance.jpg"
+              src="/domaine-neferis-entrance.webp"
               alt="Domaine Neferis Entrance Avenue — #PorscheSUVExperience"
               fill
               priority
-              unoptimized
               sizes="(max-width: 768px) 100vw, 100vw"
               style={{
                 objectPosition: isMobile ? 'center 20%' : 'center center',

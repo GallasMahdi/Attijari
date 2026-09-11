@@ -21,7 +21,7 @@ const GuestSchema = new Schema<IGuestDocument>(
     nom:        { type: String, required: true, trim: true },
     prenom:     { type: String, required: true, trim: true },
     email:      { type: String, required: true, trim: true, lowercase: true, index: true },
-    fonction:   { type: String, required: true, enum: ['Invité', 'Journaliste'] },
+    fonction:   { type: String, required: true, enum: ['Pilote VIP', 'Invité Paddock', 'Journaliste', 'Invité'] },
     token:      { type: String, required: true },
     confirmedAt:{ type: Date, default: () => new Date() },
     arrived:    { type: Boolean, default: false },

@@ -2,13 +2,13 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Wafa Connect | Attijari Assurance',
-    short_name: 'Wafa Connect',
-    description: "Inauguration du nouveau siège d'Attijari Assurance",
+    name: 'PORSCHE NIGHT OF EXCELLENCE',
+    short_name: 'PORSCHE VIP',
+    description: "Événement exclusif Porsche — Driven by Dreams au Circuit Paul Ricard",
     start_url: '/',
     display: 'standalone',
-    background_color: '#003d2b',
-    theme_color: '#003d2b',
+    background_color: '#08090C',
+    theme_color: '#D5001C',
     icons: [
       {
         src: '/logof.png',

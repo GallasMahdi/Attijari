@@ -30,10 +30,10 @@ const Toast = React.forwardRef<
       ref={ref}
       className={cn(
         'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full',
-        variant === 'default' && 'border-wafa-gold/20 bg-wafa-dark text-white',
-        variant === 'success' && 'border-wafa-light/20 bg-wafa-green text-white',
-        variant === 'error' && 'border-red-500/20 bg-red-900 text-white',
-        variant === 'info' && 'border-wafa-gold/50 bg-wafa-dark text-wafa-gold',
+        variant === 'default' && 'border-white/15 bg-[#0E1015] text-white backdrop-blur-xl',
+        variant === 'success' && 'border-emerald-500/30 bg-[#0A1A12] text-emerald-300 backdrop-blur-xl',
+        variant === 'error' && 'border-red-500/40 bg-[#200A0D] text-red-300 backdrop-blur-xl',
+        variant === 'info' && 'border-red-500/30 bg-[#0E1015] text-red-400 backdrop-blur-xl',
         className
       )}
       {...props}

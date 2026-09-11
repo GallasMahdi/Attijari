@@ -10,23 +10,31 @@ interface AtmosphericDustProps {
 
 const vertexShader = /* glsl */`
   attribute float aOffset;
+  attribute float aSpeed;
   uniform float uTime;
+  varying float vRed;
   void main() {
     vec3 pos = position;
-    pos.y += sin(uTime * 0.08 + aOffset) * 0.12;
+    // Aerodynamic slipstream wind-tunnel motion along z/x
+    pos.z = mod(pos.z + uTime * aSpeed * 3.0, 14.0) - 14.0;
+    pos.y += sin(uTime * 1.2 + aOffset) * 0.08;
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-    gl_PointSize = 1.8 * (1.0 / -mvPosition.z);
+    gl_PointSize = (2.2 + aSpeed * 1.5) * (1.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
+    vRed = step(0.65, fract(aOffset * 3.14));
   }
 `
 
 const fragmentShader = /* glsl */`
+  varying float vRed;
   void main() {
     vec2 uv = gl_PointCoord - 0.5;
     float d = length(uv);
     if (d > 0.5) discard;
-    float alpha = 0.35 * (1.0 - d * 2.0);
-    gl_FragColor = vec4(0.91, 0.79, 0.49, alpha);
+    float alpha = 0.6 * (1.0 - d * 2.0);
+    // Mix cold white with Porsche Guards Red streaks
+    vec3 col = mix(vec3(0.95, 0.98, 1.0), vec3(0.9, 0.0, 0.12), vRed);
+    gl_FragColor = vec4(col, alpha);
   }
 `
 
@@ -37,18 +45,21 @@ export function AtmosphericDust({ count = 500 }: AtmosphericDustProps) {
   const { geometry, material } = useMemo(() => {
     const positions = new Float32Array(count * 3)
     const offsets   = new Float32Array(count)
+    const speeds    = new Float32Array(count)
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3
-      positions[i3]     = (Math.random() - 0.5) * 18
+      positions[i3]     = (Math.random() - 0.5) * 20
       positions[i3 + 1] = (Math.random() - 0.5) * 8
-      positions[i3 + 2] = Math.random() * -12 - 0.5
+      positions[i3 + 2] = Math.random() * -14
       offsets[i] = Math.random() * Math.PI * 2
+      speeds[i]  = 0.4 + Math.random() * 1.2
     }
 
     const geometry = new THREE.BufferGeometry()
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
     geometry.setAttribute('aOffset',  new THREE.BufferAttribute(offsets, 1))
+    geometry.setAttribute('aSpeed',   new THREE.BufferAttribute(speeds, 1))
 
     const material = new THREE.ShaderMaterial({
       vertexShader,

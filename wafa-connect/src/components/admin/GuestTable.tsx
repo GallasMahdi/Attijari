@@ -68,20 +68,35 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
   const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const autoRefreshRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
 
-  // ─── Fetch ─────────────────────────────────────────────────────────────────
+  // ─── Fetch with AbortController ───────────────────────────────────────────
   const fetchData = useCallback(async (q: string, f: FilterType, silent = false) => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+    const controller = new AbortController()
+    abortControllerRef.current = controller
+
     if (!silent) setLoading(true)
     try {
       const [guestRes, statsRes] = await Promise.all([
         fetch(`/api/guests?q=${encodeURIComponent(q)}&filter=${f}`, {
           headers: { 'x-admin-token': adminToken },
+          signal: controller.signal,
         }),
-        fetch('/api/stats', { headers: { 'x-admin-token': adminToken } }),
+        fetch('/api/stats', {
+          headers: { 'x-admin-token': adminToken },
+          signal: controller.signal,
+        }),
       ])
       if (guestRes.ok) setGuests((await guestRes.json()).guests)
       if (statsRes.ok) setStats(await statsRes.json())
       setLastRefreshed(new Date())
+    } catch (err: any) {
+      if (err?.name !== 'AbortError') {
+        console.error('Fetch error:', err)
+      }
     } finally {
       if (!silent) setLoading(false)
     }
@@ -123,8 +138,8 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
 
   const FILTER_OPTIONS: { key: FilterType; label: string }[] = [
     { key: 'all', label: 'Tous' },
-    { key: 'arrived', label: 'Arrivés' },
-    { key: 'pending', label: 'En attente' },
+    { key: 'arrived', label: 'Paddock Entré' },
+    { key: 'pending', label: 'En Attente' },
   ]
 
   return (
@@ -134,14 +149,14 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
       {stats && (
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: 'Confirmés', value: stats.total, icon: Users, color: 'text-wafa-gold', bg: 'bg-wafa-gold/5', border: 'border-wafa-gold/20' },
-            { label: 'Arrivés', value: stats.arrived, icon: CheckCircle2, color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-100' },
-            { label: 'En attente', value: stats.pending, icon: Clock, color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-100' },
+            { label: 'Accrédités', value: stats.total, icon: Users, color: 'text-white', bg: 'bg-white/5', border: 'border-white/10' },
+            { label: 'Au Paddock', value: stats.arrived, icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+            { label: 'En Route', value: stats.pending, icon: Clock, color: 'text-red-400', bg: 'bg-red-600/10', border: 'border-red-500/20' },
           ].map(({ label, value, icon: Icon, color, bg, border }) => (
-            <div key={label} className={`rounded-2xl ${bg} border ${border} p-4 flex flex-col items-center gap-1 shadow-sm`}>
+            <div key={label} className={`rounded-2xl ${bg} border ${border} p-4 flex flex-col items-center gap-1 shadow-sm backdrop-blur-sm`}>
               <Icon className={`w-5 h-5 ${color}`} />
-              <p className={`font-playfair text-2xl font-bold ${color}`}>{value}</p>
-              <p className="font-montserrat text-[10px] text-gray-500 font-bold uppercase tracking-wider">{label}</p>
+              <p className={`font-montserrat text-2xl font-black ${color}`}>{value}</p>
+              <p className="font-montserrat text-[9px] text-gray-400 font-bold uppercase tracking-widest">{label}</p>
             </div>
           ))}
         </div>
@@ -149,9 +164,9 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
 
       {/* ── Progress Bar ───────────────────────────────────────────────────── */}
       {stats && (
-        <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden border border-gray-200/50">
+        <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden border border-white/5">
           <motion.div
-            className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400"
+            className="h-full bg-gradient-to-r from-red-600 via-red-500 to-amber-500"
             animate={{ width: `${stats.percentage}%` }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           />
@@ -166,28 +181,28 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Rechercher..."
+            placeholder="Rechercher pilote, VIP..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-8 py-2.5 bg-gray-50 border border-gray-100 rounded-xl font-montserrat text-sm text-wafa-dark placeholder-gray-400 focus:outline-none focus:border-wafa-gold/50 focus:bg-white transition-all shadow-inner"
+            className="w-full pl-9 pr-8 py-2.5 bg-black/40 border border-white/10 rounded-xl font-montserrat text-sm text-white placeholder-gray-500 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-all shadow-inner"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-wafa-dark text-xs transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs transition-colors"
             >✕</button>
           )}
         </div>
 
         {/* Filter tabs */}
-        <div className="flex gap-1 bg-gray-100 border border-gray-200/50 rounded-xl p-1">
+        <div className="flex gap-1 bg-black/40 border border-white/10 rounded-xl p-1">
           {FILTER_OPTIONS.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => setFilter(key)}
-              className={`px-3 py-1.5 rounded-lg font-montserrat text-[10px] uppercase font-bold tracking-tight transition-all ${filter === key
-                ? 'bg-white text-wafa-gold shadow-sm'
-                : 'text-gray-400 hover:text-gray-600'
+              className={`px-3 py-1.5 rounded-lg font-montserrat text-[10px] uppercase font-bold tracking-wider transition-all ${filter === key
+                ? 'bg-red-600 text-white shadow-sm'
+                : 'text-gray-400 hover:text-white'
                 }`}
             >
               {label}
@@ -198,10 +213,10 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
         {/* Auto-refresh toggle */}
         <button
           onClick={() => setAutoRefresh(v => !v)}
-          title={autoRefresh ? 'Auto-refresh actif' : 'Auto-refresh désactivé'}
+          title={autoRefresh ? 'Télémétrie Live active' : 'Télémétrie en pause'}
           className={`p-2.5 rounded-xl border transition-all ${autoRefresh
-            ? 'bg-emerald-50 border-emerald-100 text-emerald-600 shadow-sm'
-            : 'bg-gray-50 border-gray-100 text-gray-300 hover:text-gray-500'
+            ? 'bg-red-600/10 border-red-500/30 text-red-400 shadow-sm'
+            : 'bg-black/30 border-white/10 text-gray-500 hover:text-gray-300'
             }`}
         >
           {autoRefresh ? <Wifi className="w-4 h-4" /> : <WifiOff className="w-4 h-4" />}
@@ -210,7 +225,7 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
         {/* Manual refresh */}
         <button
           onClick={() => fetchData(search, filter)}
-          className="p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-gray-400 hover:text-wafa-dark hover:bg-white transition-all shadow-sm"
+          className="p-2.5 bg-black/30 border border-white/10 rounded-xl text-gray-400 hover:text-white hover:border-white/20 transition-all shadow-sm"
           title="Actualiser"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -220,39 +235,39 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
         <button
           onClick={() => exportToCSV(displayedGuests)}
           disabled={displayedGuests.length === 0}
-          className="flex items-center gap-1.5 px-3 py-2.5 bg-wafa-dark text-white rounded-xl font-montserrat text-[10px] font-bold uppercase tracking-wider hover:bg-wafa-gold transition-all disabled:opacity-30 disabled:grayscale shadow-sm"
+          className="flex items-center gap-1.5 px-3 py-2.5 bg-white/10 border border-white/15 text-white rounded-xl font-montserrat text-[10px] font-bold uppercase tracking-wider hover:bg-red-600 hover:border-red-500 transition-all disabled:opacity-30 disabled:grayscale shadow-sm"
         >
           <Download className="w-3.5 h-3.5" />
-          Exporter
+          Export CSV
         </button>
       </div>
 
       {/* ── Last refreshed timestamp ────────────────────────────────────────── */}
       {lastRefreshed && (
         <p className="font-montserrat text-[10px] text-gray-400 text-right -mt-2 italic">
-          Dernière mise à jour : {lastRefreshed.toLocaleTimeString('fr-TN', {
+          Dernière synchronisation : {lastRefreshed.toLocaleTimeString('fr-FR', {
             hour: '2-digit', minute: '2-digit', second: '2-digit'
           })}
-          {autoRefresh && <span className="ml-1 text-emerald-500 font-bold">· LIVE</span>}
+          {autoRefresh && <span className="ml-1 text-red-500 font-bold">· TELEMETRY SYNCED</span>}
         </p>
       )}
 
       {/* ── Column sort headers ─────────────────────────────────────────────── */}
-      <div className="flex items-center gap-3 px-3 pb-2 border-b border-gray-100">
+      <div className="flex items-center gap-3 px-3 pb-2 border-b border-white/10">
         <button
           onClick={() => handleSort('nom')}
-          className="flex items-center gap-1 font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-wafa-gold transition-colors flex-1"
+          className="flex items-center gap-1 font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-red-400 transition-colors flex-1"
         >
-          Nom & Prénom <SortIcon col="nom" />
+          Pilote / Invité <SortIcon col="nom" />
         </button>
         <span className="font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 flex-1 hidden sm:block">
-          Email & Fonction
+          Contact & Rôle
         </span>
         <button
           onClick={() => handleSort('arrivedAt')}
-          className="flex items-center gap-1 font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-wafa-gold transition-colors"
+          className="flex items-center gap-1 font-montserrat text-[10px] uppercase font-bold tracking-widest text-gray-400 hover:text-red-400 transition-colors"
         >
-          Heure <SortIcon col="arrivedAt" />
+          Horodatage <SortIcon col="arrivedAt" />
         </button>
       </div>
 
@@ -263,11 +278,11 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-10 text-white/30 font-montserrat text-sm"
+              className="text-center py-10 text-white/40 font-montserrat text-xs"
             >
               {search
-                ? `Aucun résultat pour "${search}".`
-                : 'Aucun invité confirmé pour le moment.'}
+                ? `Aucun pilote ou invité trouvé pour "${search}".`
+                : 'Aucune accréditation confirmée pour le moment.'}
             </motion.div>
           )}
 
@@ -280,33 +295,35 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
               exit={{ opacity: 0, x: 10 }}
               transition={{ delay: i * 0.02 }}
               className={`flex items-center gap-4 p-3.5 rounded-2xl border transition-all ${g.arrived
-                ? 'bg-emerald-50/50 border-emerald-100/50 shadow-sm'
-                : 'bg-white border-gray-100 hover:border-wafa-gold/30 hover:shadow-md'
+                ? 'bg-emerald-950/20 border-emerald-500/30 shadow-sm'
+                : 'bg-black/30 border-white/5 hover:border-white/20'
                 }`}
             >
-              <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 shadow-sm ${g.arrived ? 'bg-emerald-500' : 'bg-gray-200'
+              <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 shadow-sm ${g.arrived ? 'bg-emerald-500 animate-pulse' : 'bg-white/20'
                 }`} />
 
               <div className="flex-1 min-w-0">
-                <p className="font-montserrat font-bold text-sm text-wafa-dark truncate">
+                <p className="font-montserrat font-bold text-sm text-white truncate">
                   {g.prenom} {g.nom}
                 </p>
-                <p className="font-montserrat text-[11px] text-gray-500 truncate mt-0.5">
-                  {g.email} · <span className="font-medium text-wafa-gold/80">{g.fonction}</span>
+                <p className="font-montserrat text-[11px] text-gray-400 truncate mt-0.5">
+                  {g.email} · <span className="font-semibold text-red-400">{g.fonction}</span>
                 </p>
               </div>
 
               <div className="text-right flex-shrink-0">
                 {g.arrived && g.arrivedAt ? (
-                  <div className="px-2 py-1 bg-emerald-100 rounded-md">
-                    <p className="font-montserrat text-[10px] font-bold text-emerald-700">
-                      {new Date(g.arrivedAt).toLocaleTimeString('fr-TN', {
+                  <div className="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+                    <p className="font-montserrat text-[10px] font-bold text-emerald-400">
+                      {new Date(g.arrivedAt).toLocaleTimeString('fr-FR', {
                         hour: '2-digit', minute: '2-digit',
                       })}
                     </p>
                   </div>
                 ) : (
-                  <p className="font-montserrat text-[10px] font-bold text-gray-300 uppercase tracking-widest">Attente</p>
+                  <span className="px-2 py-1 rounded bg-white/5 font-montserrat text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+                    En attente
+                  </span>
                 )}
               </div>
             </motion.div>
@@ -316,8 +333,8 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
 
       {/* ── Footer count ───────────────────────────────────────────────────── */}
       {displayedGuests.length > 0 && (
-        <p className="font-montserrat text-[10px] text-white/20 text-center">
-          {displayedGuests.length} invité{displayedGuests.length > 1 ? 's' : ''} affiché{displayedGuests.length > 1 ? 's' : ''}
+        <p className="font-montserrat text-[10px] text-white/30 text-center uppercase tracking-wider">
+          {displayedGuests.length} accréditation{displayedGuests.length > 1 ? 's' : ''} répertoriée{displayedGuests.length > 1 ? 's' : ''}
           {search && ` · "${search}"`}
         </p>
       )}

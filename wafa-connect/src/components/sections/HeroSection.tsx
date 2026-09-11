@@ -1,29 +1,14 @@
+// src/components/sections/HeroSection.tsx
 'use client'
-import React, { useRef } from 'react'
-import dynamic from 'next/dynamic'
+import React, { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { EVENT } from '@/lib/constants'
-import {
-  cinematicContainer,
-  cinematicFadeUp,
-  cinematicEyebrow,
-  cinematicFadeIn,
-  cinematicRise,
-  cinematicLine,
-  scrollReveal,
-} from '@/lib/animations'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
-import { GoldButton } from '@/components/ui/GoldButton'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
-import { TexturePattern } from '@/components/ui/TexturePattern'
-import { MapPin, ExternalLink } from 'lucide-react'
-
-
-// Lazy load 3D canvas — SSR disabled
-const HeroCanvas = dynamic(() => import('@/components/three/HeroCanvas'), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0" style={{ background: '#050810' }} />,
-})
+import { ArrowRight, QrCode, MapPin, ChevronDown } from 'lucide-react'
+import { PorscheHeroVisualizer } from '@/components/three/PorscheHeroVisualizer'
+import { smoothScrollTo } from '@/lib/scroll'
+import { InvitationUnboxingModal } from '@/components/ui/InvitationUnboxingModal'
+import { PorscheWordmark } from '@/components/ui/PorscheLogo'
 
 interface HeroSectionProps {
   startAnimation?: boolean
@@ -32,239 +17,153 @@ interface HeroSectionProps {
 export function HeroSection({ startAnimation = true }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { margin: '-10%', once: true })
-  const isMobile = useMediaQuery('(max-width: 768px)')
+  const [unboxingOpen, setUnboxingOpen] = useState(false)
+  const [isSharp, setIsSharp] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
-  const scrollToConfirm = () => {
-    const lenis = (window as any).lenis
-    if (lenis) {
-      lenis.scrollTo('#confirmer', { offset: -80 })
-    } else {
-      document.querySelector('#confirmer')?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  const scrollToConfirm = () => smoothScrollTo('#confirmer', -70, 0.95)
+  const scrollToNext = () => smoothScrollTo('#flotte', -70, 0.95)
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-[100dvh] md:h-screen w-full overflow-hidden flex items-center justify-center bg-wafa-cream py-8 md:py-0 pb-20 md:pb-16"
-    >
-      {/* ── 3D Cinematic Background (Memorized) ────────────────────────
-      <div className="absolute inset-0 z-0">
-        <HeroCanvas isInView={isInView} isMobile={isMobile} />
-      </div>
-      ────────────────────────────────────────────────────────────── */}
+    <>
+      <section
+        ref={sectionRef}
+        className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col justify-between items-center bg-[#08090C] pt-28 sm:pt-32 pb-10 sm:pb-12"
+      >
+        {/* ── Dynamic Porsche Cayenne E4 Hero Visualizer (Soft Cinematic Blur & Luminous) ── */}
+        <PorscheHeroVisualizer
+          isInView={isInView}
+          isMobile={isMobile}
+          isSharp={isSharp}
+          onToggleSharp={() => setIsSharp((prev) => !prev)}
+        />
 
-      <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden">
-        <TexturePattern src="/pattern4.jpeg" opacity={0.5} blendMode="normal" />
-      </div>
-
-      {/* ── Cinematic gradient overlay — light vignette ────────────────── */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 90% 70% at 50% 50%, transparent 20%, rgba(255,255,255,0.3) 65%, rgba(249,245,238,0.9) 100%)',
-        }}
-      />
-
-      {/* ── Bottom fade — blends into next section ────────────────────── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-32 z-[2] pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to bottom, transparent 0%, rgba(249,245,238,0.5) 40%, rgba(255,255,255,1) 100%)',
-        }}
-      />
-
-      {/* ── Content Layer ────────────────────────────────────────────── */}
-      <SectionWrapper className="container relative z-10 mx-auto px-4 pt-6 md:pt-12">
-        <motion.div
-          variants={cinematicContainer}
-          initial="hidden"
-          animate={(isInView && startAnimation) ? "visible" : "hidden"}
-          className="flex flex-col items-center text-center max-w-4xl mx-auto will-change-transform"
-        >
-          {/* 01. Eyebrow Reveal */}
-          {/* <motion.div
-            variants={cinematicEyebrow}
-            className="mb-1 mt- md:mt-16 flex items-center gap-6"
-          >
-            <motion.div
-              variants={cinematicLine}
-              className="h-[1px] origin-left bg-gradient-to-r from-transparent to-wafa-gold/60 w-12 md:w-16"
-            />
-            <span
-              className="font-montserrat text-[11px] md:text-xs font-semibold uppercase tracking-[0.4em]"
-              style={{ color: '#C9A84C' }}
-            >
-              {EVENT.organizer}
-            </span>
-            <motion.div
-              variants={cinematicLine}
-              className="h-[1px] origin-right bg-gradient-to-l from-transparent to-wafa-gold/60 w-12 md:w-16"
-            />
-          </motion.div> */}
-
-          {/* 02. Logo — High Priority Rapid Load */}
+        {/* ── Minimalist Luxury Headline (Floating in Upper-Center Stage) ── */}
+        <SectionWrapper className="container relative z-10 mx-auto px-4 sm:px-8 my-auto">
           <motion.div
-            variants={cinematicFadeUp}
-            className="mb-6 mt-20 md:mb-10 w-full flex justify-center"
-            style={{
-              transform: 'translateY(30px)',
-            }}
+            initial={{ opacity: 0, y: 25 }}
+            animate={isInView && startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center text-center max-w-4xl mx-auto"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/wafa.png"
-              alt="Wafa Assurance"
-              className="h-21 md:h-32 object-contain"
-              fetchPriority="high"
-              decoding="sync"
-              style={{
-                filter: 'drop-shadow(0 0 20px rgba(201,168,76,0.2))'
-              }}
-            />
-          </motion.div>
+            {/* 01. Refined Luxury Eyebrow Pill */}
+            <div className="inline-flex items-center gap-2 xs:gap-2.5 px-3 xs:px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/15 mb-3 sm:mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)] max-w-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E0681C] animate-pulse flex-shrink-0" />
+              <span className="font-outfit text-[9px] xs:text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] xs:tracking-[0.28em] sm:tracking-[0.35em] text-[#C4A882] truncate">
+                THE FULLY ELECTRIC · E4 ERA
+              </span>
+              <span className="w-1 h-1 rounded-full bg-white/30 hidden xs:inline-block flex-shrink-0" />
+              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-300 hidden xs:inline-block truncate">
+                DOMAINE NEFERIS
+              </span>
+            </div>
 
-          {/* 03. Description — High Legibility & Elegant Fade */}
-          <motion.div
-            variants={cinematicFadeIn}
-            className="font-montserrat max-w-3xl mb-8 md:mb-14 leading-relaxed tracking-wide"
-          >
-            <div className="text-gray-800 font-normal space-y-1.5 text-center" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}>
-              <p>
-                Monsieur <span className="text-wafa-dark font-bold text-[1.05em]">Boubker JAI</span>,
-              </p>
-              <p >
-                Président Directeur Général du Groupe Wafa Assurance,
-              </p>
-              <p>
-                et l&apos;équipe dirigeante de <span className="text-wafa-dark font-bold text-[1.05em]">Attijari Assurance Tunisie</span>
-              </p>
-              <p className="pt-4">
-                ont le plaisir de vous convier à une soirée de célébration et de partage
-              </p>
-              <p>
-                à l&apos;occasion de l&apos;inauguration du nouveau siège d&apos;Attijari Assurance Tunisie
-                <span className="text-wafa-dark font-bold text-[1.05em]">  Le  Jeudi 21 Mai 2026 à 18h30
-                </span>
+            {/* 02. Official Porsche Wordmark & Iconic Model Headline */}
+            <PorscheWordmark className="h-3.5 xs:h-4 sm:h-5 md:h-6 w-auto text-white/90 mb-2 sm:mb-4 drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)] max-w-[85vw]" />
+            <h1 className="font-outfit font-black text-[clamp(2.5rem,10.5vw,9.5rem)] tracking-[0.1em] xs:tracking-[0.14em] sm:tracking-[0.16em] text-white uppercase leading-none drop-shadow-[0_15px_40px_rgba(0,0,0,0.9)] select-none">
+              CAYENNE
+            </h1>
 
-              </p>
+            {/* 03. Poetic Tagline from Slide 1 */}
+            <p className="font-outfit font-light text-sm xs:text-base sm:text-xl text-gray-100 tracking-wide mt-2 sm:mt-3 mb-6 sm:mb-7 drop-shadow-md">
+              Heritage × Future <span className="text-[#E0681C] font-normal mx-1.5 sm:mx-2">·</span> Two worlds. One drive.
+            </p>
 
-
-              <motion.div
-                variants={cinematicFadeUp}
-                className="pt-4 flex flex-col items-center gap-1.5"
+            {/* 04. Minimalist Luxury CTAs */}
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full px-2">
+              {/* Primary: Clean RSVP Button */}
+              <button
+                onClick={scrollToConfirm}
+                className="group relative px-6 xs:px-8 py-3.5 sm:px-9 sm:py-4 rounded-full font-outfit font-black text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white bg-black/80 hover:bg-[#E0681C] border border-white/20 hover:border-[#E0681C] backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.7)] hover:shadow-[0_0_35px_rgba(224, 104, 28,0.6)] flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer w-full sm:w-auto"
               >
-                {/* ── Google Maps Badge — always visibly clickable ── */}
-                <div className="relative group/map">
+                <span>Sécuriser Ma Place · RSVP</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </button>
 
-                  {/* Outer glow ring — intensifies on hover */}
-                  <motion.div
-                    className="absolute -inset-[3px] rounded-full pointer-events-none transition-opacity duration-500"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(201,168,76,0.25), rgba(232,201,109,0.1))',
-                      filter: 'blur(5px)',
-                      opacity: 0.6,
-                    }}
-                    whileHover={{ opacity: 1 }}
-                  />
+              {/* Secondary: QR Invitation Preview */}
+              <button
+                onClick={() => setUnboxingOpen(true)}
+                className="px-5 xs:px-6 py-3.5 sm:py-4 rounded-full font-outfit font-bold text-xs uppercase tracking-wider text-gray-200 hover:text-white bg-black/40 hover:bg-white/10 border border-white/15 hover:border-white/30 backdrop-blur-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.4)] w-full sm:w-auto"
+              >
+                <QrCode className="w-4 h-4 text-[#E0681C]" />
+                <span>Mon Invitation QR</span>
+              </button>
+            </div>
+          </motion.div>
+        </SectionWrapper>
 
-                  <motion.a
-                    href="https://www.google.com/maps/search/?api=1&query=Attijari+Assurance+Tunisie+Lot+A14+Bd+de+la+Terre+1082+Centre+Urbain+Nord+Tunis"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{
-                      scale: 1.04,
-                      backgroundColor: 'rgba(255,255,255,0.88)',
-                    }}
-                    whileTap={{ scale: 0.96 }}
-                    className="relative inline-flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 rounded-full backdrop-blur-md bg-white/60 max-w-[95vw] cursor-pointer overflow-hidden no-underline transition-colors duration-300"
-                    style={{
-                      textDecoration: 'none',
-                      border: '1.5px dashed rgba(201,168,76,0.7)',
-                      boxShadow: '0 0 0 3px rgba(201,168,76,0.08), 0 4px 16px rgba(201,168,76,0.12)',
-                    }}
-                  >
-                    {/* Shimmer sweep */}
-                    <motion.div
-                      animate={{ x: ['-100%', '220%'] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: 'linear', delay: 0.5 }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none z-0"
-                    />
+        {/* ── Single-Line Quiet Luxury Telemetry Dock (Floating at Bottom) ── */}
+        <div className="relative z-10 w-full px-4 sm:px-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView && startAnimation ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl mx-auto px-4 sm:px-6 py-3 rounded-2xl sm:rounded-full bg-black/60 backdrop-blur-xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 text-gray-300 font-mono text-[10px] sm:text-xs tracking-wider shadow-2xl"
+          >
+            <div className="grid grid-cols-2 xs:grid-cols-4 md:flex items-center gap-2.5 sm:gap-6 text-center md:text-left w-full md:w-auto">
+              <div className="p-1 rounded bg-white/[0.03] md:bg-transparent">
+                <strong className="text-white font-outfit font-black text-xs sm:text-sm block sm:inline">517 CH</strong>{' '}
+                <span className="text-[9px] sm:text-xs text-gray-400">(380 kW)</span>
+              </div>
+              <span className="text-white/20 hidden md:inline">•</span>
+              <div className="p-1 rounded bg-white/[0.03] md:bg-transparent">
+                <strong className="text-white font-outfit font-black text-xs sm:text-sm block sm:inline">830 Nm</strong>{' '}
+                <span className="text-[9px] sm:text-xs text-gray-400">Immédiat</span>
+              </div>
+              <span className="text-white/20 hidden md:inline">•</span>
+              <div className="p-1 rounded bg-white/[0.03] md:bg-transparent">
+                <strong className="text-white font-outfit font-black text-xs sm:text-sm block sm:inline">4.0 s</strong>{' '}
+                <span className="text-[9px] sm:text-xs text-gray-400">0—100</span>
+              </div>
+              <span className="text-white/20 hidden md:inline">•</span>
+              <div className="p-1 rounded bg-white/[0.03] md:bg-transparent">
+                <strong className="text-white font-outfit font-black text-xs sm:text-sm block sm:inline">21 min</strong>{' '}
+                <span className="text-[9px] sm:text-xs text-gray-400">800V 270kW</span>
+              </div>
+            </div>
 
-                    {/* Animated MapPin */}
-                    <motion.div
-                      animate={{ y: [0, -4, 0], scale: [1, 1.15, 1] }}
-                      transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-                      className="z-10 relative shrink-0"
-                    >
-                      <MapPin size={14} className="text-[#C9A84C]" />
-                    </motion.div>
-
-                    {/* Address text — always underlined */}
-                    <span className="relative z-10 font-montserrat text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.18em] uppercase font-semibold text-center leading-relaxed"
-                      style={{ color: '#8a6a1f', textDecorationColor: 'rgba(201,168,76,0.5)', textDecoration: 'underline', textUnderlineOffset: '3px' }}
-                    >
-                      <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1.2, delay: 0.8, ease: 'easeOut' }}
-                      >
-                        Attijari Assurance Tunisie · Lot N°A14, Bd de la Terre, 1082 Centre Urbain Nord - Tunis
-                      </motion.span>
-                    </span>
-
-                    {/* External link icon — always visible */}
-                    <motion.div
-                      animate={{ x: [0, 2, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                      className="z-10 relative shrink-0"
-                    >
-                      <ExternalLink size={12} style={{ color: '#C9A84C' }} />
-                    </motion.div>
-                  </motion.a>
-                </div>
-
-                {/* "Voir sur la carte" helper label — always visible */}
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, delay: 1.2 }}
-                  className="font-montserrat text-[8px] md:text-[9px] tracking-[0.22em] uppercase"
-                  style={{ color: '#C9A84C' }}
-                >
-                  Voir sur la carte →
-                </motion.span>
-              </motion.div>
-              {/* ─────────────────────────────────────────────────────────── */}
+            <div className="flex items-center gap-2 text-gray-400 text-[10px] sm:text-xs">
+              <MapPin size={12} className="text-[#E0681C] flex-shrink-0" />
+              <span className="truncate">{EVENT.dateLabel} · {EVENT.venue}</span>
             </div>
           </motion.div>
 
-          {/* 04. Action Group */}
+          {/* Centered Luxury Scroll Navigation Pill */}
           <motion.div
-            variants={cinematicRise}
-            className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto relative z-10 mb-8 md:mb-12"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView && startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex justify-center mt-3 sm:mt-4"
           >
-            <GoldButton
-              size="lg"
-              onClick={scrollToConfirm}
-              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base shadow-[0_10px_30px_rgba(201,168,76,0.15)] hover:shadow-[0_15px_40px_rgba(201,168,76,0.25)] transition-all"
+            <button
+              onClick={scrollToNext}
+              className="group flex items-center gap-2.5 px-5 py-2 rounded-full bg-black/50 hover:bg-black/80 border border-white/15 hover:border-[#E0681C]/60 backdrop-blur-xl transition-all duration-300 shadow-[0_6px_20px_rgba(0,0,0,0.6)] cursor-pointer"
+              aria-label="Défiler vers la collection Cayenne E4"
+              title="Défiler vers la collection Cayenne E4"
             >
-              Confirmer Ma Présence
-            </GoldButton>
-            <GoldButton
-              variant="outline"
-              size="lg"
-              href="#programme"
-              className="w-full sm:w-auto px-8 py-4 md:px-10 md:py-5 text-sm md:text-base bg-white/60 md:backdrop-blur-xl border border-wafa-gold/30 text-wafa-dark hover:border-wafa-gold/60"
-            >
-              Découvrir le Programme
-            </GoldButton>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E0681C] animate-ping" />
+              <span className="font-outfit text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.28em] text-gray-300 group-hover:text-white transition-colors">
+                Explorer l'Expérience & Flotte E4
+              </span>
+              <ChevronDown size={14} className="text-[#E0681C] animate-bounce group-hover:translate-y-0.5 transition-transform" />
+            </button>
           </motion.div>
-        </motion.div>
-      </SectionWrapper>
+        </div>
+      </section>
 
-    </section>
+      {/* Unboxing Presentation Modal */}
+      <InvitationUnboxingModal
+        isOpen={unboxingOpen}
+        onClose={() => setUnboxingOpen(false)}
+        onRSVPClick={scrollToConfirm}
+      />
+    </>
   )
 }

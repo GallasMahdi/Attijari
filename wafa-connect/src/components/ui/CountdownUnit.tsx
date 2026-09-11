@@ -2,7 +2,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { flipCard } from '@/lib/animations'
 
 interface CountdownUnitProps {
   value: number
@@ -11,17 +10,14 @@ interface CountdownUnitProps {
 
 export function CountdownUnit({ value, label }: CountdownUnitProps) {
   const [displayValue, setDisplayValue] = useState(value)
-  const [isFlipping, setIsFlipping] = useState(false)
   const prevValue = useRef(value)
 
   useEffect(() => {
     if (value !== prevValue.current) {
-      setIsFlipping(true)
       const timer = setTimeout(() => {
         setDisplayValue(value)
-        setIsFlipping(false)
         prevValue.current = value
-      }, 300)
+      }, 100)
       return () => clearTimeout(timer)
     }
   }, [value])
@@ -29,30 +25,29 @@ export function CountdownUnit({ value, label }: CountdownUnitProps) {
   const formatted = String(displayValue).padStart(2, '0')
 
   return (
-    <div className="flex flex-col items-center gap-2 sm:gap-3">
-      <div className="relative w-16 h-20 sm:w-20 sm:h-24 md:w-28 md:h-32
-                      glass rounded-xl flex items-center justify-center
-                      border border-wafa-gold/30 overflow-hidden shadow-gold-sm">
+    <div className="flex flex-col items-center gap-1.5 sm:gap-3">
+      <div className="relative w-13 h-17 xs:w-16 xs:h-20 sm:w-22 sm:h-26 md:w-28 md:h-32 bg-[#0E1015] rounded-xl sm:rounded-2xl flex items-center justify-center border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)] overflow-hidden group">
+        {/* Top split reflection */}
+        <div className="absolute top-0 left-0 right-0 h-1/2 bg-white/[0.04] border-b border-black/60 pointer-events-none" />
+        
+        {/* Subtle red corner glow */}
+        <div className="absolute -inset-1 bg-red-600/5 group-hover:bg-red-600/15 transition-colors pointer-events-none rounded-xl sm:rounded-2xl" />
+
         <AnimatePresence mode="popLayout">
           <motion.span
             key={`${label}-${displayValue}`}
-            className="font-playfair font-bold text-4xl sm:text-5xl 
-                       md:text-6xl text-wafa-gold leading-none"
-            initial={{ y: 20, opacity: 0 }}
+            className="relative font-montserrat font-black text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-white tracking-wider leading-none tabular-nums"
+            initial={{ y: 15, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+            exit={{ y: -15, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
             {formatted}
           </motion.span>
         </AnimatePresence>
-
-        {/* Decorative inner glow */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
       </div>
 
-      <span className="font-montserrat text-xs sm:text-sm font-medium 
-                       tracking-[0.2em] uppercase text-gray-600">
+      <span className="font-montserrat text-[9px] xs:text-[10px] sm:text-xs font-bold tracking-wider sm:tracking-[0.25em] uppercase text-gray-400">
         {label}
       </span>
     </div>

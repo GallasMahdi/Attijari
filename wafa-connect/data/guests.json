@@ -1,0 +1,41 @@
+[
+  {
+    "guestId": "2K-9NZNDK0L",
+    "nom": "Gallas",
+    "prenom": "Mehdi",
+    "email": "gallasmehdi9@gmail.com",
+    "fonction": "Membre Club & Propriétaire",
+    "sessionSlot": "Cocktail d'Accueil & Vernissage Privé (19h30)",
+    "token": "91b0b2932fa38b4df2bb8819b36189c7e347c4168b1b6a59d9cddbacc70330ac",
+    "confirmedAt": "2026-09-08T10:59:43.902Z",
+    "arrived": false,
+    "arrivedAt": null,
+    "scannedBy": null
+  },
+  {
+    "guestId": "2K-HA8PTYIU",
+    "nom": "Gallas",
+    "prenom": "QWE",
+    "email": "gallasmehwwwdi9@gmail.com",
+    "fonction": "Invité VIP — Dynamic Launch",
+    "sessionSlot": "Vague Matin — Wave 1 (09h00)",
+    "token": "31f820d8d59ae93a330fea77dc3f9bd924f9a8f4c285809386e22b33ddbac653",
+    "confirmedAt": "2026-09-10T14:37:04.814Z",
+    "arrived": false,
+    "arrivedAt": null,
+    "scannedBy": null
+  },
+  {
+    "guestId": "2K-XYSU0EFY",
+    "nom": "Gallas",
+    "prenom": "Mehdi",
+    "email": "mehdi.gallas.98@gmail.com",
+    "fonction": "Presse & Média Officiel",
+    "sessionSlot": "Wave 5 — 15h30 (Session Avancée)",
+    "token": "7c7e8947934315c515f0603483d3ecf8b3cbcb7ff334acf7f343402e916152ee",
+    "confirmedAt": "2026-09-10T21:35:44.985Z",
+    "arrived": false,
+    "arrivedAt": null,
+    "scannedBy": null
+  }
+]

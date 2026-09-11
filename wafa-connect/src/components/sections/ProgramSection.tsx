@@ -1,60 +1,38 @@
+// src/components/sections/ProgramSection.tsx
 'use client'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { TimelineItem } from '@/components/ui/TimelineItem'
 import { PROGRAM } from '@/lib/constants'
-import { DiamondPattern } from '@/components/ui/DiamondPattern'
 
 export function ProgramSection() {
   return (
-    <section id="programme" className="section-padding bg-wafa-cream relative overflow-hidden">
-      <DiamondPattern opacity={0.03} color="#003d2b" />
+    <section id="programme" className="py-24 md:py-32 bg-[#08090C] relative overflow-hidden border-t border-white/5">
+      {/* Ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#E0681C]/[0.05] blur-[150px] rounded-full pointer-events-none" />
 
       <SectionWrapper className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-24 relative">
-          {/* Radial glow */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-            <div className="w-[400px] h-[150px] rounded-full bg-wafa-gold/5 blur-3xl" />
-          </div>
-
-          {/* Ornamental line + diamond */}
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-wafa-gold/60" />
-            <svg width="10" height="10" viewBox="0 0 12 12" className="text-wafa-gold fill-current rotate-45">
-              <rect x="1" y="1" width="10" height="10" />
-            </svg>
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-wafa-gold/60" />
-          </div>
-
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-wafa-dark mb-6">
-            <span className="relative inline-block">
-              Le <span className="text-wafa-gold">Programme</span>
-              <svg
-                className="absolute -bottom-2 left-0 w-full"
-                viewBox="0 0 200 8"
-                preserveAspectRatio="none"
-                height="8"
-              >
-                <path
-                  d="M0 6 Q50 0 100 4 Q150 8 200 2"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  fill="none"
-                  className="text-wafa-gold/40"
-                />
-              </svg>
+        <div className="text-center mb-20 relative">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#E0681C]/30 bg-[#E0681C]/10 backdrop-blur-md mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#E0681C]" />
+            <span className="font-outfit text-[10px] font-bold uppercase tracking-[0.35em] text-[#F4F5F7]">
+              DOMAINE NEFERIS · TIMETABLE DES VAGUES
             </span>
+          </div>
+
+          <h2 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-wider mb-4">
+            Déroulé d'une <span className="text-gradient-terracotta italic">Vague de Lancement</span>
           </h2>
-          <p className="font-montserrat text-wafa-gold/80 max-w-2xl mx-auto uppercase tracking-widest text-sm">
-            Déroulé de la soirée
+          <p className="font-sans text-sm md:text-base text-gray-300 max-w-xl mx-auto leading-relaxed">
+            De l'arrivée solennelle sous l'arche Porsche aux essais dynamiques sur l'avenue tout-terrain et au salon d'honneur.
           </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
           {/* Vertical Center Line for Desktop */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-wafa-gold/20 -translate-x-1/2 timeline-line animated" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#E0681C]/10 via-[#E0681C]/50 to-[#6D8080]/10 -translate-x-1/2 timeline-line animated" />
 
           {/* Vertical Left Line for Mobile */}
-          <div className="md:hidden absolute left-[35px] top-0 bottom-0 w-px bg-wafa-gold/20" />
+          <div className="md:hidden absolute left-[27px] sm:left-[35px] top-0 bottom-0 w-px bg-[#E0681C]/30" />
 
           <div className="flex flex-col">
             {PROGRAM.map((item, i) => (
@@ -63,6 +41,7 @@ export function ProgramSection() {
                 index={i}
                 time={item.time}
                 label={item.label}
+                sublabel={item.sublabel}
                 icon={item.icon}
                 highlight={item.highlight}
               />

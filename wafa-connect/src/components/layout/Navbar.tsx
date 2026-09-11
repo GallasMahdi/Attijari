@@ -6,6 +6,10 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-
 import { Menu, X } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
+import { PorscheWordmark } from '@/components/ui/PorscheLogo'
+
+import { smoothScrollTo } from '@/lib/scroll'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -25,25 +29,7 @@ export function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMenuOpen(false)
-
-    // Use Lenis if available for smoother/more reliable scrolling
-    const lenis = (window as any).lenis
-    if (lenis) {
-      lenis.scrollTo(href, { offset: -80 })
-      return
-    }
-
-    const el = document.querySelector(href)
-    if (el) {
-      const headerOffset = 80
-      const elementPosition = el.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-    }
+    smoothScrollTo(href, -70, 0.9)
   }
 
   return (
@@ -52,64 +38,81 @@ export function Navbar() {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
           scrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 py-3 shadow-sm'
+            ? 'bg-[#08090C]/95 backdrop-blur-xl border-b border-white/10 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.85)]'
             : 'bg-transparent py-5'
         )}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2.5 focus:outline-none 
-                       focus-visible:ring-2 focus-visible:ring-wafa-gold rounded transition-transform hover:scale-105 active:scale-95"
-          >
-            <div className="relative w-48 h-14 md:w-72 md:h-24 flex items-center justify-start transition-all duration-300">
+        <div className="container mx-auto px-3 sm:px-4 flex items-center justify-between">
+          {/* 2K Events & Porsche Co-Branding Brandmark */}
+          <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-4">
+            {/* 1. 2K Events Logo */}
+            <button
+              onClick={() => smoothScrollTo(0, 0, 0.8)}
+              className="flex items-center gap-1.5 sm:gap-2 group focus:outline-none rounded transition-transform hover:scale-[1.02] active:scale-95 text-left"
+              title="2K Events - Société Organisatrice de l'Événement"
+              aria-label="2K Events"
+            >
               <Image
-                src="/logo2.png"
-                alt="Attijari Assurance Logo"
-                fill
-                className="object-contain object-left"
+                src="/2k.png"
+                alt="2K Events - Société Organisatrice"
+                width={682}
+                height={266}
                 priority
+                className="w-14 xs:w-18 sm:w-28 md:w-32 h-auto brightness-0 invert opacity-95 group-hover:opacity-100 group-hover:brightness-110 transition-all duration-300 drop-shadow-[0_2px_14px_rgba(255,255,255,0.25)] object-contain"
               />
-            </div>
-          </button>
+              <span className="hidden xl:inline-flex flex-col font-outfit text-[7px] tracking-[0.25em] uppercase text-gray-300 font-bold border-l border-white/20 pl-2 leading-tight">
+                <span className="text-white">EVENT</span>
+                <span className="text-[#E0681C]">PRODUCER</span>
+              </span>
+            </button>
+
+            {/* Prestige Separator */}
+            <div className="h-6 sm:h-8 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent" />
+
+            {/* 2. Official Porsche Brandmark (Official Text Only) */}
+            <button
+              onClick={() => smoothScrollTo(0, 0, 0.8)}
+              className="flex flex-col items-start justify-center focus:outline-none rounded transition-transform hover:scale-[1.02] active:scale-95 text-left group py-1"
+              aria-label="Porsche Experience Accueil"
+            >
+              <PorscheWordmark className="h-2.5 xs:h-3 sm:h-3.5 md:h-4 w-auto text-white group-hover:text-[#E0681C] transition-colors drop-shadow-[0_2px_14px_rgba(255,255,255,0.3)]" />
+              <span className="font-mono text-[6px] xs:text-[7px] sm:text-[8px] font-bold tracking-[0.25em] sm:tracking-[0.42em] uppercase mt-1 text-[#E0681C]">
+                CAYENNE E4 LAUNCH
+              </span>
+            </button>
+          </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-2">
             {NAV_LINKS.map(({ label, href }) => (
               <button
                 key={href}
                 onClick={() => handleNavClick(href)}
-                className="font-montserrat text-sm font-medium text-wafa-dark
-                           hover:text-wafa-gold px-4 py-2 rounded-lg
-                           hover:bg-gray-100 transition-all duration-200
-                           focus:outline-none focus-visible:ring-2 
-                           focus-visible:ring-wafa-gold"
+                className="font-outfit text-xs font-bold uppercase tracking-wider text-gray-300
+                           hover:text-[#E0681C] px-3.5 py-2 rounded-lg hover:bg-white/5
+                           transition-all duration-200 focus:outline-none cursor-pointer"
               >
                 {label}
               </button>
             ))}
             <button
               onClick={() => handleNavClick('#confirmer')}
-              className="ml-2 px-5 py-2.5 bg-wafa-gold hover:bg-wafa-gold-light
-                         text-wafa-dark font-montserrat font-bold text-sm
-                         rounded-xl transition-all duration-200
-                         hover:shadow-gold-sm active:scale-95
-                         focus:outline-none focus-visible:ring-2 
-                         focus-visible:ring-wafa-gold-light"
+              className="ml-3 px-6 py-2.5 text-white font-outfit font-black text-xs uppercase tracking-widest
+                         rounded-xl transition-all duration-200 hover:scale-[1.03] active:scale-95 focus:outline-none cursor-pointer shadow-lg"
+              style={{ background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)' }}
+              onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 25px rgba(224, 104, 28,0.6)')}
+              onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.boxShadow = 'none')}
             >
-              Confirmer
+              RSVP VIP
             </button>
           </div>
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden p-2 text-wafa-dark hover:text-wafa-gold
-                       transition-colors focus:outline-none 
-                       focus-visible:ring-2 focus-visible:ring-wafa-gold rounded"
+            className="md:hidden p-2 text-white hover:text-[#E0681C] transition-colors focus:outline-none rounded cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={menuOpen}
@@ -139,6 +142,11 @@ export function Navbar() {
             </AnimatePresence>
           </button>
         </div>
+
+        {/* Checkered hairline at bottom of navbar when scrolled */}
+        {scrolled && (
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] porsche-checkered-ribbon opacity-80" />
+        )}
       </motion.nav>
 
       {/* Mobile Drawer */}
@@ -147,8 +155,7 @@ export function Navbar() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-40 bg-wafa-dark/80 
-                         backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -158,8 +165,8 @@ export function Navbar() {
             {/* Drawer */}
             <motion.div
               className={cn(
-                "fixed left-0 right-0 z-40 md:hidden bg-white border-b border-gray-200 shadow-xl overflow-hidden",
-                scrolled ? "top-[72px]" : "top-[88px]"
+                "fixed left-0 right-0 z-40 md:hidden bg-[#0E1015]/98 backdrop-blur-2xl border-b border-white/15 shadow-2xl overflow-hidden",
+                scrolled ? "top-[64px]" : "top-[80px]"
               )}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
@@ -167,6 +174,24 @@ export function Navbar() {
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             >
               <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
+                {/* Mobile Drawer Co-Branding */}
+                <div className="flex flex-wrap items-center justify-between gap-2 px-3 sm:px-4 py-2.5 sm:py-3 mb-2 rounded-xl bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 xs:gap-3">
+                    <Image
+                      src="/2k.png"
+                      alt="2K Events"
+                      width={682}
+                      height={266}
+                      className="w-13 xs:w-16 h-auto brightness-0 invert opacity-95 object-contain"
+                    />
+                    <span className="text-[#E0681C] font-bold text-xs">×</span>
+                    <PorscheWordmark className="h-3 sm:h-3.5 w-auto text-white" />
+                  </div>
+                  <span className="font-mono text-[8px] uppercase tracking-wider text-[#E0681C] font-bold bg-[#E0681C]/10 px-2 py-0.5 rounded border border-[#E0681C]/30">
+                    E4 LAUNCH
+                  </span>
+                </div>
+
                 {NAV_LINKS.map(({ label, href }, i) => (
                   <motion.button
                     key={href}
@@ -174,11 +199,10 @@ export function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                     onClick={() => handleNavClick(href)}
-                    className="text-left px-4 py-3.5 font-montserrat 
-                               font-medium text-wafa-dark hover:text-wafa-gold
-                               hover:bg-gray-50 rounded-xl transition-all
-                               focus:outline-none border border-transparent
-                               hover:border-wafa-gold/20"
+                    className="text-left px-4 py-3.5 font-outfit 
+                               font-semibold text-gray-300 hover:text-white
+                               hover:bg-white/5 rounded-xl transition-all
+                               focus:outline-none border border-transparent cursor-pointer"
                   >
                     {label}
                   </motion.button>
@@ -188,11 +212,12 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                   onClick={() => handleNavClick('#confirmer')}
-                  className="mt-2 w-full py-4 bg-wafa-gold text-wafa-dark
-                             font-montserrat font-bold rounded-xl
-                             hover:bg-wafa-gold-light transition-colors"
+                  className="mt-2 w-full py-4 text-white
+                             font-outfit font-bold text-xs uppercase tracking-widest rounded-xl
+                             transition-colors cursor-pointer shadow-lg"
+                  style={{ background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)' }}
                 >
-                  Confirmer Ma Présence
+                  RSVP Now · Sécuriser Ma Place
                 </motion.button>
               </div>
             </motion.div>

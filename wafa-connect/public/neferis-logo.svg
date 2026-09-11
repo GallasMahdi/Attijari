@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 420" fill="none">
+  <!-- Eye symbol -->
+  <g transform="translate(256, 130)">
+    <!-- Outer decorative border (serrated/petal ring) -->
+    <g opacity="0.95">
+      <!-- Petal ring drawn as repeated rotated ellipses -->
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(18)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(36)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(54)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(108)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(126)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(162)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(198)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(234)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(252)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(288)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(306)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(324)"/>
+      <ellipse cx="0" cy="-72" rx="6" ry="14" fill="#9B9B6A" transform="rotate(342)"/>
+    </g>
+
+    <!-- Eye outer shape (almond) -->
+    <path d="M-110,0 C-80,-55 80,-55 110,0 C80,55 -80,55 -110,0 Z" fill="#9B9B6A"/>
+    <!-- Eye inner white -->
+    <path d="M-95,0 C-68,-44 68,-44 95,0 C68,44 -68,44 -95,0 Z" fill="#f5f3ec"/>
+    <!-- Iris -->
+    <circle cx="0" cy="0" r="34" fill="#9B9B6A"/>
+    <!-- Pupil -->
+    <circle cx="0" cy="0" r="18" fill="#f5f3ec"/>
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="7" fill="#9B9B6A"/>
+    <!-- Spokes -->
+    <line x1="0" y1="-18" x2="0" y2="-34" stroke="#f5f3ec" stroke-width="2.5"/>
+    <line x1="0" y1="18" x2="0" y2="34" stroke="#f5f3ec" stroke-width="2.5"/>
+    <line x1="-18" y1="0" x2="-34" y2="0" stroke="#f5f3ec" stroke-width="2.5"/>
+    <line x1="18" y1="0" x2="34" y2="0" stroke="#f5f3ec" stroke-width="2.5"/>
+    <line x1="-13" y1="-13" x2="-24" y2="-24" stroke="#f5f3ec" stroke-width="2"/>
+    <line x1="13" y1="-13" x2="24" y2="-24" stroke="#f5f3ec" stroke-width="2"/>
+    <line x1="-13" y1="13" x2="-24" y2="24" stroke="#f5f3ec" stroke-width="2"/>
+    <line x1="13" y1="13" x2="24" y2="24" stroke="#f5f3ec" stroke-width="2"/>
+  </g>
+
+  <!-- DOMAINE text -->
+  <text
+    x="256"
+    y="248"
+    text-anchor="middle"
+    font-family="'Trajan Pro', 'Palatino Linotype', Georgia, serif"
+    font-size="34"
+    font-weight="400"
+    letter-spacing="14"
+    fill="#9B9B6A"
+  >DOMAINE</text>
+
+  <!-- NEFERIS text (large) -->
+  <text
+    x="256"
+    y="320"
+    text-anchor="middle"
+    font-family="'Trajan Pro', 'Palatino Linotype', Georgia, serif"
+    font-size="82"
+    font-weight="700"
+    letter-spacing="6"
+    fill="#9B9B6A"
+  >NEFERIS</text>
+</svg>

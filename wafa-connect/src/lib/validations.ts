@@ -17,9 +17,21 @@ export const guestSchema = z.object({
     .email('Adresse email invalide')
     .toLowerCase()
     .trim(),
-  fonction: z.enum(['Invité', 'Journaliste'], {
-    errorMap: () => ({ message: 'Veuillez sélectionner votre fonction' })
+  fonction: z.enum([
+    'Invité VIP — Dynamic Launch',
+    'Partenaire Fleet & Business',
+    'Presse & Média Officiel',
+    // Legacy values kept for backwards compatibility
+    'Invité d\'Honneur VIP',
+    'Membre Club & Propriétaire',
+    'Pilote VIP',
+    'Invité Paddock',
+    'Journaliste',
+    'Invité'
+  ], {
+    errorMap: () => ({ message: 'Veuillez sélectionner votre profil' })
   }),
+  sessionSlot: z.string().optional(),
 })
 
 export type GuestFormValues = z.infer<typeof guestSchema>

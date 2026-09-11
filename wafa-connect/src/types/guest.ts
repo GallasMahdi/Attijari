@@ -1,11 +1,23 @@
 // src/types/guest.ts
-export type GuestFonction = 'Invité' | 'Journaliste'
+export type GuestFonction = 
+  // Cayenne E4 Dynamic Launch values
+  | 'Invité VIP — Dynamic Launch'
+  | 'Partenaire Fleet & Business'
+  | 'Presse & Média Officiel'
+  // Legacy values kept for backwards compatibility
+  | 'Invité d\'Honneur VIP'
+  | 'Membre Club & Propriétaire'
+  | 'Pilote VIP'
+  | 'Invité Paddock'
+  | 'Journaliste'
+  | 'Invité'
 
 export interface GuestFormData {
   nom: string
   prenom: string
   email: string
   fonction: GuestFonction
+  sessionSlot?: string
 }
 
 export interface QRPayload {
@@ -18,6 +30,7 @@ export interface QRPayload {
   date: string
   venue: string
   timestamp: string
+  sessionSlot?: string
   token: string  // HMAC signature for server-side validation
   valid: boolean
 }
@@ -29,7 +42,8 @@ export interface GuestResponse {
   prenom: string
   email: string
   fonction: GuestFonction
-  qrData: string          // JSON stringified QRPayload
+  sessionSlot?: string
+  qrData: string          // JSON stringified QRPayload or compact token
   message: string
 }
 
@@ -49,6 +63,7 @@ export interface ScanResult {
     nom: string
     prenom: string
     fonction: GuestFonction
+    sessionSlot?: string
     arrivedAt: string
   }
   message: string
@@ -60,6 +75,7 @@ export interface AdminGuest {
   prenom: string
   email: string
   fonction: GuestFonction
+  sessionSlot?: string
   confirmedAt: string
   arrived: boolean
   arrivedAt: string | null

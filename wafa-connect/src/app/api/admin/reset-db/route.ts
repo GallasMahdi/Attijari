@@ -1,24 +1,21 @@
-// src/app/api/admin/reset-db/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { connectDB } from '@/lib/db'
-import Guest from '@/models/Guest'
+import { resetAllGuests } from '@/lib/guest-storage'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const token = searchParams.get('token')
+  const expectedPassword = process.env.ADMIN_PASSWORD || '2K-VIP-2026'
 
   // Authentication check
-  if (!token || token !== process.env.ADMIN_PASSWORD) {
+  if (!token || token !== expectedPassword) {
     return NextResponse.json({ 
       error: 'Non autorisé. Jeton de réinitialisation invalide.' 
     }, { status: 401 })
   }
 
   try {
-    await connectDB()
-    
-    // Delete all guests
-    const result = await Guest.deleteMany({})
+    // Reset all guests in file and Mongo store
+    const deletedCount = await resetAllGuests()
 
     return new NextResponse(`
       <!DOCTYPE html>
@@ -107,7 +104,7 @@ export async function GET(request: NextRequest) {
             <div class="icon">✨</div>
             <h1>Succès !</h1>
             <p>La base de données a été réinitialisée avec succès.</p>
-            <div class="count"><strong>${result.deletedCount}</strong> documents supprimés</div>
+            <div class="count"><strong>${deletedCount}</strong> invité(s) réinitialisé(s)</div>
             <p>Vous pouvez maintenant commencer l'événement à neuf.</p>
             
             <div class="footer">

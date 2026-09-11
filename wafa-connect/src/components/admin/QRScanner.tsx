@@ -158,18 +158,19 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Camera Viewfinder */}
-      <div className="relative w-full max-w-sm aspect-square rounded-2xl overflow-hidden bg-black border border-wafa-gold/20 shadow-gold-md">
+      <div className="relative w-full max-w-sm aspect-square rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
         <div id={divId} className="w-full h-full" />
 
         {active && !isProcessing && (
           <motion.div
             className="absolute inset-0 pointer-events-none"
-            style={{ border: '2px solid rgba(201,168,76,0.6)', borderRadius: '16px' }}
+            style={{ border: '2px solid rgba(213,0,28,0.5)', borderRadius: '16px' }}
           >
+            {/* Rapid Porsche Red Laser Sweep */}
             <motion.div
-              className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-wafa-gold to-transparent"
-              animate={{ top: ['10%', '90%', '10%'] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent shadow-[0_0_12px_#d5001c]"
+              animate={{ top: ['5%', '95%', '5%'] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
             />
             {[
               'top-3 left-3 border-t-2 border-l-2',
@@ -177,26 +178,28 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
               'bottom-3 left-3 border-b-2 border-l-2',
               'bottom-3 right-3 border-b-2 border-r-2',
             ].map((cls, i) => (
-              <div key={i} className={`absolute w-6 h-6 border-wafa-gold rounded-sm ${cls}`} />
+              <div key={i} className={`absolute w-6 h-6 border-red-500 rounded-sm ${cls}`} />
             ))}
           </motion.div>
         )}
 
         {!active && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gray-50/90 backdrop-blur-sm">
-            <Camera className="w-12 h-12 text-wafa-gold/30" />
-            <p className="font-montserrat text-xs text-gray-400 text-center px-6 font-medium">
-              Cliquez sur le bouton ci-dessous pour activer la caméra
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#0B0C10]/95 backdrop-blur-sm p-6 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <Camera className="w-8 h-8 text-red-500/70" />
+            </div>
+            <p className="font-montserrat text-xs text-gray-400 font-medium">
+              Activez le capteur optique pour valider les Paddock Passes
             </p>
           </div>
         )}
 
         {isProcessing && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/75 backdrop-blur-sm">
             <motion.div
-              className="w-10 h-10 border-2 border-wafa-gold border-t-transparent rounded-full"
+              className="w-12 h-12 border-2 border-red-500 border-t-transparent rounded-full"
               animate={{ rotate: 360 }}
-              transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'linear' }}
             />
           </div>
         )}
@@ -208,14 +211,14 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
             {error}
           </p>
           {error.includes('Permission') && (
-            <div className="mx-4 p-3 bg-wafa-gold/10 border border-wafa-gold/20 rounded-xl">
-              <p className="font-montserrat text-wafa-gold text-[10px] font-bold uppercase tracking-wider mb-2">
+            <div className="mx-4 p-3 bg-red-950/40 border border-red-500/30 rounded-xl">
+              <p className="font-montserrat text-red-400 text-[10px] font-bold uppercase tracking-wider mb-2">
                 💡 Action Requise :
               </p>
-              <ol className="font-montserrat text-white/60 text-[10px] space-y-1.5 list-decimal pl-4">
+              <ol className="font-montserrat text-gray-300 text-[10px] space-y-1.5 list-decimal pl-4">
                 <li>Cliquez sur l'icône de <b>cadenas</b> à gauche de l'URL.</li>
-                <li>Activez l'accès à la <b>Caméra</b>.</li>
-                <li>Actualisez la page, puis réessayez.</li>
+                <li>Autorisez l'accès à la <b>Caméra</b>.</li>
+                <li>Actualisez la page puis réessayez.</li>
               </ol>
             </div>
           )}
@@ -226,18 +229,18 @@ export function QRScanner({ onScan, isProcessing }: QRScannerProps) {
         {!active ? (
           <button
             onClick={startScanner}
-            className="flex items-center gap-2 px-8 py-4 bg-wafa-gold hover:bg-wafa-dark text-white font-montserrat font-bold text-sm rounded-xl transition-all shadow-gold-sm hover:shadow-lg active:scale-95"
+            className="flex items-center gap-2 px-8 py-4 bg-gradient-porsche-red text-white font-montserrat font-bold text-xs uppercase tracking-widest rounded-xl hover:shadow-[0_0_25px_rgba(213,0,28,0.6)] transition-all active:scale-95"
           >
             <Camera className="w-4 h-4" />
-            Démarrer le Scanner
+            Activer Scanner Optique
           </button>
         ) : (
           <button
             onClick={stopScanner}
-            className="flex items-center gap-2 px-8 py-4 bg-white border border-red-200 text-red-500 font-montserrat font-bold text-sm rounded-xl hover:bg-red-50 transition-all shadow-sm active:scale-95"
+            className="flex items-center gap-2 px-8 py-4 bg-white/10 border border-white/20 text-white font-montserrat font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-red-600 hover:border-red-600 transition-all shadow-sm active:scale-95"
           >
             <CameraOff className="w-4 h-4" />
-            Arrêter
+            Mettre en Pause
           </button>
         )}
       </div>

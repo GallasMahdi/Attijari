@@ -1,68 +1,282 @@
 // src/lib/constants.ts
 export const EVENT = {
-  name: 'Wafa Connect',
-  fullName: 'WAFA CONNECT — Inauguration du Nouveau Siège',
-  organizer: 'Attijari Assurance',
+  name: 'Porsche Cayenne E4 — Launch Event',
+  shortName: 'Cayenne Electric Era',
+  fullName: 'THE FULLY ELECTRIC CAYENNE ERA — E4',
+  organizer: '2K Events × Porsche Middle East & Africa',
+  motto: 'Heritage × Future · Two Worlds. One Drive.',
+  submotto: 'The next chapter for Cayenne.',
+  invitationCallout: 'Experience the Cayenne in a new form.',
+  conceptTagline: 'A museum of the past, activated by the technology of the future.',
   agency: '2K Events',
-  date: new Date('2026-05-21T18:00:00+01:00'), // Africa/Tunis UTC+1
-  dateLabel: 'Jeudi 21 Mai 2026',
-  timeLabel: 'À partir de 18h00',
-  venue: 'Attijari Assurance Tunisie',
-  city: 'Lot N°A14, Bd de la Terre, 1082 Centre Urbain Nord - Tunis',
-  mapsUrl: 'https://maps.app.goo.gl/jqb9Wgpuz9br6A8x8?g_st=iw',
-  mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.0336214041!2d10.1974974766861!3d36.84069646545161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd353d14cacb23%3A0xb93be5026d212842!2sAttijari%20Assurance%20Tunisie!5e0!3m2!1sfr!2stn!4v1715263445781!5m2!1sfr!2stn',
+  date: new Date('2026-06-18T09:00:00+01:00'),
+  dateLabel: '18 — 21 Juin 2026 (4 Jours)',
+  timeLabel: '6 Vagues par Jour · Dès 09h00',
+  venue: 'Le Domaine Neferis',
+  venueSubtitle: 'Avenue SUV & Salon d\'Honneur Heritage × Future',
+  city: 'Grombalia / Tunis — Domaine Neferis',
+  campaignId: 'PME-E4-NEFERIS-2026',
+  totalParticipants: 290,
+  wavesPerDay: 6,
+  participantsPerDay: 73,
+  launchVehiclesCount: 8,
+  instructorVehiclesCount: 3,
+  mapsUrl: 'https://maps.google.com/?q=Domaine+Neferis+Tunisia',
+  mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d102540.23198579127!2d10.450125434444585!3d36.59850124890695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd5a864703a4ab%3A0xe546b38cbb0c7324!2sDomaine%20Neferis!5e0!3m2!1sfr!2stn!4v1715263445781!5m2!1sfr!2stn',
 } as const
 
 export const COLORS = {
-  dark: '#003d2b',
-  green: '#006633',
-  lightGreen: '#7dc242',
-  gold: '#C9A84C',
-  goldLight: '#f5c518',
-  cream: '#f9f5ee',
-  veryDark: '#001a0f',
-  white: '#ffffff',
+  black: '#08090C',
+  dark: '#0E1015',
+  card: '#14171F',
+  terracotta: '#E0681C',      // Official Porsche Cayenne Copper / Terracotta
+  terracottaGlow: 'rgba(224, 104, 28,0.45)',
+  mysticGreen: '#6D8080',     // Mystic Green (Terre / Domaine)
+  slate: '#6D8080',           // Slate Grey-Green (Checkered Flag)
+  paleBlue: '#A8D5E2',        // Pale Blue (Énergie / Futur)
+  electricCyan: '#00B4C6',    // Digital 800V Teal
+  heritageStone: '#8B7355',   // Pierre brute Domaine Neferis
+  heritageWarm: '#C4A882',    // Warm stone light
+  heritageDark: '#2C2318',    // Warm stone shadow
+  silver: '#F4F5F7',
+  gray: '#8E95A5',
+  white: '#FFFFFF',
+  red: '#D5001C',
+  redBright: '#E4002B',
+  yellow: '#FFCC00',
+  // Backwards compatibility aliases
+  gold: '#E0681C',
+  goldLight: '#FF7A45',
+  cream: '#08090C',
+  veryDark: '#040507',
 } as const
 
+export interface ConceptPair {
+  id: string
+  label: string
+  heritage: string
+  future: string
+  heritageDetail: string
+  futureDetail: string
+}
+
+export const CONTRAST_PAIRS: ConceptPair[] = [
+  {
+    id: 'matiere',
+    label: 'Matière',
+    heritage: 'Pierre brute',
+    future: 'Surfaces digitales',
+    heritageDetail: 'L\'architecture ancienne du Domaine Neferis, les arches et les murs de taille ancestrale.',
+    futureDetail: 'Écrans incurvés haute résolution, surfaces tactiles en verre noir et projections OLED.',
+  },
+  {
+    id: 'mecanique',
+    label: 'Objet',
+    heritage: 'Pièces automobiles / archives',
+    future: 'Projections lumineuses',
+    heritageDetail: 'L\'histoire séculaire de l\'artisanat automobile, les codes du musée et les objets mécaniques.',
+    futureDetail: 'Lignes de faisceaux laser, cinématiques LED 4 points et scénographies immersives.',
+  },
+  {
+    id: 'elements',
+    label: 'Éléments',
+    heritage: 'Mystic Green (Terre)',
+    future: 'Pale Blue (Énergie)',
+    heritageDetail: 'Les oliviers, les vignes et le terroir préservé du domaine méditerranéen.',
+    futureDetail: 'L\'énergie électrique pure à 800V, le flux d\'ions et l\'accélération instantanée.',
+  },
+  {
+    id: 'graphisme',
+    label: 'Graphique',
+    heritage: 'Textures naturelles',
+    future: 'Lignes précises',
+    heritageDetail: 'Le grain du bois, la rugosité de la roche et la patine du cuir artisanal.',
+    futureDetail: 'La précision aérodynamique au millimètre, les signatures graphiques épurées.',
+  },
+  {
+    id: 'dynamique',
+    label: 'Mouvement',
+    heritage: 'Objets de musée',
+    future: 'Projections dynamiques',
+    heritageDetail: 'La mémoire figée des légendes du passé, respectueusement mises en valeur.',
+    futureDetail: 'La Cayenne Electric en mouvement perpétuel, réveillant l\'histoire.',
+  },
+]
+
+export interface PorscheModel {
+  id: string
+  name: string
+  subtitle: string
+  category: string
+  power: string
+  acceleration: string
+  topSpeed: string
+  engine: string
+  torque: string
+  highlight: string
+  tag: string
+  accentColor: string
+  isElectric?: boolean
+  range?: string
+  eventUnits?: number
+  chargingTime?: string
+}
+
+export const PORSCHE_FLEET: PorscheModel[] = [
+  {
+    id: 'cayenne-e4',
+    name: 'Cayenne Electric (E4)',
+    subtitle: 'The fully electric Cayenne era. Two worlds. One drive.',
+    category: 'World Premiere · Fully Electric SUV',
+    power: '517 CH (380 kW)',
+    acceleration: '4.0 s (0-100 km/h)',
+    topSpeed: '225 km/h',
+    engine: 'Double moteur électrique synchrone — Architecture 800 Volts',
+    torque: '830 Nm (instantané)',
+    highlight: 'Autonomie 500+ km WLTP · Recharge 270 kW DC (10-80% en 21 min)',
+    tag: 'Vedette de Lancement',
+    accentColor: '#E0681C',
+    isElectric: true,
+    range: '500+ km WLTP',
+    eventUnits: 8,
+    chargingTime: '21 min (10-80%)',
+  },
+  {
+    id: 'cayenne-turbo-ehybrid',
+    name: 'Cayenne Turbo E-Hybrid',
+    subtitle: 'Performance hybride extrême. La passerelle vers le futur.',
+    category: 'E-Hybrid Performance',
+    power: '739 CH (544 kW)',
+    acceleration: '3.6 s (0-100 km/h)',
+    topSpeed: '295 km/h',
+    engine: 'V8 4.0L bi-turbo + Moteur électrique 130 kW',
+    torque: '950 Nm combiné',
+    highlight: 'Mode E-Power 90 km · Châssis actif PASM & Torque Vectoring Plus',
+    tag: 'Performance E-Hybrid',
+    accentColor: '#6D8080',
+    isElectric: false,
+    range: '90 km électrique',
+    eventUnits: 3,
+  },
+  {
+    id: 'cayenne-instructor',
+    name: 'Cayenne E4 Pace & Instructor',
+    subtitle: 'Véhicule de tête & encadrement dynamique certifié Porsche.',
+    category: 'Instructor Fleet · Lead Vehicle',
+    power: '517 CH (380 kW)',
+    acceleration: '4.0 s (0-100 km/h)',
+    topSpeed: '225 km/h',
+    engine: 'Double moteur synchrone à aimants permanents 800V',
+    torque: '830 Nm',
+    highlight: 'Équipement télémétrie embarquée · Liaison radio instructeur instructeur',
+    tag: 'Instructeur Officiel',
+    accentColor: '#00B4C6',
+    isElectric: true,
+    range: '500 km',
+    eventUnits: 3,
+  },
+]
+
+export const FLEET_CALCULATOR_DEFAULT = {
+  annualOrderIntakeTarget: 29,
+  experientialSharePercent: 30,
+  targetOrdersFromEvent: 9,
+  leadToOrderConversionPercent: 12,
+  targetLeads: 73,
+  participantToLeadConversionPercent: 25,
+  targetParticipants: 290,
+  eventDays: 4,
+  wavesPerDay: 6,
+  participantsPerDay: 73,
+  participantsPerWave: 12,
+  launchVehicles: 8,
+  instructorCars: 3,
+}
+
 export const PROGRAM = [
-  { time: '18h:00', label: 'Accueil invités', icon: '👋', highlight: false },
-  { time: '18h:30', label: 'Cocktail d\'accueil', icon: '🍸', highlight: false },
-  { time: '19h:30', label: 'Présentation et prise de paroles', icon: '🎤', highlight: true },
-  { time: '20h:30', label: 'Cocktail Dinatoire', icon: '🍽️', highlight: false },
-  { time: '21h:00', label: 'Rana Zarrouk', icon: '🎤', highlight: true },
-  { time: '00h:00', label: 'Clôture', icon: '✨', highlight: true },
+  {
+    time: '09h00',
+    label: 'Arrivée Domaine Neferis & Accueil Prestige',
+    sublabel: 'Passage sous l\'Arche Porsche · Avenue bordée de pins · Vérification du QR Pass VIP',
+    icon: '🏛️',
+    highlight: false,
+  },
+  {
+    time: '09h30',
+    label: 'Remise du Coffret Collector & Briefing Pilotage',
+    sublabel: 'Présentation de l\'architecture 800V et de la transmission intégrale par les instructeurs Porsche',
+    icon: '🎙️',
+    highlight: false,
+  },
+  {
+    time: '10h00',
+    label: 'Vague de Conduite Wave 1 — Piste & Avenue SUV',
+    sublabel: 'Prise en main dynamique des 8 véhicules Cayenne E4 Electric · #PorscheSUVExperience',
+    icon: '⚡',
+    highlight: true,
+  },
+  {
+    time: '12h00',
+    label: 'Exposition Heritage × Future — Musée Vivant',
+    sublabel: 'Tension visuelle entre pierre brute du Domaine et projections numériques Porsche',
+    icon: '✨',
+    highlight: false,
+  },
+  {
+    time: '13h15',
+    label: 'Déjeuner Gastronomique & Networking Lounge',
+    sublabel: 'Hospitalité 2K Events dans le Salon d\'Honneur avec mobilier architectural signature',
+    icon: '🍽️',
+    highlight: false,
+  },
+  {
+    time: '14h45',
+    label: 'Vague de Conduite Wave 2 — Session Avancée',
+    sublabel: 'Essais tout-terrain et relances instantanées 830 Nm sur le tracé dédié du Domaine',
+    icon: '🏁',
+    highlight: true,
+  },
+  {
+    time: '17h00',
+    label: 'Cocktail de Clôture & Immersion Sensorielle',
+    sublabel: 'Remise des certificats d\'accréditation VIP personnalisés et shooting photo officiel',
+    icon: '📸',
+    highlight: true,
+  },
 ] as const
 
 export const JOURNEY_STEPS = [
   {
     number: '01',
-    title: 'RECEVEZ',
-    description: 'Recevez votre invitation digitale par e-mail',
+    title: 'INVITATION EXCLUSIVE',
+    description: 'Notification VIP via WhatsApp & Email — "The next chapter for Cayenne."',
     icon: 'Mail',
   },
   {
     number: '02',
-    title: 'DÉCOUVREZ',
-    description: 'Accédez au programme complet, à l\'invitation et à la localisation',
-    icon: 'Search',
+    title: 'ACCRÉDITATION EN LIGNE',
+    description: 'Sélection de votre jour et de votre vague de conduite sur le portail officiel',
+    icon: 'ClipboardList',
   },
   {
     number: '03',
-    title: 'CONFIRMEZ',
-    description: 'Remplissez le formulaire : Nom, Prénom et Fonction',
-    icon: 'CheckCircle',
+    title: 'QR PASS NOMINATIF',
+    description: 'Délivrance instantanée de votre badge numérique synchronisé avec le système C@P',
+    icon: 'QrCode',
   },
   {
     number: '04',
-    title: 'ACCÉDEZ',
-    description: 'Votre QR code personnel d\'accès est instantanément généré',
-    icon: 'QrCode',
+    title: 'EXPÉRIENCE DOMAINE NEFERIS',
+    description: 'Accueil sous l\'arche Porsche et prise en main des 8 Cayenne E4 de lancement',
+    icon: 'Flag',
   },
 ] as const
 
 export const NAV_LINKS = [
-  { label: 'Concept', href: '#concept' },
+  { label: 'Cayenne E4', href: '#flotte' },
+  { label: 'Heritage × Future', href: '#concept' },
+  { label: 'Expérience', href: '#experience' },
+  { label: 'Domaine Neferis', href: '#domaine' },
   { label: 'Programme', href: '#programme' },
-  // { label: 'Confirmer', href: '#confirmer' },
-  { label: 'Localisation', href: '#localisation' },
+  { label: 'RSVP VIP', href: '#confirmer' },
 ] as const

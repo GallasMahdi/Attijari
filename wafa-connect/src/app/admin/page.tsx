@@ -1,6 +1,6 @@
 'use client'
 import dynamic from 'next/dynamic'
-import { TexturePattern } from '@/components/ui/TexturePattern'
+import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -15,7 +15,7 @@ const QRScanner = dynamic(
   { ssr: false, loading: () => <div className="w-full aspect-square rounded-2xl bg-white/5 animate-pulse" /> }
 )
 
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? ''
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || '2K-VIP-2026'
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false)
@@ -25,7 +25,7 @@ export default function AdminPage() {
   const [scanResult, setScanResult] = useState<ScanResult | null>(null)
   const [recentScans, setRecentScans] = useState<ScanResult[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
-  const [scannerName, setScannerName] = useState('Reception 1')
+  const [scannerName, setScannerName] = useState('Accueil Principal VIP')
   const [refreshTrigger, setRefreshTrigger] = useState(0)
   const adminTokenRef = useRef('')
 
@@ -65,35 +65,30 @@ export default function AdminPage() {
         body: JSON.stringify({ qrData, scannedBy: scannerName }),
       })
 
-      if (!res.ok) throw new Error('API_ERROR')
+      if (res.status === 401) {
+        setAuthed(false)
+        localStorage.removeItem('wafa_admin_token')
+        return
+      }
 
       const result: ScanResult = await res.json()
       setScanResult(result)
 
       if (result.status === 'valid' || result.status === 'already_scanned') {
-        // Update session history only if guest data exists
-        if (result.guest) {
-          setRecentScans(prev => {
-            // Prevent duplicates in history if scanned multiple times
-            if (prev.length > 0 && prev[0].guest?.guestId === result.guest?.guestId) return prev
-            return [result, ...prev].slice(0, 3)
-          })
-        }
-
+        setRecentScans((prev) => [result, ...prev.slice(0, 4)])
         if (result.status === 'valid') {
           setRefreshTrigger((n) => n + 1)
         }
       }
-    } catch (err) {
+    } catch {
       setScanResult({
         status: 'invalid',
-        message: '⚠️ Problème de connexion. Veuillez vérifier votre réseau.'
+        message: '⚠️ Problème de connexion. Veuillez vérifier votre réseau.',
       })
     } finally {
-      // Cooldown to avoid double-scans if the camera isn't moved
       setTimeout(() => {
         setIsProcessing(false)
-      }, 3000)
+      }, 2500)
     }
   }, [isProcessing, scannerName])
 
@@ -104,8 +99,9 @@ export default function AdminPage() {
   // ─── Login Screen ───────────────────────────────────────────────────────────
   if (!authed) {
     return (
-      <div className="min-h-screen bg-wafa-cream flex items-center justify-center p-4 relative overflow-hidden">
-        <TexturePattern src="/pattern4.jpeg" opacity={0.5} blendMode="normal" />
+      <div className="min-h-screen bg-[#08090C] flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="absolute inset-0 carbon-pattern opacity-25 pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-red-600/[0.08] blur-[150px] rounded-full pointer-events-none" />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -113,41 +109,53 @@ export default function AdminPage() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="w-full max-w-md relative z-10"
         >
-          {/* Subtle glow effect behind the form */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-wafa-gold/5 blur-[120px] rounded-full pointer-events-none z-0" />
-          <div className="flex flex-col items-center gap-6 mb-10">
-            <div className="relative w-72 h-24">
-              <Image src="/logo2.png" alt="Attijari Assurance" fill className="object-contain" />
+          {/* Dual Brand: 2K Events first */}
+          <div className="flex flex-col items-center gap-3 mb-8 text-center">
+            <div className="flex items-center justify-center gap-3 px-4 py-2 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md">
+              <Image
+                src="/2k.png"
+                alt="2K Events"
+                width={120}
+                height={46}
+                className="h-8 w-auto object-contain brightness-110 drop-shadow-[0_2px_10px_rgba(255,255,255,0.25)]"
+                priority
+              />
+              <span className="text-white/30 font-light text-base">×</span>
+              <span className="font-outfit font-black text-xl tracking-[0.25em] text-white uppercase">
+                PORSCHE
+              </span>
             </div>
-            <div className="flex items-center gap-2 text-wafa-gold">
-              <ShieldCheck className="w-5 h-5" />
-              <span className="font-montserrat text-xs tracking-[0.3em] uppercase font-bold">Portail Réception</span>
+            <div className="flex items-center gap-2 text-red-500">
+              <ShieldCheck className="w-4 h-4" />
+              <span className="font-mono text-xs tracking-[0.25em] uppercase font-bold text-red-400">
+                Contrôle d'Accès VIP Gala
+              </span>
             </div>
           </div>
 
-          <div className="relative z-10 rounded-[2rem] p-[1px] bg-gradient-to-b from-wafa-gold/30 via-white/10 to-white/5 shadow-2xl">
-            <form onSubmit={handleLogin} className="bg-white/80 backdrop-blur-2xl rounded-[calc(2rem-1px)] p-10 flex flex-col gap-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]">
-              <div className="space-y-2 text-center">
-                <h1 className="font-playfair text-3xl font-bold bg-gradient-to-br from-wafa-dark via-wafa-dark/80 to-wafa-gold bg-clip-text text-transparent">Accès Réception</h1>
-                <p className="font-montserrat text-[10px] text-gray-500/80 uppercase tracking-[0.2em] font-medium">
-                  Entrez le mot de passe organisateur
+          <div className="relative z-10 rounded-[2rem] p-[1px] bg-gradient-to-b from-red-600/30 via-white/10 to-transparent shadow-2xl">
+            <form onSubmit={handleLogin} className="bg-[#0E1015] rounded-[calc(2rem-1px)] p-8 sm:p-10 flex flex-col gap-6 border border-white/10">
+              <div className="space-y-1 text-center">
+                <h1 className="font-outfit text-2xl font-bold text-white tracking-wider">Poste d'Accueil VIP</h1>
+                <p className="font-sans text-xs text-gray-400 tracking-wide">
+                  Entrez le code d'accès sécurité pour activer le scanner
                 </p>
               </div>
 
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-wafa-gold/50 group-focus-within:text-wafa-gold transition-colors duration-300" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-red-500/70 group-focus-within:text-red-500 transition-colors duration-300" />
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Mot de passe"
+                  placeholder="Code d'accès (ex: 2K-VIP-2026)"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-11 py-4 bg-white/50 backdrop-blur-sm border border-wafa-gold/20 rounded-2xl font-montserrat text-sm text-wafa-dark placeholder-gray-400 focus:outline-none focus:border-wafa-gold focus:ring-4 focus:ring-wafa-gold/10 transition-all duration-300 shadow-sm"
+                  className="w-full pl-11 pr-11 py-3.5 bg-black/60 border border-white/15 rounded-xl font-mono text-sm text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-600/20 transition-all duration-300"
                   autoFocus
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-wafa-gold transition-colors duration-300"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                   aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -158,7 +166,7 @@ export default function AdminPage() {
                 <motion.p 
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
-                  className="font-montserrat text-xs text-red-500 text-center font-medium bg-red-50/80 backdrop-blur-md py-3 rounded-xl border border-red-100/50"
+                  className="font-sans text-xs text-red-400 text-center font-medium bg-red-950/40 py-2.5 rounded-xl border border-red-500/30"
                 >
                   {authError}
                 </motion.p>
@@ -166,20 +174,16 @@ export default function AdminPage() {
 
               <button
                 type="submit"
-                className="group relative overflow-hidden py-4 bg-wafa-dark text-white font-montserrat font-bold rounded-2xl transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-wafa-dark/20 hover:-translate-y-0.5 active:scale-[0.98]"
+                className="py-4 bg-gradient-to-r from-red-700 via-red-600 to-red-500 text-white font-outfit font-bold text-xs uppercase tracking-widest rounded-xl hover:shadow-[0_0_25px_rgba(213,0,28,0.6)] transition-all duration-300"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-wafa-gold via-wafa-gold/80 to-wafa-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  Accéder au Portail
-                  <motion.span
-                    initial={{ x: 0 }}
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                  >
-                    →
-                  </motion.span>
-                </span>
+                Ouvrir le Scanner d'Accès
               </button>
+
+              <div className="text-center">
+                <span className="font-mono text-[11px] text-gray-500">
+                  Accès par défaut : <code className="text-gray-400 bg-white/5 px-2 py-0.5 rounded border border-white/10">2K-VIP-2026</code>
+                </span>
+              </div>
             </form>
           </div>
         </motion.div>
@@ -189,44 +193,63 @@ export default function AdminPage() {
 
   // ─── Admin Portal ────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-wafa-cream">
+    <div className="min-h-screen bg-[#08090C] text-white selection:bg-red-600 selection:text-white relative overflow-x-hidden">
+      {/* Background Ambience */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-gradient-to-b from-red-600/10 to-transparent blur-[120px] rounded-full" />
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
+      </div>
+
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-wafa-gold/20 px-4 py-4 shadow-sm transition-all duration-300">
+      <header className="sticky top-0 z-40 bg-[#0B0C10]/80 backdrop-blur-xl border-b border-white/10 px-4 py-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-5">
-            <div className="relative w-40 h-10 group">
+            <Link
+              href="/"
+              prefetch={true}
+              className="flex items-center gap-3 group transition-transform hover:scale-105 active:scale-95"
+              title="Retour à l'expérience"
+            >
               <Image
-                src="/logo2.png"
-                alt="Attijari Assurance"
-                fill
-                className="object-contain object-left transition-transform duration-300 group-hover:scale-105"
+                src="/2k.png"
+                alt="2K Events"
+                width={90}
+                height={34}
+                className="h-7 w-auto object-contain brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.2)]"
               />
-            </div>
-            <div className="h-8 w-px bg-wafa-gold/20 hidden md:block" />
-            <div className="hidden md:flex flex-col">
-              <span className="font-montserrat text-[10px] text-wafa-gold font-bold tracking-[0.2em] uppercase leading-none mb-1">
-                Wafa Connect
-              </span>
-              <span className="font-montserrat text-[10px] text-wafa-dark font-medium tracking-widest uppercase leading-none opacity-60">
-                Portail Réception
+              <span className="text-white/30 font-light">×</span>
+              <div className="flex flex-col">
+                <span className="font-outfit font-black text-lg tracking-[0.2em] text-white uppercase leading-none group-hover:text-red-400 transition-colors">
+                  PORSCHE
+                </span>
+                <span className="font-mono text-[8px] text-red-400 font-bold tracking-[0.25em] uppercase mt-1">
+                  ACCUEIL GALA VIP
+                </span>
+              </div>
+            </Link>
+            <div className="h-8 w-px bg-white/10 hidden md:block" />
+            <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/10 border border-red-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+              <span className="font-mono text-[9px] text-emerald-400 font-bold tracking-widest uppercase">
+                Système En Ligne
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 md:gap-6">
-            {/* Device Info */}
-            <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 border border-gray-100 rounded-2xl shadow-inner">
+          <div className="flex items-center gap-3 md:gap-5">
+            {/* Device / Station Selector */}
+            <div className="flex items-center gap-2.5 px-4 py-2 bg-white/5 border border-white/10 rounded-xl">
               <div className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
               </div>
               <select
                 value={scannerName}
                 onChange={(e) => setScannerName(e.target.value)}
-                className="font-montserrat text-[11px] bg-transparent text-wafa-dark font-bold focus:outline-none cursor-pointer appearance-none pr-1 uppercase tracking-wider"
+                className="font-outfit text-[11px] bg-transparent text-gray-300 font-bold focus:outline-none cursor-pointer pr-1 tracking-wider"
               >
-                {['Reception 1', 'Reception 2', 'Reception 3', 'Superviseur'].map((n) => (
-                  <option key={n} value={n}>{n}</option>
+                {['Accueil Principal VIP', 'Salon Champagne 2K', 'Lounge Révélation', 'Superviseur VIP'].map((n) => (
+                  <option key={n} value={n} className="bg-[#0B0C10] text-white">{n}</option>
                 ))}
               </select>
             </div>
@@ -238,25 +261,29 @@ export default function AdminPage() {
                 setScanResult(null);
                 localStorage.removeItem('wafa_admin_token');
               }}
-              className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white font-montserrat text-xs font-bold transition-all duration-300 shadow-sm"
+              className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-red-950/40 border border-red-500/30 text-red-400 hover:bg-red-600 hover:text-white font-montserrat text-xs font-bold transition-all duration-300 shadow-sm"
             >
               <LogOut className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span className="hidden sm:inline">Quitter</span>
+              <span className="hidden sm:inline">Déconnexion</span>
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left: Scanner */}
-        <section className="flex flex-col gap-6">
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-wafa-gold/10">
+      <main className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+        {/* Left: Scanner & Recent scans (5 cols) */}
+        <section className="lg:col-span-5 flex flex-col gap-6">
+          <div className="bg-[#0E1015]/90 rounded-3xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-white/10 backdrop-blur-xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent" />
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-playfair text-xl font-bold text-wafa-dark">
-                Scanner QR Code
-              </h2>
-              <div className="px-2 py-1 bg-wafa-gold/10 rounded-md">
-                <span className="font-montserrat text-[10px] text-wafa-gold font-bold uppercase tracking-wider">Live Scanner</span>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <h2 className="font-outfit text-lg font-bold text-white tracking-wider">
+                  Scanner Invitation VIP Gala
+                </h2>
+              </div>
+              <div className="px-2.5 py-1 bg-red-600/10 border border-red-500/20 rounded-md">
+                <span className="font-mono text-[10px] text-red-400 font-bold uppercase tracking-wider">Optique 2K Live</span>
               </div>
             </div>
             <QRScanner onScan={handleScan} isProcessing={isProcessing} />
@@ -270,15 +297,15 @@ export default function AdminPage() {
           </AnimatePresence>
 
           {/* Session History */}
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-wafa-gold/10">
-            <h3 className="font-playfair text-lg font-bold text-wafa-dark mb-4 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-wafa-gold" />
-              Activité Récente
+          <div className="bg-[#0E1015]/90 rounded-3xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-white/10 backdrop-blur-xl">
+            <h3 className="font-outfit text-sm font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+              <Clock className="w-4 h-4 text-red-500" />
+              Journal des Accès en Direct
             </h3>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2.5">
               {recentScans.length === 0 ? (
-                <p className="font-montserrat text-xs text-gray-400 italic py-4 text-center">
-                  Aucun scan effectué durant cette session.
+                <p className="font-sans text-xs text-gray-500 italic py-6 text-center">
+                  En attente de la première arrivée d'invité VIP.
                 </p>
               ) : (
                 recentScans.map((scan, idx) => (
@@ -286,19 +313,22 @@ export default function AdminPage() {
                     key={`${scan.guest?.guestId}-${idx}`}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100"
+                    className="flex items-center justify-between p-3.5 bg-black/40 rounded-xl border border-white/5 hover:border-red-500/30 transition-all"
                   >
-                    <div className="flex flex-col">
-                      <span className="font-montserrat font-bold text-xs text-wafa-dark">
+                    <div className="flex flex-col min-w-0 pr-2">
+                      <span className="font-montserrat font-bold text-xs text-white truncate">
                         {scan.guest?.prenom} {scan.guest?.nom}
                       </span>
-                      <span className="font-montserrat text-[10px] text-gray-400">
+                      <span className="font-montserrat text-[10px] text-gray-400 truncate">
                         {scan.guest?.fonction}
                       </span>
                     </div>
-                    <div className={`px-2 py-1 rounded-lg font-montserrat text-[9px] font-bold uppercase tracking-wider ${scan.status === 'valid' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
-                      }`}>
-                      {scan.status === 'valid' ? 'Entrée' : 'Déjà vu'}
+                    <div className={`px-2.5 py-1 rounded-md font-montserrat text-[9px] font-black uppercase tracking-wider flex-shrink-0 ${
+                      scan.status === 'valid'
+                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                        : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
+                    }`}>
+                      {scan.status === 'valid' ? 'Accès Autorisé' : 'Déjà Validé'}
                     </div>
                   </motion.div>
                 ))
@@ -307,12 +337,16 @@ export default function AdminPage() {
           </div>
         </section>
 
-        {/* Right: Guest List & Stats */}
-        <section className="bg-white rounded-3xl p-6 shadow-sm border border-wafa-gold/10">
+        {/* Right: Guest List & Stats (7 cols) */}
+        <section className="lg:col-span-7 bg-[#0E1015]/90 rounded-3xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-white/10 backdrop-blur-xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-white/20 to-transparent" />
           <div className="flex items-center justify-between mb-6">
-            <h2 className="font-playfair text-xl font-bold text-wafa-dark">
-              Liste des Invités
+            <h2 className="font-montserrat text-lg font-bold text-white uppercase tracking-wider">
+              Registre des Pilotes & VIP
             </h2>
+            <div className="text-[10px] font-montserrat text-gray-400 uppercase tracking-widest">
+              Live Feed Synced
+            </div>
           </div>
           <GuestTable
             adminToken={adminTokenRef.current}

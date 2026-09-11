@@ -16,9 +16,10 @@ const fragmentShader = /* glsl */`
   uniform float uBaseOpacity;
   uniform float uPulseSpeed;
   uniform float uPulseOffset;
+  uniform vec3 uColor;
   void main() {
-    float alpha = uBaseOpacity * (0.7 + sin(uTime * uPulseSpeed + uPulseOffset) * 0.3);
-    gl_FragColor = vec4(0.788, 0.659, 0.298, alpha); // #c9a84c
+    float alpha = uBaseOpacity * (0.6 + sin(uTime * uPulseSpeed + uPulseOffset) * 0.4);
+    gl_FragColor = vec4(uColor, alpha);
   }
 `
 
@@ -30,13 +31,14 @@ interface BeamConfig {
   opacity: number
   pulseSpeed: number
   pulseOffset: number
+  color: [number, number, number]
 }
 
 const BEAMS: BeamConfig[] = [
-  { position: [0,    2.5, -3], height: 6, radiusBottom: 0.8, rotation: [Math.PI, 0,    0],    opacity: 0.10, pulseSpeed: 0.25, pulseOffset: 0.0 },
-  { position: [-3.5, 3,   -4], height: 7, radiusBottom: 0.6, rotation: [Math.PI, 0,  0.1],    opacity: 0.07, pulseSpeed: 0.20, pulseOffset: 1.0 },
-  { position: [3.5,  3,   -4], height: 7, radiusBottom: 0.6, rotation: [Math.PI, 0, -0.1],    opacity: 0.07, pulseSpeed: 0.22, pulseOffset: 2.0 },
-  { position: [0,    4,   -7], height: 9, radiusBottom: 1.2, rotation: [Math.PI, 0,    0],    opacity: 0.05, pulseSpeed: 0.18, pulseOffset: 0.5 },
+  { position: [0,    2.5, -3], height: 6, radiusBottom: 0.8, rotation: [Math.PI, 0,    0],    opacity: 0.16, pulseSpeed: 0.35, pulseOffset: 0.0, color: [0.835, 0.0, 0.11] }, // Guards Red
+  { position: [-3.5, 3,   -4], height: 7, radiusBottom: 0.6, rotation: [Math.PI, 0,  0.1],    opacity: 0.12, pulseSpeed: 0.25, pulseOffset: 1.0, color: [0.95, 0.98, 1.0] },   // Matrix White
+  { position: [3.5,  3,   -4], height: 7, radiusBottom: 0.6, rotation: [Math.PI, 0, -0.1],    opacity: 0.12, pulseSpeed: 0.28, pulseOffset: 2.0, color: [0.95, 0.98, 1.0] },   // Matrix White
+  { position: [0,    4,   -7], height: 9, radiusBottom: 1.2, rotation: [Math.PI, 0,    0],    opacity: 0.14, pulseSpeed: 0.22, pulseOffset: 0.5, color: [0.9, 0.0, 0.1] },    // Deep Red
 ]
 
 export function LightBeams() {
@@ -53,6 +55,7 @@ export function LightBeams() {
           uBaseOpacity: { value: b.opacity },
           uPulseSpeed:  { value: b.pulseSpeed },
           uPulseOffset: { value: b.pulseOffset },
+          uColor:       { value: new THREE.Vector3(...b.color) },
         },
         transparent: true,
         depthWrite: false,

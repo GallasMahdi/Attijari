@@ -7,66 +7,65 @@ import * as THREE from 'three'
 export function CinematicLighting() {
   const spotRef = useRef<THREE.SpotLight>(null)
 
-  // Only one useFrame — updates a single spot intensity
   useFrame(({ clock }) => {
     if (!spotRef.current) return
     const t = clock.getElapsedTime()
-    spotRef.current.intensity = 1.8 + Math.sin(t * 0.3) * 0.2
+    spotRef.current.intensity = 2.5 + Math.sin(t * 0.8) * 0.4
   })
 
   return (
     <>
-      {/* Key light — upper-left golden directional, NO shadow map */}
+      {/* Porsche Matrix LED Key light — Crisp cold white */}
       <directionalLight
         position={[-6, 8, 4]}
-        intensity={2.0}
-        color="#d4a853"
+        intensity={2.8}
+        color="#E0EEFF"
         castShadow={false}
       />
 
-      {/* Rim light — right side warm gold */}
+      {/* Porsche Guards Red Rear Rim Light */}
       <pointLight
         position={[8, 3, -2]}
-        intensity={3.5}
-        color="#e8c97d"
-        distance={20}
+        intensity={5.0}
+        color="#D5001C"
+        distance={25}
         decay={2}
       />
 
-      {/* Cool fill light — lower left blue */}
+      {/* Cool fill light — deep motorsport obsidian */}
       <pointLight
         position={[-7, -2, 2]}
-        intensity={1.2}
-        color="#1a3060"
-        distance={18}
+        intensity={1.5}
+        color="#152035"
+        distance={20}
         decay={2}
       />
 
-      {/* Floor cone spot — warm highlight on reflective surface */}
+      {/* Center Track spotlight — intense pulse on asphalt */}
       <spotLight
         ref={spotRef}
-        position={[0, 6, -1]}
-        angle={Math.PI / 7}
-        penumbra={0.8}
-        intensity={2.5}
-        color="#c9a84c"
-        distance={20}
+        position={[0, 7, 0]}
+        angle={Math.PI / 6}
+        penumbra={0.7}
+        intensity={3.2}
+        color="#FFFFFF"
+        distance={25}
         decay={1.5}
         castShadow={false}
         target-position={[0, -2, -2]}
       />
 
-      {/* Subtle back light */}
+      {/* Tail lightbar horizontal back glow */}
       <pointLight
-        position={[0, 2, -12]}
-        intensity={0.8}
-        color="#0d1a40"
-        distance={15}
+        position={[0, 1, -8]}
+        intensity={4.0}
+        color="#E4002B"
+        distance={18}
         decay={2}
       />
 
-      {/* Ambient — dark navy */}
-      <ambientLight intensity={0.15} color="#0a0d20" />
+      {/* Ambient dark canvas */}
+      <ambientLight intensity={0.2} color="#08090C" />
     </>
   )
 }

@@ -46,14 +46,14 @@ export default function HeroCanvas({
         near: 0.1,
         far: 30, // nothing in scene beyond z=-14; tighter frustum = fewer frags
       }}
-      style={{ background: '#050810' }}
+      style={{ background: '#08090C' }}
     >
       <AdaptiveDpr pixelated />
       <AdaptiveEvents />
 
-      {/* Cinematic deep navy atmosphere */}
-      <fog attach="fog" args={['#08091a', 10, 28]} />
-      <color attach="background" args={['#050810']} />
+      {/* Porsche Track Night atmosphere */}
+      <fog attach="fog" args={['#08090C', 10, 28]} />
+      <color attach="background" args={['#08090C']} />
 
       <Suspense fallback={null}>
         <CameraRig>

@@ -4,54 +4,166 @@
 @tailwind utilities;
 
 :root {
-  --wafa-dark:        #003d2b;
-  --wafa-green:       #006633;
-  --wafa-light:       #7dc242;
-  --wafa-gold:        #C9A84C;
-  --wafa-gold-light:  #f5c518;
-  --wafa-cream:       #f9f5ee;
-  --wafa-very-dark:   #001a0f;
-  /* Cinematic canvas tokens */
-  --wafa-navy:        #050810;
-  --wafa-navy-mid:    #0d0f1e;
-  --wafa-navy-deep:   #08091a;
-  --section-padding:  clamp(4rem, 8vw, 8rem);
+  --porsche-black: #08090C;
+  --porsche-dark: #0E1015;
+  --porsche-dark-card: #14171F;
+  --porsche-carbon: #1B1F2A;
+  --porsche-terracotta: #E0681C;
+  --porsche-mystic: #6D8080;
+  --porsche-slate: #6D8080;
+  --porsche-paleblue: #A8D5E2;
+  --porsche-electric: #00B4C6;
+  --porsche-stone: #8B7355;
+  --porsche-warm-stone: #C4A882;
+  --porsche-silver: #F4F5F7;
+  --porsche-platinum: #D1D5DB;
+  --porsche-gray: #8E95A5;
+  --porsche-yellow: #FFCC00;
+
+  /* Heritage × Future — Electric Cayenne palette */
+  --electric-green: #6D8080;
+  --electric-green-glow: rgba(109, 128, 128, 0.45);
+  --electric-pale: #A8D5E2;
+  --electric-teal: #00B4C6;
+  --electric-teal-glow: rgba(0, 180, 198, 0.45);
+  --heritage-terracotta: #E0681C;
+  --heritage-stone: #8B7355;
+  --heritage-warm: #C4A882;
+  --heritage-dark: #2C2318;
+  --heritage-amber: #E0681C;
+
+  /* Aliased for component backwards compatibility */
+  --wafa-dark: #F4F5F7;
+  --wafa-green: #6D8080;
+  --wafa-light: #E0681C;
+  --wafa-gold: #E0681C;
+  --wafa-gold-light: #FF7A45;
+  --wafa-cream: #08090C;
+  --wafa-very-dark: #040507;
+  --wafa-navy: #08090C;
+  --wafa-navy-mid: #0E1015;
+  --wafa-navy-deep: #050608;
+  --section-padding: clamp(4rem, 8vw, 8rem);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html {
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  scroll-behavior: auto;
+  /* Lenis handles smooth scroll */
   overflow-x: hidden;
+  background-color: #08090C;
+}
+
+section[id],
+div[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* ── Porsche Next TT — Primary Typeface (TTF, all 4 variants) ─────────── */
+@font-face {
+  font-family: 'Porsche Next TT';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/porsche-next-tt.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Porsche Next TT';
+  font-style: italic;
+  font-weight: 400;
+  src: url('/fonts/porsche-next-tt-italic.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Porsche Next TT';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/porsche-next-tt-bold.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Porsche Next TT';
+  font-style: italic;
+  font-weight: 700;
+  src: url('/fonts/porsche-next-tt-bold-italic.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* ── Porsche Next — Fallback (woff2, latin subset) ────────────────────── */
+@font-face {
+  font-family: 'Porsche Next';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/porsche-next-latin-regular.woff2') format('woff2'),
+       url('https://cdn.ui.porsche.com/porsche-design-system/fonts/porsche-next-latin-regular.b8f1c20.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Porsche Next';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/porsche-next-latin-semi-bold.woff2') format('woff2'),
+       url('https://cdn.ui.porsche.com/porsche-design-system/fonts/porsche-next-latin-semi-bold.b5f6fca.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Porsche Next';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/porsche-next-latin-bold.woff2') format('woff2'),
+       url('https://cdn.ui.porsche.com/porsche-design-system/fonts/porsche-next-latin-bold.0fbdc6d.woff2') format('woff2');
+  font-display: swap;
 }
 
 body {
-  background-color: #ffffff;
-  color: var(--wafa-dark);
-  font-family: var(--font-montserrat), system-ui, sans-serif;
+  background-color: #08090C;
+  color: #F4F5F7;
+  font-family: 'Porsche Next TT', 'Porsche Next', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global link reset — prevent browser default blue */
+/* Headings: Porsche Next TT Display */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Porsche Next TT', 'Porsche Next', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Global link reset */
 a {
   color: inherit;
   text-decoration: none;
 }
+
 a:hover {
-  color: var(--wafa-gold);
+  color: var(--porsche-red);
 }
 
-/* Gold shimmer text utility */
+/* Red shimmer text utility */
 .text-shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--wafa-gold) 0%,
-    var(--wafa-gold-light) 40%,
-    var(--wafa-gold) 60%,
-    var(--wafa-gold-light) 100%
-  );
+  background: linear-gradient(90deg,
+      #FFFFFF 0%,
+      #D5001C 35%,
+      #FF5266 50%,
+      #D5001C 65%,
+      #FFFFFF 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -59,72 +171,284 @@ a:hover {
   animation: shimmer 3s linear infinite;
 }
 
-/* Glassmorphism card */
-.glass {
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,0.8) 0%,
-    rgba(255,255,255,0.5) 100%
-  );
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201,168,76,0.3);
+/* Red/Silver racing gradient text */
+.text-gradient-red {
+  background: linear-gradient(135deg, #FF334B 0%, #D5001C 50%, #B00016 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Animated gold border */
-.gold-border-animated {
+.text-gradient-silver {
+  background: linear-gradient(180deg, #FFFFFF 0%, #C4C8D0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+/* Heritage × Future gradient utilities */
+.text-gradient-electric {
+  background: linear-gradient(135deg, #A8D5E2 0%, #00B4C6 50%, #3D8B37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-heritage {
+  background: linear-gradient(135deg, #D4870A 0%, #C4A882 50%, #8B7355 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-terracotta {
+  background: linear-gradient(135deg, #FF7A45 0%, #E0681C 50%, #B83E12 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Official Porsche Cayenne E4 — Tread → Checkered Flag Transition */
+.porsche-checkered-ribbon {
+  background-color: #E0681C;
+  background-image:
+    /* Checker squares (right side) */
+    repeating-conic-gradient(#6D8080 0% 25%, #E0681C 0% 50%),
+    /* Tread vertical stripes (left side, fading out) */
+    repeating-linear-gradient(
+      90deg,
+      #6D8080 0px,  #6D8080 3px,
+      #E0681C 3px,  #E0681C 7px,
+      #6D8080 7px,  #6D8080 9px,
+      #E0681C 9px,  #E0681C 14px,
+      #6D8080 14px, #6D8080 17px,
+      #E0681C 17px, #E0681C 20px
+    );
+  background-size: 16px 16px, 20px 100%;
+  background-position: 0 0, 0 0;
+  /* Fade mask: tread on left, checker on right */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 30%, black 60%, transparent 65%),
+                      linear-gradient(90deg, black 0%, black 60%, transparent 65%);
+  mask-image: linear-gradient(90deg, black 0%, black 55%, transparent 75%),
+              linear-gradient(90deg, transparent 40%, black 65%, black 100%);
+}
+
+.glass-terracotta {
+  background: linear-gradient(135deg,
+      rgba(224, 104, 28, 0.12) 0%,
+      rgba(14, 16, 21, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(224, 104, 28, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(224, 104, 28, 0.18);
+}
+
+/* Carbon weave background texture */
+.carbon-pattern {
+  background-color: #0c0e14;
+  background-image:
+    linear-gradient(45deg, #11141c 25%, transparent 25%),
+    linear-gradient(-45deg, #11141c 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #11141c 75%),
+    linear-gradient(-45deg, transparent 75%, #11141c 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
+}
+
+/* Stone texture for heritage panels */
+.stone-pattern {
+  background-color: #1a160f;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23362d1e' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Glassmorphism card - Porsche Dark Carbon Edition */
+.glass {
+  background: linear-gradient(135deg,
+      rgba(20, 24, 33, 0.75) 0%,
+      rgba(12, 14, 20, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-red {
+  background: linear-gradient(135deg,
+      rgba(213, 0, 28, 0.12) 0%,
+      rgba(14, 16, 21, 0.8) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(213, 0, 28, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(213, 0, 28, 0.15);
+}
+
+/* Electric teal glass — for Future panels */
+.glass-electric {
+  background: linear-gradient(135deg,
+      rgba(0, 180, 198, 0.08) 0%,
+      rgba(14, 16, 21, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 180, 198, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 180, 198, 0.1);
+}
+
+/* Heritage amber glass — for Heritage panels */
+.glass-heritage {
+  background: linear-gradient(135deg,
+      rgba(212, 135, 10, 0.08) 0%,
+      rgba(26, 22, 15, 0.88) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(196, 168, 130, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 135, 10, 0.08);
+}
+
+/* Porsche LED rear lightbar effect */
+.porsche-lightbar {
+  position: relative;
+  background: linear-gradient(90deg, transparent 0%, #D5001C 15%, #FF5266 50%, #D5001C 85%, transparent 100%);
+  box-shadow: 0 0 20px #D5001C, 0 0 40px rgba(213, 0, 28, 0.6);
+}
+
+/* Electric lightbar — Cayenne E4 DRL */
+.electric-lightbar {
+  position: relative;
+  background: linear-gradient(90deg, transparent 0%, #00B4C6 15%, #A8D5E2 50%, #00B4C6 85%, transparent 100%);
+  box-shadow: 0 0 20px #00B4C6, 0 0 40px rgba(0, 180, 198, 0.6);
+}
+
+/* Animated red border */
+.red-border-animated {
   position: relative;
 }
-.gold-border-animated::before {
+
+.red-border-animated::before {
   content: '';
   position: absolute;
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(
-    var(--angle, 0deg),
-    var(--wafa-gold),
-    var(--wafa-gold-light),
-    var(--wafa-dark),
-    var(--wafa-gold)
-  );
-  -webkit-mask: 
+  background: linear-gradient(var(--angle, 0deg),
+      #D5001C,
+      #FF5266,
+      #0E1015,
+      #D5001C);
+  -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: rotate-border 4s linear infinite;
+  animation: rotate-border 3.5s linear infinite;
 }
+
+/* Animated electric border — for E4 elements */
+.electric-border-animated {
+  position: relative;
+}
+
+.electric-border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(var(--angle, 0deg),
+      #00B4C6,
+      #A8D5E2,
+      #0E1015,
+      #3D8B37);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate-border 3.5s linear infinite;
+}
+
 @property --angle {
   syntax: '<angle>';
   initial-value: 0deg;
   inherits: false;
 }
+
 @keyframes rotate-border {
-  to { --angle: 360deg; }
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Heritage divider line animation */
+@keyframes heritage-reveal {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.heritage-line {
+  transform-origin: left center;
+  animation: heritage-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% center;
+  }
+
+  to {
+    background-position: -200% center;
+  }
 }
 
 /* Lenis smooth scroll */
-html.lenis { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
 
 /* Three.js canvas */
-canvas { display: block; outline: none; }
+canvas {
+  display: block;
+  outline: none;
+}
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #f0f0f0; }
-::-webkit-scrollbar-thumb { 
-  background: var(--wafa-gold); 
+/* Custom scrollbar - Motorsport Dark & Electric */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08090C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #D5001C, #00B4C6);
   border-radius: 2px;
 }
 
 /* Selection */
 ::selection {
-  background: var(--wafa-gold);
-  color: var(--wafa-dark);
+  background: #00B4C6;
+  color: #FFFFFF;
 }
 
 /* Section base */
@@ -138,35 +462,40 @@ canvas { display: block; outline: none; }
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
 }
+
 .timeline-line.animated {
-  animation: draw-line 2s ease-in-out forwards;
+  animation: draw-line 1.8s ease-in-out forwards;
 }
 
-/* Flip card */
-.flip-card { perspective: 600px; }
-.flip-card-inner {
-  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
-  transform-style: preserve-3d;
-}
-.flip-card-front,
-.flip-card-back {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.flip-card-back {
-  transform: rotateX(-180deg);
-  position: absolute;
-  inset: 0;
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* Mobile touch improvements */
 @media (max-width: 768px) {
-  * { -webkit-tap-highlight-color: transparent; }
-  input, select, textarea { font-size: 16px !important; } /* prevent zoom */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 @layer utilities {
-  .text-balance { text-wrap: balance; }
-  .will-change-transform { will-change: transform; }
-  .gpu { transform: translateZ(0); }
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .gpu {
+    transform: translateZ(0);
+  }
 }

@@ -1,273 +1,211 @@
 'use client'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
-// ─── Splash duration (ms) ─────────────────────────────────────────────────────
-// Keep this in sync with the progress-bar transition duration below (2 000 ms)
-// so the bar always finishes filling before the screen dismisses.
-const SPLASH_DURATION = 2400
+import { PorscheWordmark } from '@/components/ui/PorscheLogo'
+
+// Cinematic Porsche Tachometer Ignition Splash Duration (ms)
+const SPLASH_DURATION = 1500
 
 interface SplashScreenProps {
   onComplete?: () => void
 }
 
+import { useCallback } from 'react'
+
 export function SplashScreen({ onComplete }: SplashScreenProps) {
   const [show, setShow] = useState(true)
+  const [revProgress, setRevProgress] = useState(0)
+
+  const handleFinish = useCallback(() => {
+    setShow(false)
+    document.body.style.overflow = 'unset'
+    onComplete?.()
+  }, [onComplete])
 
   useEffect(() => {
-    // Block scroll while splash is visible
     document.body.style.overflow = 'hidden'
 
+    // High-adrenaline tachometer sweep from 0 to 100% in ~1100ms
+    const interval = setInterval(() => {
+      setRevProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval)
+          return 100
+        }
+        return prev + 4
+      })
+    }, 40)
+
     const timer = setTimeout(() => {
-      setShow(false)
-      document.body.style.overflow = 'unset'
-      onComplete?.()
+      handleFinish()
     }, SPLASH_DURATION)
 
     return () => {
+      clearInterval(interval)
       clearTimeout(timer)
       document.body.style.overflow = 'unset'
     }
-  }, [onComplete])
+  }, [handleFinish])
 
   return (
     <AnimatePresence>
       {show && (
         <motion.div
-          key="splash"
+          key="porsche-splash"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.04 }}
-          transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
-          // ── Critical layout styles are inlined so the shell renders
-          //    even before the Tailwind CSS bundle has arrived. ──────────
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 9999,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: '#0a0a0f',
-            padding: '0 20px',
-            overflow: 'hidden',
-          }}
+          exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#08090C] overflow-hidden select-none"
         >
-          {/* Responsive CSS variables for instant paint before JS/Tailwind */}
-          <style>{`
-            :root {
-              --splash-logo-size: 190px;
-              --splash-gap: 4rem;
-              --splash-separator-h: 100px;
-              --splash-glow-size: 500px;
-            }
-            @media (max-width: 768px) {
-              :root {
-                --splash-logo-size: 140px;
-                --splash-gap: 2.5rem;
-                --splash-separator-h: 80px;
-                --splash-glow-size: 400px;
-              }
-            }
-            @media (max-width: 480px) {
-              :root {
-                --splash-logo-size: 105px;
-                --splash-gap: 1.5rem;
-                --splash-separator-h: 60px;
-                --splash-glow-size: 300px;
-              }
-            }
-          `}</style>
-          {/* ── Subtle radial gold glow – deferred so logo renders first ── */}
-          <motion.div
-            aria-hidden
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.3 }}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              pointerEvents: 'none',
-              background:
-                'radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201,168,76,0.14) 0%, transparent 70%)',
-            }}
-          />
+          {/* Ambient red laser flares */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-red-600/[0.12] blur-[120px] rounded-full" />
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-600/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-600/40 to-transparent" />
+          </div>
 
-          {/* ── Content ──────────────────────────────────────────────────── */}
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '3rem',
-              width: '100%',
-            }}
-          >
-            {/* ── Logo ─────────────────────────────────────────────────────
-                · Plain <img> (no next/image wrapper) → zero JS overhead
-                · fetchpriority="high"  → browser fetches this before
-                  anything else in the document
-                · decoding="sync"       → painted in the very first frame
-                · width/height set explicitly → no layout shift
-                · Fade-in starts immediately (delay: 0) ──────────────── */}
-            {/* ── Logos ─────────────────────────────────────────────────────
-                · Two logos separated by a vertical bar
-                · Staggered animations for a cinematic feel
-                · fetchpriority="high" and decoding="sync" maintained for performance ── */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'var(--splash-gap)',
-                position: 'relative',
-                width: '100%',
-              }}
-            >
-              {/* First Logo: Attijari */}
-              <motion.div
-                initial={{ opacity: 0, x: -25, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                style={{ position: 'relative' }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo1.png"
-                  alt="Attijariwafa Bank"
-                  width={200}
-                  height={200}
-                  fetchPriority="high"
-                  decoding="sync"
-                  style={{
-                    width: 'var(--splash-logo-size)',
-                    height: 'var(--splash-logo-size)',
-                    objectFit: 'contain',
-                    display: 'block',
-                    filter: 'drop-shadow(0 0 40px rgba(201,168,76,0.4))',
-                  }}
-                />
-              </motion.div>
+          {/* Carbon weave background overlay */}
+          <div className="absolute inset-0 opacity-40 pointer-events-none carbon-pattern" />
 
-              {/* Advanced Separator */}
-              <motion.div
-                initial={{ scaleY: 0, opacity: 0 }}
-                animate={{ scaleY: 1, opacity: 0.6 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-                style={{
-                  width: '1px',
-                  height: 'var(--splash-separator-h)',
-                  background: 'linear-gradient(to bottom, transparent, #c9a84c, transparent)',
-                  transformOrigin: 'center',
-                }}
-              />
-
-              {/* Second Logo: Wafa */}
-              <motion.div
-                initial={{ opacity: 0, x: 25, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                style={{ position: 'relative' }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/wafa.png"
-                  alt="Wafa Assurance"
-                  width={200}
-                  height={200}
-                  fetchPriority="high"
-                  decoding="sync"
-                  style={{
-                    width: 'var(--splash-logo-size)',
-                    height: 'var(--splash-logo-size)',
-                    objectFit: 'contain',
-                    display: 'block',
-                    filter: 'drop-shadow(0 0 40px rgba(201,168,76,0.4))',
-                  }}
-                />
-              </motion.div>
-
-              {/* Shared Cinematic Glow */}
-              <motion.div
-                aria-hidden
-                animate={{ 
-                  scale: [1, 1.15, 1], 
-                  opacity: [0.15, 0.25, 0.15] 
-                }}
-                transition={{ 
-                  duration: 4, 
-                  repeat: Infinity, 
-                  ease: 'easeInOut' 
-                }}
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: 'var(--splash-glow-size)',
-                  height: 'var(--splash-glow-size)',
-                  background: 'radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%)',
-                  pointerEvents: 'none',
-                  zIndex: -1,
-                }}
-              />
-            </div>
-
-            {/* ── Tagline ───────────────────────────────────────────────── */}
+          {/* Core Ignition & Co-Branding */}
+          <div className="relative z-10 flex flex-col items-center gap-7 px-4 max-w-5xl w-full">
+            {/* Top Left Ignition Heritage Indicator */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-              style={{ textAlign: 'center' }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-2 px-3.5 py-1 rounded-full border border-red-600/30 bg-red-950/20 backdrop-blur-md"
             >
-              <p
-                style={{
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontSize: '10px',
-                  letterSpacing: '0.4em',
-                  color: '#c9a84c',
-                  textTransform: 'uppercase',
-                  margin: 0,
-                }}
-              >
-                Attijari Assurance
-              </p>
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+              <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-red-400 font-bold">
+                SYSTEM IGNITION · READY
+              </span>
             </motion.div>
 
-            {/* ── Progress bar ──────────────────────────────────────────── */}
+            {/* 2K EVENTS & PORSCHE Dual Prestige Visual */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center relative flex flex-col items-center w-full"
+            >
+              {/* Glowing Red Backlight */}
+              <div className="absolute -inset-10 bg-red-600/25 blur-3xl rounded-full pointer-events-none" />
+
+              <div className="relative flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 md:gap-12 w-full">
+                {/* 1. 2K Events Logo - Equal Size & Presence */}
+                <div className="flex-1 flex items-center justify-center md:justify-end w-full">
+                  <Image
+                    src="/2k.png"
+                    alt="2K Events - Société Organisatrice"
+                    width={682}
+                    height={266}
+                    priority
+                    className="w-52 sm:w-64 md:w-72 lg:w-80 xl:w-[360px] h-auto brightness-0 invert opacity-100 drop-shadow-[0_4px_30px_rgba(255,255,255,0.45)] object-contain"
+                  />
+                </div>
+
+                {/* Prestige Vertical Separation */}
+                <div className="hidden md:block h-16 md:h-24 w-px bg-gradient-to-b from-transparent via-red-500/80 to-transparent flex-shrink-0" />
+                <div className="md:hidden w-32 h-px bg-gradient-to-r from-transparent via-red-500/80 to-transparent" />
+
+                {/* 2. Official Porsche Brandmark (Official Text Only) - Equal Size & Presence */}
+                <div className="flex-1 flex items-center justify-center md:justify-start w-full">
+                  <PorscheWordmark className="w-52 sm:w-64 md:w-72 lg:w-80 xl:w-[360px] h-auto text-white drop-shadow-[0_4px_35px_rgba(255,255,255,0.55)]" />
+                </div>
+              </div>
+
+              {/* High-value Subtitle */}
+              <div className="mt-4 sm:mt-5 flex items-center justify-center gap-2 xs:gap-2.5 px-3.5 xs:px-5 py-1.5 sm:py-2 rounded-full border border-red-600/40 bg-black/50 backdrop-blur-md shadow-[0_0_20px_rgba(213,0,28,0.2)] max-w-full">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping flex-shrink-0" />
+                <p className="font-outfit text-[9px] xs:text-[11px] sm:text-sm tracking-[0.18em] xs:tracking-[0.28em] sm:tracking-[0.4em] uppercase text-gray-200 font-bold truncate">
+                  2K EVENTS PRÉSENTE · PORSCHE NIGHT OF EXCELLENCE
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Telemetry Shift Lights Gantry (F1 / Porsche GT Style) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.15 }}
-              style={{
-                width: '180px',
-                height: '2px',
-                background: 'rgba(255,255,255,0.08)',
-                borderRadius: '9999px',
-                overflow: 'hidden',
-                position: 'relative',
-              }}
+              transition={{ delay: 0.2 }}
+              className="flex items-center gap-2 sm:gap-3 py-1 px-4 rounded-xl bg-black/60 border border-white/10"
             >
+              {[0, 1, 2, 3, 4, 5, 6, 7].map((idx) => {
+                const isActive = (revProgress / 100) * 8 >= idx
+                const isRedline = idx >= 6
+                const isMid = idx >= 3 && idx < 6
+                const colorClass = isRedline
+                  ? 'bg-red-500 shadow-[0_0_12px_#EF4444]'
+                  : isMid
+                  ? 'bg-amber-400 shadow-[0_0_10px_#F59E0B]'
+                  : 'bg-emerald-400 shadow-[0_0_10px_#10B981]'
+
+                return (
+                  <div
+                    key={idx}
+                    className={`w-3.5 h-3.5 rounded-full transition-all duration-100 ${
+                      isActive ? colorClass : 'bg-gray-800/80 border border-white/5'
+                    }`}
+                  />
+                )
+              })}
+            </motion.div>
+
+            {/* Central Tachometer RPM Display */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col items-center"
+            >
+              <div className="flex items-baseline gap-1.5 font-montserrat">
+                <span className="text-2xl sm:text-3xl font-black text-white tracking-wider tabular-nums">
+                  {Math.round((revProgress / 100) * 9000).toLocaleString()}
+                </span>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-red-500">
+                  RPM
+                </span>
+              </div>
+              <span className="text-[9px] font-mono tracking-[0.25em] text-gray-400 uppercase">
+                LAUNCH CONTROL ACTIVE
+              </span>
+            </motion.div>
+
+            {/* Rapid Horizontal Red Laser Lightbar */}
+            <div className="w-full max-w-[280px] h-[3px] rounded-full bg-white/10 overflow-hidden relative">
               <motion.div
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
                 transition={{
-                  // Fills in exactly SPLASH_DURATION - exit overlap
-                  duration: (SPLASH_DURATION - 600) / 1000,
-                  delay: 0.15,
+                  duration: (SPLASH_DURATION - 300) / 1000,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  bottom: 0,
-                  left: 0,
-                  borderRadius: '9999px',
-                  background: 'linear-gradient(90deg, #c9a84c, #f0d080, #c9a84c)',
-                }}
+                className="h-full bg-gradient-to-r from-red-600 via-red-400 to-white shadow-[0_0_12px_#DC2626]"
               />
-            </motion.div>
+            </div>
+
+            {/* Motto & Direct Ignition Trigger */}
+            <div className="flex flex-col items-center gap-3">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.8 }}
+                transition={{ delay: 0.4 }}
+                className="font-montserrat text-[9px] tracking-[0.45em] uppercase text-gray-400"
+              >
+                Driven by Dreams
+              </motion.p>
+
+              <button
+                type="button"
+                onClick={handleFinish}
+                className="px-4 py-1.5 rounded-full bg-white/10 hover:bg-red-600 border border-white/15 text-white font-montserrat text-[10px] font-bold uppercase tracking-widest transition-all duration-300 active:scale-95 shadow-lg cursor-pointer"
+              >
+                Passer l'Ignition &rarr;
+              </button>
+            </div>
           </div>
         </motion.div>
       )}

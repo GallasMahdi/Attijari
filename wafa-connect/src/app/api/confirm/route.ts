@@ -4,9 +4,8 @@ import { nanoid } from 'nanoid'
 import { guestSchema } from '@/lib/validations'
 import { QRPayload, GuestResponse } from '@/types/guest'
 import { EVENT } from '@/lib/constants'
-import { connectDB } from '@/lib/db'
 import { signToken } from '@/lib/hmac'
-import Guest from '@/models/Guest'
+import { saveGuest, getGuestByEmail } from '@/lib/guest-storage'
 
 // Rate limiting (in-memory per instance — sufficient for event scale)
 const requestCounts = new Map<string, { count: number; resetAt: number }>()
@@ -49,48 +48,46 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { nom, prenom, email, fonction } = parseResult.data
+  const { nom, prenom, email, fonction, sessionSlot } = parseResult.data
 
   try {
-    await connectDB()
-
-    // Prevent duplicate registrations for the same email
-    const existing = await Guest.findOne({ email: email.toLowerCase() }).lean()
+    // Check if already registered
+    const existing = await getGuestByEmail(email)
     if (existing) {
-      return NextResponse.json(
-        { error: 'Cette adresse email est déjà enregistrée pour cet événement.' },
-        { status: 409 }
-      )
+      // Re-issue their existing pass without error, or return friendly conflict
+      const response: GuestResponse = {
+        success: true,
+        guestId: existing.guestId,
+        nom: existing.nom,
+        prenom: existing.prenom,
+        email: existing.email,
+        fonction: existing.fonction,
+        sessionSlot: existing.sessionSlot,
+        qrData: `2K-P911:${existing.guestId}:${existing.token}`,
+        message: `Ravi de vous revoir ${existing.prenom} ! Voici votre invitation officielle.`,
+      }
+      return NextResponse.json(response, {
+        status: 200,
+        headers: { 'Cache-Control': 'no-store', 'Content-Type': 'application/json' },
+      })
     }
 
-    const guestId = nanoid(12)
+    const shortCode = nanoid(8).toUpperCase()
+    const guestId = `2K-${shortCode}`
     const timestamp = new Date().toISOString()
     const token = signToken(guestId)
 
-    // Persist to MongoDB
-    await Guest.create({
+    // Save to resilient storage layer (in-memory + file + MongoDB sync if available)
+    await saveGuest({
       guestId,
       nom,
       prenom,
-      email: email.toLowerCase(),
-      fonction,
-      token,
-      confirmedAt: new Date(),
-    })
-
-    const qrPayload: QRPayload = {
-      id: guestId,
-      name: `${prenom} ${nom}`,
       email,
       fonction,
-      event: EVENT.fullName,
-      organizer: EVENT.organizer,
-      date: EVENT.dateLabel,
-      venue: `${EVENT.venue}, ${EVENT.city}`,
-      timestamp,
-      token,   // HMAC token embedded in QR
-      valid: true,
-    }
+      sessionSlot: sessionSlot || 'Cocktail & Révélation (19h30)',
+      token,
+      confirmedAt: timestamp,
+    })
 
     const response: GuestResponse = {
       success: true,
@@ -99,8 +96,9 @@ export async function POST(request: NextRequest) {
       prenom,
       email,
       fonction,
-      qrData: `${guestId}:${token}`, // Optimized: Just ID and Token for faster scanning
-      message: `Bienvenue ${prenom} ! Votre QR code d'accès est prêt.`,
+      sessionSlot: sessionSlot || 'Cocktail & Révélation (19h30)',
+      qrData: `2K-P911:${guestId}:${token}`,
+      message: `Bienvenue ${prenom} ! Votre invitation officielle à la révélation Porsche est prête.`,
     }
 
     return NextResponse.json(response, {

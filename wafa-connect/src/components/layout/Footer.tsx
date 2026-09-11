@@ -1,55 +1,15 @@
+// src/components/layout/Footer.tsx
 'use client'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronUp, Facebook, Instagram, Linkedin, Twitter, MapPin, Clock, Calendar, Star, Users, Award, ArrowRight } from 'lucide-react'
-import { EVENT } from '@/lib/constants'
-import { DiamondPattern } from '@/components/ui/DiamondPattern'
+import { ChevronUp, MapPin, Clock, Calendar, Users, Award, ArrowRight, ShieldCheck, Sparkles, Zap } from 'lucide-react'
+import { EVENT, COLORS } from '@/lib/constants'
+import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
+import { PorscheWordmark } from '@/components/ui/PorscheLogo'
+import { smoothScrollTo } from '@/lib/scroll'
 
-/* ─── tiny helpers ─────────────────────────────────── */
-const GoldDiamond = ({ size = 10 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 12 12" className="text-wafa-gold fill-current rotate-45 flex-shrink-0">
-    <rect x="1" y="1" width="10" height="10" />
-  </svg>
-)
-
-const OrnamentalRule = () => (
-  <div className="flex items-center justify-center gap-3 my-1">
-    <div className="h-px flex-1 bg-gradient-to-r from-transparent to-wafa-gold/40" />
-    <GoldDiamond size={8} />
-    <div className="h-px w-6 bg-wafa-gold/40" />
-    <GoldDiamond size={6} />
-    <div className="h-px w-6 bg-wafa-gold/40" />
-    <GoldDiamond size={8} />
-    <div className="h-px flex-1 bg-gradient-to-l from-transparent to-wafa-gold/40" />
-  </div>
-)
-
-/* ─── stat card ────────────────────────────────────── */
-const StatPill = ({ icon: Icon, value, label }: { icon: React.ElementType; value: string; label: string }) => (
-  <div className="group flex flex-col items-center gap-1.5 px-6 py-4 rounded-2xl border border-wafa-gold/20 bg-white/40 backdrop-blur-sm hover:border-wafa-gold/50 hover:bg-white/70 transition-all duration-500">
-    <div className="w-9 h-9 rounded-full border border-wafa-gold/30 bg-wafa-gold/5 flex items-center justify-center group-hover:bg-wafa-gold/15 transition-colors duration-300">
-      <Icon className="w-4 h-4 text-wafa-gold" />
-    </div>
-    <span className="font-playfair text-2xl font-bold text-wafa-dark leading-none">{value}</span>
-    <span className="font-montserrat text-[10px] uppercase tracking-widest text-gray-500">{label}</span>
-  </div>
-)
-
-/* ─── nav link ─────────────────────────────────────── */
-const NavLink = ({ href, label }: { href: string; label: string }) => (
-  <li>
-    <a
-      href={href}
-      className="group flex items-center gap-2 font-montserrat text-xs text-gray-600 hover:text-wafa-gold transition-colors duration-300"
-    >
-      <ArrowRight className="w-3 h-3 text-wafa-gold/0 group-hover:text-wafa-gold/70 -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
-      {label}
-    </a>
-  </li>
-)
-
-/* ═══════════════════════════════════════════════════════ */
 export function Footer() {
   const [showScrollTop, setShowScrollTop] = useState(false)
 
@@ -59,163 +19,134 @@ export function Footer() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+  const scrollToTop = () => smoothScrollTo(0, 0, 0.85)
 
   return (
-    <footer className="relative bg-wafa-cream overflow-hidden border-t border-wafa-gold/10">
-      <DiamondPattern opacity={0.03} color="#003d2b" />
+    <footer className="relative bg-[#050608] overflow-hidden border-t border-white/10 text-white">
+      {/* Carbon weave overlay */}
+      <div className="absolute inset-0 carbon-pattern opacity-25 pointer-events-none" />
 
-      {/* ── 1. Welcome Banner ─────────────────────────────── */}
-      <div className="relative border-b border-wafa-gold/10">
+      {/* Top Checkered Banner */}
+      <PorscheCheckeredBand variant="slim" />
+
+      {/* ── 1. Welcome & Motto Banner ─────────────────────────────── */}
+      <div className="relative border-b border-white/5 py-16 md:py-20">
         <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-[600px] h-[200px] rounded-full bg-wafa-gold/5 blur-3xl" />
+          <div className="w-[600px] h-[250px] rounded-full bg-[#E0681C]/[0.05] blur-[140px]" />
         </div>
 
-        <div className="container mx-auto px-4 py-16 text-center relative z-10">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-wafa-gold/60" />
-            <GoldDiamond />
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-wafa-gold/60" />
+        <div className="container mx-auto px-4 text-center relative z-10 max-w-4xl">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#E0681C]/30 bg-[#E0681C]/10 backdrop-blur-md mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#E0681C] animate-pulse" />
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.35em] text-[#F4F5F7]">
+              PORSCHE MIDDLE EAST & AFRICA × 2K EVENTS
+            </span>
           </div>
 
-          <p className="font-montserrat text-xs uppercase tracking-[0.3em] text-wafa-gold/70 mb-4">
-            Un moment d'exception vous attend
-          </p>
-
-          <h2 className="font-playfair text-3xl md:text-5xl font-bold text-wafa-dark leading-snug mb-4">
-            Nous serons heureux{' '}
-            <span className="relative inline-block">
-              <span className="text-wafa-gold">de vous accueillir</span>
-              <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" preserveAspectRatio="none" height="8">
-                <path d="M0 6 Q50 0 100 4 Q150 8 200 2" stroke="currentColor" strokeWidth="1.5" fill="none" className="text-wafa-gold/40" />
-              </svg>
-            </span>{' '}
-            &amp; de vous voir.
+          <h2 className="font-outfit text-2xl sm:text-4xl md:text-5xl font-black text-white leading-tight uppercase mb-4 tracking-wider">
+            "A museum of the past, <br />
+            <span className="text-gradient-terracotta italic">activated by the technology of the future."</span>
           </h2>
 
-          <p className="font-montserrat text-sm text-gray-600 max-w-md mx-auto mt-6">
-            Rejoignez-nous pour une soirée placée sous le signe de l'élégance, du partage et de la reconnaissance.
+          <p className="font-sans text-xs sm:text-sm text-gray-300 max-w-xl mx-auto leading-relaxed mb-10">
+            L'avènement du Cayenne E4 100% électrique au cœur de l'architecture séculaire du Domaine Neferis.
+            Deux univers réunis en une seule expérience de conduite.
           </p>
 
-          {/* Event pills */}
-          <div className="flex flex-wrap justify-center gap-4 mt-8">
+          {/* Key Event Metric Badges */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
             {[
-              { Icon: Calendar, label: EVENT.dateLabel },
-              { Icon: Clock, label: EVENT.timeLabel },
-              { Icon: MapPin, label: `${EVENT.venue}, ${EVENT.city}` },
-            ].map(({ Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 px-4 py-2 rounded-full border border-wafa-gold/30 bg-white/50 text-gray-700 text-xs font-montserrat">
-                <Icon className="w-3.5 h-3.5 text-wafa-gold" />
-                {label}
+              { label: 'LIEU D\'EXCELLENCE', val: 'Domaine Neferis', sub: 'Tunisie' },
+              { label: 'DATES OFFICIELLES', val: '18 — 21 Juin 2026', sub: '4 Jours d\'Essais' },
+              { label: 'FLOTTE D\'ESSAIS', val: '8 Cayenne E4', sub: '3 Instructor Cars' },
+              { label: 'CAPACITÉ STRICTE', val: '290 Invités VIP', sub: '6 Vagues / Jour' },
+            ].map((stat, i) => (
+              <div key={i} className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
+                <span className="font-mono text-[8px] uppercase tracking-widest text-gray-500 block mb-1">
+                  {stat.label}
+                </span>
+                <span className="font-outfit text-sm sm:text-base font-black text-white block">
+                  {stat.val}
+                </span>
+                <span className="font-sans text-[10px] text-[#E0681C] block mt-0.5">
+                  {stat.sub}
+                </span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-
-      {/* ── 3. Main footer body ──────────────────────────── */}
-      <div className="container mx-auto px-4 pt-12 pb-10 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-10 mb-10">
-
-          {/* Col 1 — Brand */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="relative w-56 h-20 mb-5">
-              <Image src="/logo2.png" alt="Attijari Assurance Logo" fill className="object-contain object-left" />
-            </div>
-            <h3 className="font-playfair text-xl font-bold text-wafa-dark mb-2">{EVENT.name}</h3>
-            <p className="font-montserrat text-xs text-gray-600 leading-relaxed max-w-xs">
-              Un événement organisé avec soin pour célébrer l'excellence et renforcer nos liens.
-            </p>
-          </div>
-
-          {/* Col 2 — Centre: vertical separators + RSVP nudge */}
-          <div className="flex items-stretch gap-0 h-full">
-            {/* left separator */}
-            <div className="hidden md:flex flex-col items-center justify-center px-4">
-              <div className="w-px flex-1 bg-gradient-to-b from-transparent via-wafa-gold/30 to-transparent" />
-              <GoldDiamond size={7} />
-              <div className="w-px flex-1 bg-gradient-to-b from-transparent via-wafa-gold/30 to-transparent" />
-            </div>
-
-            {/* content */}
-            <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-2 px-4">
-              <p className="font-montserrat text-[9px] uppercase tracking-[0.3em] text-wafa-gold/60">
-                Soirée de gala
-              </p>
-              <div className="flex flex-col items-center gap-0.5">
-                <p className="font-playfair text-2xl font-bold text-wafa-dark leading-tight">{EVENT.dateLabel}</p>
-                <p className="font-montserrat text-[10px] text-gray-500 tracking-widest">{EVENT.timeLabel}</p>
+      {/* ── 2. Brandmark & Links ───────────────────────────────────── */}
+      <div className="container mx-auto px-4 py-12 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10 border-b border-white/5">
+          {/* Brand Presentation */}
+          <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+            <div className="flex items-center gap-3 xs:gap-4">
+              <div className="relative w-14 xs:w-18 sm:w-20 h-8 xs:h-9 sm:h-10 flex items-center justify-center flex-shrink-0">
+                <Image
+                  src="/2k.png"
+                  alt="2K Events Logo"
+                  width={80}
+                  height={36}
+                  className="object-contain brightness-150"
+                />
               </div>
-              <div className="flex items-center gap-2">
-                <div className="h-px w-6 bg-wafa-gold/30" />
-                <GoldDiamond size={5} />
-                <div className="h-px w-6 bg-wafa-gold/30" />
+              <div className="h-7 sm:h-8 w-px bg-white/20 flex-shrink-0" />
+              <div className="flex flex-col items-start justify-center">
+                <PorscheWordmark className="h-3 xs:h-3.5 sm:h-4 md:h-5 w-auto text-white" />
+                <span className="font-mono text-[6px] xs:text-[7px] sm:text-[8px] tracking-[0.22em] sm:tracking-[0.35em] text-[#E0681C] uppercase font-bold mt-1 block">
+                  CAYENNE E4 ELECTRIC ERA
+                </span>
               </div>
-              <p className="font-montserrat text-[10px] text-gray-500 leading-relaxed max-w-[140px]">
-                {EVENT.venue},<br />{EVENT.city}
-              </p>
-            </div>
-
-            {/* right separator */}
-            <div className="hidden md:flex flex-col items-center justify-center px-4">
-              <div className="w-px flex-1 bg-gradient-to-b from-transparent via-wafa-gold/30 to-transparent" />
-              <GoldDiamond size={7} />
-              <div className="w-px flex-1 bg-gradient-to-b from-transparent via-wafa-gold/30 to-transparent" />
+              <div className="h-7 sm:h-8 w-px bg-white/20 flex-shrink-0" />
+              {/* Domaine Neferis venue logo */}
+              <Image
+                src="/neferis-logo.png"
+                alt="Domaine Neferis"
+                width={110}
+                height={72}
+                className="h-10 sm:h-12 w-auto object-contain opacity-70 brightness-0 invert"
+              />
             </div>
           </div>
 
-          {/* Col 3 — Social & contact */}
-          <div className="flex flex-col items-center md:items-end text-center md:text-right">
-            <p className="font-montserrat text-xs text-wafa-gold/70 uppercase tracking-widest mb-5">Suivez-nous</p>
-            <div className="flex gap-3 mb-6">
-              {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-wafa-gold hover:border-wafa-gold hover:bg-wafa-gold/10 transition-all duration-300"
-                  aria-label="Social link"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
-            <p className="font-montserrat text-xs text-gray-500 leading-relaxed">
-              Pour toute question, contactez<br />
-              <a href="mailto:invitation@attijariassurance-event.com" className="text-wafa-gold/70 hover:text-wafa-gold transition-colors">
-                invitation@attijariassurance-event.com
-              </a>
-            </p>
+          {/* Quick Anchor Links */}
+          <div className="flex flex-wrap items-center justify-center gap-3 xs:gap-4 sm:gap-6 text-[10px] xs:text-xs font-outfit uppercase tracking-wider sm:tracking-widest text-gray-400">
+            <a href="#flotte" className="hover:text-[#E0681C] transition-colors">Cayenne E4</a>
+            <a href="#concept" className="hover:text-[#E0681C] transition-colors">Heritage × Future</a>
+            <a href="#domaine" className="hover:text-[#E0681C] transition-colors">Domaine Neferis</a>
+            <a href="#programme" className="hover:text-[#E0681C] transition-colors">Programme</a>
+            <a href="#simulateur" className="hover:text-[#E0681C] transition-colors">Fleet Calculator</a>
+            <a href="#confirmer" className="hover:text-[#E0681C] transition-colors">RSVP VIP</a>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-wafa-gold/20 to-transparent mb-8" />
-
-        {/* Copyright */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
-          <p className="font-montserrat text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} {EVENT.organizer}. Tous droits réservés.
+        {/* ── 3. Copyright & Legal ───────────────────────────────────── */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-[11px] font-sans text-gray-300">
+          <p>
+            © 2026 <strong>2K Events</strong> & <strong>Porsche Middle East & Africa FZE</strong>. Tous droits réservés.
           </p>
-          <div className="flex gap-6">
-            <a href="#" className="font-montserrat text-xs text-gray-500 hover:text-wafa-gold transition-colors">Mentions légales</a>
-            <a href="#" className="font-montserrat text-xs text-gray-500 hover:text-wafa-gold transition-colors">Politique de confidentialité</a>
+          <div className="flex items-center gap-4 font-mono text-[10px] text-gray-400">
+            <span>Campaign ID: {EVENT.campaignId}</span>
+            <span>•</span>
+            <span>Système C@P & CMM Conforme</span>
           </div>
         </div>
       </div>
 
-      {/* Back to top */}
+      {/* Scroll to Top Floating Button */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
-            initial={{ opacity: 0, scale: 0.5 }}
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
+            exit={{ opacity: 0, scale: 0.8 }}
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white border border-wafa-gold text-wafa-gold flex items-center justify-center shadow-gold-sm hover:bg-wafa-gold hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-wafa-gold"
-            aria-label="Retour en haut"
+            aria-label="Retour en haut de page"
+            className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#0E1015] border border-white/20 text-white flex items-center justify-center shadow-2xl hover:border-[#E0681C] hover:text-[#E0681C] transition-all cursor-pointer"
           >
-            <ChevronUp className="w-6 h-6" />
+            <ChevronUp className="w-5 h-5" />
           </motion.button>
         )}
       </AnimatePresence>

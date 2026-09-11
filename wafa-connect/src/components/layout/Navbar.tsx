@@ -28,8 +28,14 @@ export function Navbar() {
   }, [])
 
   const handleNavClick = (href: string) => {
-    setMenuOpen(false)
-    smoothScrollTo(href, -70, 0.9)
+    if (menuOpen) {
+      setMenuOpen(false)
+      setTimeout(() => {
+        smoothScrollTo(href, -70)
+      }, 60)
+    } else {
+      smoothScrollTo(href, -70)
+    }
   }
 
   return (
@@ -165,13 +171,13 @@ export function Navbar() {
             {/* Drawer */}
             <motion.div
               className={cn(
-                "fixed left-0 right-0 z-40 md:hidden bg-[#0E1015]/98 backdrop-blur-2xl border-b border-white/15 shadow-2xl overflow-hidden",
+                "fixed left-0 right-0 z-40 md:hidden bg-[#0E1015]/98 border-b border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.95)] overflow-hidden will-change-transform",
                 scrolled ? "top-[64px]" : "top-[80px]"
               )}
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
             >
               <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
                 {/* Mobile Drawer Co-Branding */}

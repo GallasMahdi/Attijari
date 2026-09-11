@@ -5,11 +5,31 @@
  * Always prefers the active Lenis smooth scroller instance for 120fps fluid motion,
  * with an instant-feel hardware-accelerated fallback.
  */
-export function smoothScrollTo(target: string | number | HTMLElement, offset: number = -70, duration: number = 0.95) {
+export function smoothScrollTo(target: string | number | HTMLElement, offset: number = -70, duration: number = 0.9) {
   if (typeof window === 'undefined') return
 
-  const lenis = (window as any).lenis
+  const isMobile = window.innerWidth < 768
 
+  // 1. Mobile devices: native hardware compositor thread (never drops frames or lags)
+  if (isMobile) {
+    if (typeof target === 'number') {
+      window.scrollTo({ top: target, behavior: 'smooth' })
+      return
+    }
+
+    const el = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target
+    if (el) {
+      const elTop = el.getBoundingClientRect().top + window.pageYOffset + offset
+      window.scrollTo({
+        top: Math.max(0, elTop),
+        behavior: 'smooth',
+      })
+    }
+    return
+  }
+
+  // 2. Desktop devices: Lenis smooth inertial scrolling
+  const lenis = (window as any).lenis
   if (lenis && typeof lenis.scrollTo === 'function') {
     lenis.scrollTo(target, {
       offset,
@@ -20,7 +40,7 @@ export function smoothScrollTo(target: string | number | HTMLElement, offset: nu
     return
   }
 
-  // Fallback if Lenis is not yet mounted or disabled
+  // 3. Fallback
   if (typeof target === 'number') {
     window.scrollTo({ top: target, behavior: 'smooth' })
     return
@@ -31,7 +51,7 @@ export function smoothScrollTo(target: string | number | HTMLElement, offset: nu
     const elTop = el.getBoundingClientRect().top + window.pageYOffset + offset
     window.scrollTo({
       top: Math.max(0, elTop),
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   }
 }

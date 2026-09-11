@@ -54,9 +54,16 @@
 
 html {
   scroll-behavior: auto;
-  /* Lenis handles smooth scroll */
-  overflow-x: hidden;
+  overflow-x: clip;
   background-color: #08090C;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  overflow-x: clip;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 section[id],

@@ -14,21 +14,68 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     // Only run in browser
     if (typeof window === 'undefined') return
 
-    // Check if mobile or reduced motion preference
+    // If reduced motion is requested
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    const isMobile = window.innerWidth < 768
 
+    // ── MOBILE STRATEGY (100% Native 120Hz Compositor Scrolling) ─────────────
+    // On touch/mobile devices, Lenis JS touch interception causes frame drops & freezing.
+    // We use native hardware compositor scrolling for 0ms input latency & 120fps fluid speed,
+    // while exposing a compliant scrollTo API for all section buttons & nav links.
+    if (isMobile) {
+      const mobileScroller = {
+        scrollTo: (target: any, options?: any) => {
+          const offset = options?.offset ?? -70
+          let top = 0
+          if (typeof target === 'number') {
+            top = target
+          } else {
+            const el = typeof target === 'string' ? document.querySelector(target) : target
+            if (el) {
+              top = el.getBoundingClientRect().top + window.pageYOffset + offset
+            }
+          }
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+        },
+      }
+
+      ;(window as any).lenis = mobileScroller
+
+      const handleAnchorClick = (e: MouseEvent) => {
+        const target = (e.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null
+        if (!target) return
+        const href = target.getAttribute('href')
+        if (href && href.length > 1 && href.startsWith('#')) {
+          const targetElement = document.querySelector(href)
+          if (targetElement) {
+            e.preventDefault()
+            mobileScroller.scrollTo(href, { offset: -70 })
+            try { history.pushState(null, '', href) } catch {}
+          }
+        }
+      }
+
+      document.addEventListener('click', handleAnchorClick)
+
+      return () => {
+        document.removeEventListener('click', handleAnchorClick)
+        ;(window as any).lenis = undefined
+      }
+    }
+
+    // ── DESKTOP STRATEGY (Luxury Inertial Smooth Scroll) ───────────────────────
     const lenis = new Lenis({
-      duration: isTouch ? 0.8 : 0.95, // Snappier, ultra-responsive scroll
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
-      gestureOrientation: 'vertical',
       smoothWheel: true,
-      touchMultiplier: 1.6,
       wheelMultiplier: 1.0,
-      prevent: (node: Element) => node instanceof Element && (node.hasAttribute('data-lenis-prevent') || node.closest('[data-lenis-prevent]') !== null),
+      syncTouch: false,
+      prevent: (node: Element) =>
+        node instanceof Element &&
+        (node.hasAttribute('data-lenis-prevent') || node.closest('[data-lenis-prevent]') !== null),
     })
 
     lenisRef.current = lenis
@@ -44,7 +91,6 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
 
     reqIdRef.current = requestAnimationFrame(raf)
 
-    // Pause RAF on background tabs to conserve GPU/CPU cycles
     const handleVisibilityChange = () => {
       if (document.hidden) {
         isRunning = false
@@ -56,7 +102,6 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     }
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
-    // Seamlessly intercept any internal hash link click for luxury smooth scrolling
     const handleAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null
       if (!target) return
@@ -65,12 +110,10 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
         const targetElement = document.querySelector(href)
         if (targetElement) {
           e.preventDefault()
-          lenis.scrollTo(href, { offset: -70, duration: 0.95 })
+          lenis.scrollTo(href, { offset: -70, duration: 0.9 })
           try {
             history.pushState(null, '', href)
-          } catch {
-            // ignore in sandboxed environments
-          }
+          } catch {}
         }
       }
     }

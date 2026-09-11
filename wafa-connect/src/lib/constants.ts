@@ -195,53 +195,39 @@ export const FLEET_CALCULATOR_DEFAULT = {
 
 export const PROGRAM = [
   {
-    time: '09h00',
-    label: 'Arrivée Domaine Neferis & Accueil Prestige',
-    sublabel: 'Passage sous l\'Arche Porsche · Avenue bordée de pins · Vérification du QR Pass VIP',
+    time: '18h30',
+    label: 'Accueil d\'Honneur & Tapis Rouge',
+    sublabel: 'Arrivée au Domaine Neferis sous l\'Arche Porsche · Service Voiturier VIP & Enregistrement',
     icon: '🏛️',
     highlight: false,
   },
   {
-    time: '09h30',
-    label: 'Remise du Coffret Collector & Briefing Pilotage',
-    sublabel: 'Présentation de l\'architecture 800V et de la transmission intégrale par les instructeurs Porsche',
-    icon: '🎙️',
-    highlight: false,
+    time: '19h15',
+    label: 'Dévoilement Officiel & Révélation E4',
+    sublabel: 'Révélation mondiale du nouveau Cayenne E4 Electric par la direction Porsche & 2K Events',
+    icon: '✨',
+    highlight: true,
   },
   {
-    time: '10h00',
-    label: 'Session d\'Essais Dynamiques — Piste & Avenue SUV',
-    sublabel: 'Prise en main des 8 véhicules Cayenne E4 Electric · #PorscheSUVExperience',
+    time: '20h00',
+    label: 'Essais Dynamiques Privés & Exposition',
+    sublabel: 'Prise en main sur piste privée & visite du musée vivant Heritage × Future',
     icon: '⚡',
     highlight: true,
   },
   {
-    time: '12h00',
-    label: 'Exposition Heritage × Future — Musée Vivant',
-    sublabel: 'Tension visuelle entre pierre brute du Domaine et projections numériques Porsche',
-    icon: '✨',
-    highlight: false,
-  },
-  {
-    time: '13h15',
-    label: 'Déjeuner Gastronomique & Networking Lounge',
-    sublabel: 'Hospitalité 2K Events dans le Salon d\'Honneur avec mobilier architectural signature',
+    time: '21h00',
+    label: 'Cocktail Dînatoire Gastronomique',
+    sublabel: 'Hospitalité d\'exception dans le Salon d\'Honneur avec gastronomie fine et accords mets-vins',
     icon: '🍽️',
     highlight: false,
   },
   {
-    time: '14h45',
-    label: 'Essais Tout-Terrain & Performance Track',
-    sublabel: 'Essais tout-terrain et relances instantanées 830 Nm sur le tracé dédié du Domaine',
-    icon: '🏁',
-    highlight: true,
-  },
-  {
-    time: '17h00',
-    label: 'Cocktail de Clôture & Immersion Sensorielle',
-    sublabel: 'Remise des certificats d\'accréditation VIP personnalisés et shooting photo officiel',
+    time: '22h30',
+    label: 'Remise du Coffret Collector & Clôture',
+    sublabel: 'Remise du cadeau exclusif numéroté, shooting photo officiel et départ privilégié',
     icon: '📸',
-    highlight: true,
+    highlight: false,
   },
 ] as const
 
@@ -273,9 +259,9 @@ export const JOURNEY_STEPS = [
 ] as const
 
 export const NAV_LINKS = [
-  { label: 'Cayenne E4', href: '#flotte' },
+  { label: 'Dévoilement', href: '#teaser' },
+  { label: 'Collection E4', href: '#flotte' },
   { label: 'Heritage × Future', href: '#concept' },
-  { label: 'Expérience', href: '#experience' },
+  { label: 'Programme VIP', href: '#programme' },
   { label: 'Domaine Neferis', href: '#domaine' },
-  { label: 'Programme', href: '#programme' },
 ] as const

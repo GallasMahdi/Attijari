@@ -8,30 +8,18 @@ import { HeroSection } from '@/components/sections/HeroSection'
 import { GuestResponse } from '@/types/guest'
 import { SmoothScrollProvider } from './SmoothScrollProvider'
 
-// Below-the-fold dynamic sections
-const FleetShowcaseSection = dynamic(
-  () => import('@/components/sections/FleetShowcaseSection').then((mod) => mod.FleetShowcaseSection),
-  { loading: () => <SectionSkeleton title="COLLECTION CAYENNE E4" height="h-[600px]" /> }
-)
+// Below-the-fold dynamic sections — Clean, essential luxury flow
 const MysteryTeaserSection = dynamic(
   () => import('@/components/sections/MysteryTeaserSection').then((mod) => mod.MysteryTeaserSection),
   { loading: () => <SectionSkeleton title="DÉVOILEMENT DU MODÈLE" height="h-[500px]" /> }
 )
+const FleetShowcaseSection = dynamic(
+  () => import('@/components/sections/FleetShowcaseSection').then((mod) => mod.FleetShowcaseSection),
+  { loading: () => <SectionSkeleton title="COLLECTION CAYENNE E4" height="h-[600px]" /> }
+)
 const HeritageConceptSection = dynamic(
   () => import('@/components/sections/HeritageConceptSection').then((mod) => mod.HeritageConceptSection),
   { loading: () => <SectionSkeleton title="HERITAGE × FUTURE" height="h-[500px]" /> }
-)
-const CayenneExperienceSection = dynamic(
-  () => import('@/components/sections/CayenneExperienceSection').then((mod) => mod.CayenneExperienceSection),
-  { loading: () => <SectionSkeleton title="L'EXPÉRIENCE CAYENNE E4" height="h-[600px]" /> }
-)
-const CountdownSection = dynamic(
-  () => import('@/components/sections/CountdownSection').then((mod) => mod.CountdownSection),
-  { loading: () => <SectionSkeleton title="COMPTE À REBOURS DU LANCEMENT" height="h-[300px]" /> }
-)
-const JourneySection = dynamic(
-  () => import('@/components/sections/JourneySection').then((mod) => mod.JourneySection),
-  { loading: () => <SectionSkeleton title="PARCOURS DE L'INVITÉ VIP" height="h-[400px]" /> }
 )
 const ProgramSection = dynamic(
   () => import('@/components/sections/ProgramSection').then((mod) => mod.ProgramSection),
@@ -83,56 +71,35 @@ export function EventExperienceClient() {
         {/* Critical LCP Hero section with genuine Cayenne E4 imagery */}
         <HeroSection startAnimation={isSplashFinished} />
 
-        {/* Lineup: 8 Cayenne E4 vehicles + instructor cars */}
-        <Suspense fallback={<SectionSkeleton title="COLLECTION CAYENNE E4" height="h-[600px]" />}>
-          <FleetShowcaseSection />
-        </Suspense>
-
-        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
-
-        {/* Feature 1: Interactive Shrouded Silhouette Teaser */}
+        {/* 1. Interactive Shrouded Silhouette Teaser */}
         <Suspense fallback={<SectionSkeleton title="DÉVOILEMENT DU MODÈLE" height="h-[500px]" />}>
           <MysteryTeaserSection />
         </Suspense>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
-        {/* Feature 2: Master Heritage × Future Concept (Slide 1) */}
+        {/* 2. Official Collection Lineup: 8 Cayenne E4 vehicles */}
+        <Suspense fallback={<SectionSkeleton title="COLLECTION CAYENNE E4" height="h-[600px]" />}>
+          <FleetShowcaseSection />
+        </Suspense>
+
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
+
+        {/* 3. Heritage × Future Concept */}
         <Suspense fallback={<SectionSkeleton title="HERITAGE × FUTURE" height="h-[500px]" />}>
           <HeritageConceptSection />
         </Suspense>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
-        {/* Feature 3: Cayenne E4 Driving Experience — 4 terrains, performance counters, RSVP */}
-        <Suspense fallback={<SectionSkeleton title="L'EXPÉRIENCE CAYENNE E4" height="h-[600px]" />}>
-          <CayenneExperienceSection />
-        </Suspense>
-
-        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
-
-        {/* Feature 4: Luxury Launch Countdown to Domaine Neferis */}
-        <Suspense fallback={<SectionSkeleton title="COMPTE À REBOURS DU LANCEMENT" height="h-[300px]" />}>
-          <CountdownSection />
-        </Suspense>
-
-        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
-
-        {/* Feature 5: VIP Guest Journey */}
-        <Suspense fallback={<SectionSkeleton title="PARCOURS DE L'INVITÉ VIP" height="h-[400px]" />}>
-          <JourneySection />
-        </Suspense>
-
-        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
-
-        {/* Feature 6: Soirée Timetable & Schedule */}
+        {/* 4. Soirée Program & Milestones */}
         <Suspense fallback={<SectionSkeleton title="PROGRAMME DE LA SOIRÉE VIP" height="h-[500px]" />}>
           <ProgramSection />
         </Suspense>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
-        {/* Feature 7: VIP RSVP Portal with Campaign ID tracking */}
+        {/* 5. VIP RSVP Portal with Instant Pass QR */}
         <Suspense fallback={<SectionSkeleton title="PORTAIL D'ACCRÉDITATION OFFICIEL" height="h-[500px]" />}>
           <ConfirmationSection
             onSuccess={handleConfirmationSuccess}
@@ -143,7 +110,7 @@ export function EventExperienceClient() {
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
-        {/* Feature 8: Domaine Neferis Venue & SUV Off-Road Avenue */}
+        {/* 6. Domaine Neferis Venue & Access */}
         <Suspense fallback={<SectionSkeleton title="LE DOMAINE NEFERIS & ACCÈS" height="h-[500px]" />}>
           <MapSection />
         </Suspense>

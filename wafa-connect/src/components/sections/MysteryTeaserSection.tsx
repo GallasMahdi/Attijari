@@ -40,7 +40,7 @@ export function MysteryTeaserSection() {
   const scrollToConfirm = () => smoothScrollTo('#confirmer', -80, 0.95)
 
   return (
-    <section className="relative py-24 md:py-32 bg-[#050608] overflow-hidden border-t border-white/5">
+    <section id="teaser" className="relative py-24 md:py-32 bg-[#050608] overflow-hidden border-t border-white/5">
       {/* Heritage ambient — subtle slate glow */}
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#6D8080]/[0.05] blur-[180px] rounded-full pointer-events-none" />
       {/* Future ambient — warm terracotta glow */}

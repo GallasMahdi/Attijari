@@ -75,7 +75,9 @@ export function EventExperienceClient() {
 
   return (
     <SmoothScrollProvider>
-      <SplashScreen onComplete={() => setIsSplashFinished(true)} />
+      {!isSplashFinished && (
+        <SplashScreen onComplete={() => setIsSplashFinished(true)} />
+      )}
 
       <main className="relative bg-[#08090C]">
         {/* Critical LCP Hero section with genuine Cayenne E4 imagery */}

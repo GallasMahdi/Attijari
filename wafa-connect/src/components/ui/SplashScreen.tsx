@@ -1,51 +1,57 @@
+// src/components/ui/SplashScreen.tsx
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-
 import { PorscheWordmark } from '@/components/ui/PorscheLogo'
-
-// Cinematic Porsche Tachometer Ignition Splash Duration (ms)
-const SPLASH_DURATION = 1500
 
 interface SplashScreenProps {
   onComplete?: () => void
 }
 
-import { useCallback } from 'react'
-
 export function SplashScreen({ onComplete }: SplashScreenProps) {
   const [show, setShow] = useState(true)
   const [revProgress, setRevProgress] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const isFinishedRef = useRef(false)
 
   const handleFinish = useCallback(() => {
+    if (isFinishedRef.current) return
+    isFinishedRef.current = true
+    try {
+      sessionStorage.setItem('porsche_splash_seen', '1')
+    } catch {}
     setShow(false)
-    document.body.style.overflow = 'unset'
     onComplete?.()
   }, [onComplete])
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
+    // Detect mobile for faster timing
+    const mobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window)
+    setIsMobile(mobile)
 
-    // High-adrenaline tachometer sweep from 0 to 100% in ~1100ms
-    const interval = setInterval(() => {
-      setRevProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval)
-          return 100
-        }
-        return prev + 4
-      })
-    }, 40)
+    // Faster adrenaline sweep: 800ms on mobile, 1200ms on desktop
+    const duration = mobile ? 850 : 1200
+    const startTime = performance.now()
 
-    const timer = setTimeout(() => {
-      handleFinish()
-    }, SPLASH_DURATION)
+    let reqId: number
+
+    const animateSweep = (currentTime: number) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(100, Math.round((elapsed / (duration * 0.75)) * 100))
+      setRevProgress(progress)
+
+      if (elapsed < duration && !isFinishedRef.current) {
+        reqId = requestAnimationFrame(animateSweep)
+      } else {
+        handleFinish()
+      }
+    }
+
+    reqId = requestAnimationFrame(animateSweep)
 
     return () => {
-      clearInterval(interval)
-      clearTimeout(timer)
-      document.body.style.overflow = 'unset'
+      cancelAnimationFrame(reqId)
     }
   }, [handleFinish])
 
@@ -55,13 +61,15 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
         <motion.div
           key="porsche-splash"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#08090C] overflow-hidden select-none"
+          // Pure GPU opacity fade - ZERO filter:blur which freezes mobile GPUs
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: isMobile ? 0.22 : 0.35, ease: 'easeOut' }}
+          onClick={handleFinish}
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#08090C] overflow-hidden select-none cursor-pointer"
         >
           {/* Ambient red laser flares */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-red-600/[0.12] blur-[120px] rounded-full" />
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${isMobile ? 'w-[340px] h-[180px] bg-red-600/[0.08] blur-2xl' : 'w-[700px] h-[350px] bg-red-600/[0.12] blur-[100px]'} rounded-full`} />
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-600/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-600/40 to-transparent" />
           </div>
@@ -75,8 +83,8 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-2 px-3.5 py-1 rounded-full border border-red-600/30 bg-red-950/20 backdrop-blur-md"
+              transition={{ duration: 0.4 }}
+              className="flex items-center gap-2 px-3.5 py-1 rounded-full border border-red-600/30 bg-red-950/20 backdrop-blur-sm"
             >
               <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
               <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-red-400 font-bold">
@@ -86,13 +94,13 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
 
             {/* 2K EVENTS & PORSCHE Dual Prestige Visual */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="text-center relative flex flex-col items-center w-full"
             >
               {/* Glowing Red Backlight */}
-              <div className="absolute -inset-10 bg-red-600/25 blur-3xl rounded-full pointer-events-none" />
+              <div className={`absolute -inset-6 sm:-inset-10 bg-red-600/20 ${isMobile ? 'blur-xl' : 'blur-3xl'} rounded-full pointer-events-none`} />
 
               <div className="relative flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 md:gap-12 w-full">
                 {/* 1. 2K Events Logo - Equal Size & Presence */}

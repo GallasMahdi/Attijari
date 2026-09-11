@@ -30,10 +30,6 @@ const CountdownSection = dynamic(
   () => import('@/components/sections/CountdownSection').then((mod) => mod.CountdownSection),
   { loading: () => <SectionSkeleton title="COMPTE À REBOURS DU LANCEMENT" height="h-[300px]" /> }
 )
-const HospitalitySection = dynamic(
-  () => import('@/components/sections/HospitalitySection').then((mod) => mod.HospitalitySection),
-  { loading: () => <SectionSkeleton title="HOSPITALITÉ DOMAINE NEFERIS" height="h-[500px]" /> }
-)
 const JourneySection = dynamic(
   () => import('@/components/sections/JourneySection').then((mod) => mod.JourneySection),
   { loading: () => <SectionSkeleton title="PARCOURS DE L'INVITÉ VIP" height="h-[400px]" /> }
@@ -120,28 +116,21 @@ export function EventExperienceClient() {
 
         <PorscheCheckeredBand variant="divider" />
 
-        {/* Feature 5: 2K Events Luxury Hospitality at Domaine Neferis */}
-        <Suspense fallback={<SectionSkeleton title="HOSPITALITÉ DOMAINE NEFERIS" height="h-[500px]" />}>
-          <HospitalitySection />
-        </Suspense>
-
-        <PorscheCheckeredBand variant="divider" flip />
-
-        {/* Feature 6: VIP Guest Journey */}
+        {/* Feature 5: VIP Guest Journey */}
         <Suspense fallback={<SectionSkeleton title="PARCOURS DE L'INVITÉ VIP" height="h-[400px]" />}>
           <JourneySection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" />
+        <PorscheCheckeredBand variant="divider" flip />
 
-        {/* Feature 7: Waves Timetable & Schedule */}
+        {/* Feature 6: Waves Timetable & Schedule */}
         <Suspense fallback={<SectionSkeleton title="PROGRAMME DES VAGUES & SOIRÉE" height="h-[500px]" />}>
           <ProgramSection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" flip />
+        <PorscheCheckeredBand variant="divider" />
 
-        {/* Feature 8: VIP RSVP Portal with Campaign ID tracking */}
+        {/* Feature 7: VIP RSVP Portal with Campaign ID tracking */}
         <Suspense fallback={<SectionSkeleton title="PORTAIL D'ACCRÉDITATION OFFICIEL" height="h-[500px]" />}>
           <ConfirmationSection
             onSuccess={handleConfirmationSuccess}
@@ -150,9 +139,9 @@ export function EventExperienceClient() {
           />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" />
+        <PorscheCheckeredBand variant="divider" flip />
 
-        {/* Feature 9: Domaine Neferis Venue & SUV Off-Road Avenue */}
+        {/* Feature 8: Domaine Neferis Venue & SUV Off-Road Avenue */}
         <Suspense fallback={<SectionSkeleton title="LE DOMAINE NEFERIS & ACCÈS" height="h-[500px]" />}>
           <MapSection />
         </Suspense>

@@ -97,9 +97,8 @@ export function MysteryTeaserSection() {
                 priority
                 unoptimized
                 sizes="(max-width: 1280px) 100vw, 1280px"
-                className={`object-cover object-center transition-all duration-700 ease-out ${
-                  isLightsOn ? 'brightness-110 contrast-105 saturate-110' : 'brightness-90 saturate-85'
-                }`}
+                className={`object-cover object-center transition-all duration-700 ease-out ${isLightsOn ? 'brightness-110 contrast-105 saturate-110' : 'brightness-90 saturate-85'
+                  }`}
               />
 
               {/* Dark luxury vignette */}
@@ -120,9 +119,8 @@ export function MysteryTeaserSection() {
 
             {/* 3. Electric Future Lighting Layer (Active when Lights ON) */}
             <div
-              className={`absolute inset-0 pointer-events-none z-10 transition-opacity duration-700 ease-out ${
-                isLightsOn ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 pointer-events-none z-10 transition-opacity duration-700 ease-out ${isLightsOn ? 'opacity-100' : 'opacity-0'
+                }`}
             >
               {/* A. Cayenne E4 DRL — 4-Point LED Matrix signature (front headlight) */}
               <div className="absolute top-[46%] left-[13%] -translate-x-1/2 -translate-y-1/2 flex flex-col gap-0.5 sm:gap-1 p-1 sm:p-1.5 rounded-md sm:rounded-lg bg-black/80 backdrop-blur-sm border border-white/40 shadow-[0_0_25px_rgba(255,255,255,0.8)]">
@@ -171,6 +169,7 @@ export function MysteryTeaserSection() {
               {justToggled && isLightsOn && (
                 <motion.div
                   initial={{ opacity: 0.6 }}
+
                   animate={{ opacity: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
@@ -226,11 +225,10 @@ export function MysteryTeaserSection() {
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); toggleLights(); }}
-                  className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl font-outfit text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-lg ${
-                    isLightsOn
+                  className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl font-outfit text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-lg ${isLightsOn
                       ? 'bg-[#E0681C]/20 border border-[#E0681C] text-white shadow-[0_0_20px_rgba(224,104,28,0.3)]'
                       : 'bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:border-[#E0681C]/50'
-                  }`}
+                    }`}
                 >
                   <Zap
                     className={`w-4 h-4 transition-transform duration-300 ${isLightsOn ? 'rotate-12 text-[#E0681C]' : 'text-gray-300'}`}
@@ -263,11 +261,10 @@ export function MysteryTeaserSection() {
             <button
               type="button"
               onClick={toggleLights}
-              className={`w-full flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-outfit text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-md ${
-                isLightsOn
+              className={`w-full flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-outfit text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-md ${isLightsOn
                   ? 'bg-[#E0681C]/20 border border-[#E0681C] text-white'
                   : 'bg-white/10 border border-white/20 text-white'
-              }`}
+                }`}
             >
               <Zap className={`w-3.5 h-3.5 ${isLightsOn ? 'text-[#E0681C]' : 'text-gray-300'}`} />
               <span>{isLightsOn ? 'Masquer Signature LED' : 'Révéler Signature LED'}</span>

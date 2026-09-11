@@ -184,14 +184,9 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
 
             {/* Rapid Horizontal Red Laser Lightbar */}
             <div className="w-full max-w-[280px] h-[3px] rounded-full bg-white/10 overflow-hidden relative">
-              <motion.div
-                initial={{ width: '0%' }}
-                animate={{ width: '100%' }}
-                transition={{
-                  duration: (SPLASH_DURATION - 300) / 1000,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="h-full bg-gradient-to-r from-red-600 via-red-400 to-white shadow-[0_0_12px_#DC2626]"
+              <div
+                style={{ width: `${revProgress}%` }}
+                className="h-full bg-gradient-to-r from-red-600 via-red-400 to-white shadow-[0_0_12px_#DC2626] transition-[width] duration-75 ease-out"
               />
             </div>
 

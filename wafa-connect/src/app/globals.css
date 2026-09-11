@@ -4,36 +4,35 @@
 @tailwind utilities;
 
 :root {
+  /* Minimalist Luxury 4-Color Palette: Noir, Terracotta, Slate, White */
   --porsche-black: #08090C;
   --porsche-dark: #0E1015;
-  --porsche-dark-card: #14171F;
-  --porsche-carbon: #1B1F2A;
+  --porsche-dark-card: #12151D;
   --porsche-terracotta: #E0681C;
-  --porsche-mystic: #6D8080;
   --porsche-slate: #6D8080;
-  --porsche-paleblue: #A8D5E2;
-  --porsche-electric: #00B4C6;
-  --porsche-stone: #8B7355;
-  --porsche-warm-stone: #C4A882;
-  --porsche-silver: #F4F5F7;
-  --porsche-platinum: #D1D5DB;
-  --porsche-gray: #8E95A5;
-  --porsche-yellow: #FFCC00;
+  --porsche-white: #FFFFFF;
 
-  /* Heritage × Future — Electric Cayenne palette */
+  /* Aliases for consistency across components */
+  --porsche-carbon: #12151D;
+  --porsche-mystic: #6D8080;
+  --porsche-silver: #FFFFFF;
+  --porsche-platinum: #D1D5DB;
+  --porsche-gray: #6D8080;
+
+  /* Heritage × Future Minimalist Tokens */
   --electric-green: #6D8080;
-  --electric-green-glow: rgba(109, 128, 128, 0.45);
-  --electric-pale: #A8D5E2;
-  --electric-teal: #00B4C6;
-  --electric-teal-glow: rgba(0, 180, 198, 0.45);
+  --electric-green-glow: rgba(109, 128, 128, 0.25);
+  --electric-pale: #FFFFFF;
+  --electric-teal: #E0681C;
+  --electric-teal-glow: rgba(224, 104, 28, 0.25);
   --heritage-terracotta: #E0681C;
-  --heritage-stone: #8B7355;
-  --heritage-warm: #C4A882;
-  --heritage-dark: #2C2318;
+  --heritage-stone: #6D8080;
+  --heritage-warm: #E0681C;
+  --heritage-dark: #0E1015;
   --heritage-amber: #E0681C;
 
-  /* Aliased for component backwards compatibility */
-  --wafa-dark: #F4F5F7;
+  /* Legacy compatibility aliases */
+  --wafa-dark: #FFFFFF;
   --wafa-green: #6D8080;
   --wafa-light: #E0681C;
   --wafa-gold: #E0681C;
@@ -178,89 +177,36 @@ a:hover {
   animation: shimmer 3s linear infinite;
 }
 
-/* Red/Silver racing gradient text */
-.text-gradient-red {
-  background: linear-gradient(135deg, #FF334B 0%, #D5001C 50%, #B00016 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-silver {
-  background: linear-gradient(180deg, #FFFFFF 0%, #C4C8D0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-
-/* Heritage × Future gradient utilities */
-.text-gradient-electric {
-  background: linear-gradient(135deg, #A8D5E2 0%, #00B4C6 50%, #3D8B37 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-heritage {
-  background: linear-gradient(135deg, #D4870A 0%, #C4A882 50%, #8B7355 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
+/* Minimalist Luxury Text Gradients: Strictly White, Terracotta, and Slate */
+.text-gradient-red,
+.text-gradient-electric,
+.text-gradient-heritage,
 .text-gradient-terracotta {
-  background: linear-gradient(135deg, #FF7A45 0%, #E0681C 50%, #B83E12 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #E0681C 75%, #B83E12 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Official Porsche Cayenne E4 — Tread → Checkered Flag Transition */
-.porsche-checkered-ribbon {
-  background-color: #E0681C;
-  background-image:
-    /* Checker squares (right side) */
-    repeating-conic-gradient(#6D8080 0% 25%, #E0681C 0% 50%),
-    /* Tread vertical stripes (left side, fading out) */
-    repeating-linear-gradient(
-      90deg,
-      #6D8080 0px,  #6D8080 3px,
-      #E0681C 3px,  #E0681C 7px,
-      #6D8080 7px,  #6D8080 9px,
-      #E0681C 9px,  #E0681C 14px,
-      #6D8080 14px, #6D8080 17px,
-      #E0681C 17px, #E0681C 20px
-    );
-  background-size: 16px 16px, 20px 100%;
-  background-position: 0 0, 0 0;
-  /* Fade mask: tread on left, checker on right */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 30%, black 60%, transparent 65%),
-                      linear-gradient(90deg, black 0%, black 60%, transparent 65%);
-  mask-image: linear-gradient(90deg, black 0%, black 55%, transparent 75%),
-              linear-gradient(90deg, transparent 40%, black 65%, black 100%);
+.text-gradient-silver,
+.text-gradient-slate {
+  background: linear-gradient(180deg, #FFFFFF 0%, #6D8080 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .glass-terracotta {
-  background: linear-gradient(135deg,
-      rgba(224, 104, 28, 0.12) 0%,
-      rgba(14, 16, 21, 0.85) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(224, 104, 28, 0.35);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(224, 104, 28, 0.18);
+  background: rgba(18, 21, 29, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(224, 104, 28, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
-/* Carbon weave background texture */
+/* Minimalist Deep Black background */
 .carbon-pattern {
-  background-color: #0c0e14;
-  background-image:
-    linear-gradient(45deg, #11141c 25%, transparent 25%),
-    linear-gradient(-45deg, #11141c 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #11141c 75%),
-    linear-gradient(-45deg, transparent 75%, #11141c 75%);
-  background-size: 6px 6px;
-  background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
+  background-color: transparent;
 }
 
 /* Stone texture for heritage panels */

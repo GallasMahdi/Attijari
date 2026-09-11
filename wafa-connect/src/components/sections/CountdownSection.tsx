@@ -42,7 +42,7 @@ export function CountdownSection() {
             Compte à Rebours <span className="text-gradient-terracotta italic">Avant le Lancement</span>
           </h2>
           <p className="font-sans text-xs sm:text-sm text-gray-400 mt-2 max-w-lg mx-auto">
-            18 — 21 Juin 2026 · Ouverture officielle des 6 vagues d'essais quotidiennes du Cayenne E4 Electric
+            18 — 21 Juin 2026 · Soirée de dévoilement officiel et essais dynamiques du nouveau Cayenne E4 Electric
           </p>
         </div>
 

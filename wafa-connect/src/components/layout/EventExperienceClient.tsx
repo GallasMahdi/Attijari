@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { SplashScreen } from '@/components/ui/SplashScreen'
 import { HeroSection } from '@/components/sections/HeroSection'
-import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
 import { GuestResponse } from '@/types/guest'
 import { SmoothScrollProvider } from './SmoothScrollProvider'
 
@@ -36,7 +35,7 @@ const JourneySection = dynamic(
 )
 const ProgramSection = dynamic(
   () => import('@/components/sections/ProgramSection').then((mod) => mod.ProgramSection),
-  { loading: () => <SectionSkeleton title="PROGRAMME DES VAGUES & SOIRÉE" height="h-[500px]" /> }
+  { loading: () => <SectionSkeleton title="PROGRAMME DE LA SOIRÉE VIP" height="h-[500px]" /> }
 )
 const ConfirmationSection = dynamic(
   () => import('@/components/sections/ConfirmationSection').then((mod) => mod.ConfirmationSection),
@@ -64,7 +63,8 @@ export function EventExperienceClient() {
   const [guestData, setGuestData] = useState<GuestResponse | null>(null)
 
   useEffect(() => {
-    if (sessionStorage.getItem('porsche_splash_seen')) {
+    // In production, keep 1 view per session; in dev, allow seeing updates on each refresh
+    if (process.env.NODE_ENV !== 'development' && sessionStorage.getItem('porsche_splash_seen')) {
       setIsSplashFinished(true)
     }
   }, [])
@@ -88,49 +88,49 @@ export function EventExperienceClient() {
           <FleetShowcaseSection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* Feature 1: Interactive Shrouded Silhouette Teaser */}
         <Suspense fallback={<SectionSkeleton title="DÉVOILEMENT DU MODÈLE" height="h-[500px]" />}>
           <MysteryTeaserSection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" flip />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* Feature 2: Master Heritage × Future Concept (Slide 1) */}
         <Suspense fallback={<SectionSkeleton title="HERITAGE × FUTURE" height="h-[500px]" />}>
           <HeritageConceptSection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* Feature 3: Cayenne E4 Driving Experience — 4 terrains, performance counters, RSVP */}
         <Suspense fallback={<SectionSkeleton title="L'EXPÉRIENCE CAYENNE E4" height="h-[600px]" />}>
           <CayenneExperienceSection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" flip />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* Feature 4: Luxury Launch Countdown to Domaine Neferis */}
         <Suspense fallback={<SectionSkeleton title="COMPTE À REBOURS DU LANCEMENT" height="h-[300px]" />}>
           <CountdownSection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* Feature 5: VIP Guest Journey */}
         <Suspense fallback={<SectionSkeleton title="PARCOURS DE L'INVITÉ VIP" height="h-[400px]" />}>
           <JourneySection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" flip />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
-        {/* Feature 6: Waves Timetable & Schedule */}
-        <Suspense fallback={<SectionSkeleton title="PROGRAMME DES VAGUES & SOIRÉE" height="h-[500px]" />}>
+        {/* Feature 6: Soirée Timetable & Schedule */}
+        <Suspense fallback={<SectionSkeleton title="PROGRAMME DE LA SOIRÉE VIP" height="h-[500px]" />}>
           <ProgramSection />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* Feature 7: VIP RSVP Portal with Campaign ID tracking */}
         <Suspense fallback={<SectionSkeleton title="PORTAIL D'ACCRÉDITATION OFFICIEL" height="h-[500px]" />}>
@@ -141,7 +141,7 @@ export function EventExperienceClient() {
           />
         </Suspense>
 
-        <PorscheCheckeredBand variant="divider" flip />
+        <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* Feature 8: Domaine Neferis Venue & SUV Off-Road Avenue */}
         <Suspense fallback={<SectionSkeleton title="LE DOMAINE NEFERIS & ACCÈS" height="h-[500px]" />}>
@@ -149,7 +149,7 @@ export function EventExperienceClient() {
         </Suspense>
       </main>
 
-      {/* Floating scroll progress bar — Porsche Terracotta to Cyan */}
+      {/* Minimalist Floating scroll progress bar — Terracotta to Slate */}
       <ScrollProgressBar />
     </SmoothScrollProvider>
   )
@@ -165,8 +165,8 @@ function ScrollProgressBar() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 z-[100] h-[3px] 
-                 bg-gradient-to-r from-[#E0681C] via-[#00B4C6] to-[#6D8080] origin-left will-change-transform shadow-[0_0_12px_#E0681C]"
+      className="fixed top-0 left-0 right-0 z-[100] h-[2px] 
+                 bg-gradient-to-r from-[#E0681C] to-[#6D8080] origin-left will-change-transform opacity-80"
       style={{ scaleX }}
     />
   )

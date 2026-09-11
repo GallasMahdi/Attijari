@@ -21,7 +21,6 @@ import { GuestResponse } from '@/types/guest'
 import { EVENT } from '@/lib/constants'
 import { scaleIn, fadeUp, staggerContainer } from '@/lib/animations'
 import { cn } from '@/lib/utils'
-import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
 
 interface GuestQRCardProps {
   guest: GuestResponse
@@ -204,15 +203,15 @@ export function GuestQRCard({ guest, onReset }: GuestQRCardProps) {
           'will-change-transform select-none'
         )}
       >
-        {/* Checkered Top Ribbon Band */}
-        <PorscheCheckeredBand variant="slim" />
+        {/* Clean Luxury Top Hairline */}
+        <div className="h-[2px] w-full bg-[#E0681C]" />
 
         {/* 3D Holographic Iridescent Sheen Layer */}
         <div
           className="absolute inset-0 pointer-events-none z-30 transition-opacity duration-300"
           style={{
             opacity: glarePos.opacity,
-            background: `radial-gradient(circle 240px at ${glarePos.x}% ${glarePos.y}%, rgba(224, 104, 28, 0.25) 0%, rgba(109, 128, 128, 0.2) 40%, transparent 80%)`,
+            background: `radial-gradient(circle 240px at ${glarePos.x}% ${glarePos.y}%, rgba(224, 104, 28, 0.2) 0%, rgba(109, 128, 128, 0.15) 40%, transparent 80%)`,
             mixBlendMode: 'screen',
           }}
         />
@@ -255,7 +254,7 @@ export function GuestQRCard({ guest, onReset }: GuestQRCardProps) {
               <h3 className="font-outfit font-black text-lg xs:text-xl sm:text-2xl tracking-[0.1em] xs:tracking-[0.14em] text-white uppercase leading-tight">
                 CAYENNE E4 LAUNCH
               </h3>
-              <p className="font-mono text-[8px] xs:text-[9px] text-[#A8D5E2] uppercase tracking-[0.2em] xs:tracking-[0.25em]">
+              <p className="font-mono text-[8px] xs:text-[9px] text-[#6D8080] uppercase tracking-[0.2em] xs:tracking-[0.25em]">
                 HERITAGE × FUTURE · LE DOMAINE NEFERIS
               </p>
             </div>
@@ -326,7 +325,7 @@ export function GuestQRCard({ guest, onReset }: GuestQRCardProps) {
             </div>
             <div className="text-right">
               <div className="flex items-center justify-end gap-1.5 text-gray-400 mb-0.5">
-                <MapPin className="w-3 h-3 text-[#00B4C6] flex-shrink-0" />
+                <MapPin className="w-3 h-3 text-[#6D8080] flex-shrink-0" />
                 <p className="text-[9px] uppercase font-sans tracking-wider font-semibold">Lieu de Lancement</p>
               </div>
               <p className="text-xs text-gray-100 font-sans font-bold">Le Domaine Neferis</p>
@@ -351,10 +350,7 @@ export function GuestQRCard({ guest, onReset }: GuestQRCardProps) {
         <motion.button
           variants={fadeUp}
           onClick={handleDownload}
-          className="w-full py-4 px-6 rounded-xl font-outfit font-black text-xs uppercase tracking-[0.2em] text-white shadow-[0_10px_25px_rgba(224, 104, 28,0.35)] flex items-center justify-center gap-3 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
-          style={{
-            background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)',
-          }}
+          className="w-full py-4 px-6 rounded-xl font-outfit font-black text-xs uppercase tracking-[0.2em] text-white shadow-[0_10px_25px_rgba(224,104,28,0.35)] flex items-center justify-center gap-3 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer bg-[#E0681C] hover:bg-[#ff7a26]"
         >
           <Download className="w-4 h-4" />
           <span>Télécharger Mon Pass VIP (HD)</span>
@@ -366,7 +362,7 @@ export function GuestQRCard({ guest, onReset }: GuestQRCardProps) {
             onClick={handleAddToCalendar}
             className="py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-sans text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
-            <Calendar className="w-3.5 h-3.5 text-[#00B4C6]" />
+            <Calendar className="w-3.5 h-3.5 text-[#E0681C]" />
             <span>Ajouter au Calendrier</span>
           </button>
 

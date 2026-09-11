@@ -2,9 +2,8 @@
 'use client'
 import React, { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Calculator, Zap, Users, Target, Car, TrendingUp, HelpCircle, CheckCircle2, ShieldAlert } from 'lucide-react'
+import { Calculator, Zap, Users, Car, CheckCircle2, ChevronRight, HelpCircle } from 'lucide-react'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
-import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
 
 export function FleetCalculatorSection() {
   // Inputs from Slide 4 with default official values
@@ -72,8 +71,8 @@ export function FleetCalculatorSection() {
 
         {/* Main Simulator Card */}
         <div className="max-w-5xl mx-auto rounded-3xl bg-[#0E1015] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.9)] overflow-hidden">
-          {/* Checkered Header Band */}
-          <PorscheCheckeredBand variant="slim" />
+          {/* Clean hairline */}
+          <div className="h-[2px] w-full bg-[#E0681C]" />
 
           <div className="p-4 xs:p-6 sm:p-8 md:p-10 space-y-6 sm:space-y-8">
             {/* Step 1: Target Funnel Planning Inputs */}
@@ -159,7 +158,7 @@ export function FleetCalculatorSection() {
                     Conversion Participant → Lead
                   </span>
                   <div className="flex items-baseline justify-between mb-2">
-                    <span className="font-outfit text-3xl font-black text-[#00B4C6]">{conversionParticipantToLead}%</span>
+                    <span className="font-outfit text-3xl font-black text-[#E0681C]">{conversionParticipantToLead}%</span>
                     <span className="font-mono text-[10px] text-gray-500 uppercase">Moyenne Régionale</span>
                   </div>
                   <input
@@ -168,7 +167,7 @@ export function FleetCalculatorSection() {
                     max={40}
                     value={conversionParticipantToLead}
                     onChange={(e) => setConversionParticipantToLead(Number(e.target.value))}
-                    className="w-full accent-[#00B4C6] cursor-pointer"
+                    className="w-full accent-[#E0681C] cursor-pointer"
                   />
                 </div>
               </div>
@@ -200,7 +199,7 @@ export function FleetCalculatorSection() {
                 <span className="font-mono text-[10px] text-gray-400 uppercase tracking-widest block mb-1">
                   TARGET # PARTICIPANTS TOTAUX
                 </span>
-                <span className="font-outfit text-4xl font-black text-[#A8D5E2]">
+                <span className="font-outfit text-4xl font-black text-[#6D8080]">
                   {calculations.targetParticipants}
                 </span>
                 <span className="font-sans text-xs text-gray-400 block mt-1">Invités VIP à accueillir</span>
@@ -301,7 +300,7 @@ export function FleetCalculatorSection() {
                   </div>
 
                   <div className="px-4 sm:px-5 py-3 rounded-2xl bg-black/60 border border-[#6D8080]/80 text-center shadow-[0_0_20px_rgba(109, 128, 128,0.25)] flex-1 xs:flex-initial">
-                    <span className="font-mono text-[9px] text-[#A8D5E2] uppercase tracking-widest block font-bold">
+                    <span className="font-mono text-[9px] text-[#6D8080] uppercase tracking-widest block font-bold">
                       INSTRUCTOR CARS
                     </span>
                     <span className="font-outfit text-3xl font-black text-white">

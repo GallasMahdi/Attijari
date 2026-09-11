@@ -40,16 +40,16 @@ export function FleetShowcaseSection() {
       <SectionWrapper className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#00B4C6]/30 bg-[#00B4C6]/10 backdrop-blur-md mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#00B4C6]" />
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.35em] text-[#A8D5E2]">
-              LINEUP OFFICIEL · 2K EVENTS × PORSCHE
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#6D8080]/30 bg-[#6D8080]/10 backdrop-blur-md mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E0681C]" />
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.35em] text-[#6D8080]">
+              LINEUP OFFICIEL · CAYENNE E4
             </span>
           </div>
 
           <h2 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-wider mb-4">
             Experience the Cayenne{' '}
-            <span className="text-gradient-electric italic">in a New Form</span>
+            <span className="text-gradient-terracotta italic">in a New Form</span>
           </h2>
           <p className="font-sans text-sm md:text-base text-gray-300 leading-relaxed max-w-xl mx-auto">
             Trois expressions d'un même ADN. Le Cayenne E4 Electric en vedette — 8 véhicules de lancement sur piste.
@@ -69,24 +69,18 @@ export function FleetShowcaseSection() {
                 }}
                 className={`relative px-3.5 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 rounded-full font-outfit text-[10px] xs:text-xs font-bold uppercase tracking-wider transition-all duration-300 border ${
                   isSelected
-                    ? 'text-white scale-105'
+                    ? 'text-white bg-[#E0681C]/20 border-[#E0681C] shadow-[0_0_20px_rgba(224,104,28,0.3)] scale-105'
                     : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/30 hover:text-white'
                 }`}
-                style={isSelected ? {
-                  backgroundColor: `${car.accentColor}25`,
-                  borderColor: car.accentColor,
-                  boxShadow: `0 0 20px ${car.accentColor}50`,
-                } : {}}
               >
                 {car.name}
                 {car.isElectric && (
-                  <span className="ml-1.5 inline-block w-1.5 h-1.5 rounded-full bg-[#00B4C6] align-middle" />
+                  <span className="ml-1.5 inline-block w-1.5 h-1.5 rounded-full bg-[#E0681C] align-middle" />
                 )}
                 {isSelected && (
                   <motion.div
                     layoutId="fleet-active-indicator"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full"
-                    style={{ background: car.accentColor, boxShadow: `0 0 8px ${car.accentColor}` }}
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-[#E0681C] shadow-[0_0_8px_#E0681C]"
                   />
                 )}
               </button>
@@ -115,21 +109,16 @@ export function FleetShowcaseSection() {
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <span
-                    className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest font-mono"
-                    style={{
-                      backgroundColor: `${primaryColor}20`,
-                      color: primaryColor,
-                      border: `1px solid ${primaryColor}40`,
-                    }}
+                    className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest font-mono bg-[#E0681C]/15 text-[#E0681C] border border-[#E0681C]/30"
                   >
                     {selectedModel.tag}
                   </span>
-                  <span className="font-mono text-xs text-gray-400 uppercase tracking-widest">
+                  <span className="font-mono text-xs text-[#6D8080] uppercase tracking-widest">
                     {selectedModel.category}
                   </span>
                   {selectedModel.isElectric && (
-                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#00B4C6]/10 border border-[#00B4C6]/30 text-[9px] font-bold text-[#A8D5E2] font-mono uppercase">
-                      <Leaf className="w-2.5 h-2.5" /> FULL ELECTRIC
+                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#6D8080]/15 border border-[#6D8080]/30 text-[9px] font-bold text-gray-200 font-mono uppercase">
+                      <Leaf className="w-2.5 h-2.5 text-[#E0681C]" /> FULL ELECTRIC
                     </span>
                   )}
                 </div>
@@ -153,37 +142,37 @@ export function FleetShowcaseSection() {
               {/* Specs Grid */}
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="p-4 rounded-2xl bg-black/40 border border-white/5 flex flex-col">
-                  <div className="flex items-center gap-2 mb-1" style={{ color: primaryColor }}>
+                  <div className="flex items-center gap-2 mb-1 text-[#E0681C]">
                     <Zap size={15} />
-                    <span className="font-sans text-[10px] uppercase tracking-wider text-gray-400 font-semibold">
+                    <span className="font-sans text-[10px] uppercase tracking-wider text-[#6D8080] font-semibold">
                       Puissance
                     </span>
                   </div>
                   <span className="font-mono text-xl sm:text-2xl font-black text-white tracking-tight tabular-nums">
                     {selectedModel.power.split(' ')[0]}{' '}
-                    <span className="text-xs font-bold" style={{ color: primaryColor }}>CH</span>
+                    <span className="text-xs font-bold text-[#E0681C]">CH</span>
                   </span>
                   <span className="text-[10px] text-gray-500 font-mono mt-0.5">{selectedModel.power}</span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-black/40 border border-white/5 flex flex-col">
-                  <div className="flex items-center gap-2 mb-1" style={{ color: primaryColor }}>
+                  <div className="flex items-center gap-2 mb-1 text-[#E0681C]">
                     <Timer size={15} />
-                    <span className="font-sans text-[10px] uppercase tracking-wider text-gray-400 font-semibold">
+                    <span className="font-sans text-[10px] uppercase tracking-wider text-[#6D8080] font-semibold">
                       0 — 100 KM/H
                     </span>
                   </div>
                   <span className="font-mono text-xl sm:text-2xl font-black text-white tracking-tight tabular-nums">
                     {selectedModel.acceleration.split(' ')[0]}{' '}
-                    <span className="text-xs font-bold" style={{ color: primaryColor }}>sec</span>
+                    <span className="text-xs font-bold text-[#E0681C]">sec</span>
                   </span>
                   <span className="text-[10px] text-gray-500 font-mono mt-0.5">Instant torque</span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-black/40 border border-white/5 flex flex-col">
-                  <div className="flex items-center gap-2 mb-1" style={{ color: primaryColor }}>
+                  <div className="flex items-center gap-2 mb-1 text-[#E0681C]">
                     {selectedModel.isElectric ? <Battery size={15} /> : <Gauge size={15} />}
-                    <span className="font-sans text-[10px] uppercase tracking-wider text-gray-400 font-semibold">
+                    <span className="font-sans text-[10px] uppercase tracking-wider text-[#6D8080] font-semibold">
                       {selectedModel.isElectric ? 'Autonomie' : 'Vitesse Max'}
                     </span>
                   </div>
@@ -196,9 +185,9 @@ export function FleetShowcaseSection() {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-black/40 border border-white/5 flex flex-col">
-                  <div className="flex items-center gap-2 mb-1" style={{ color: primaryColor }}>
+                  <div className="flex items-center gap-2 mb-1 text-[#E0681C]">
                     <Wind size={15} />
-                    <span className="font-sans text-[10px] uppercase tracking-wider text-gray-400 font-semibold">
+                    <span className="font-sans text-[10px] uppercase tracking-wider text-[#6D8080] font-semibold">
                       Couple Max
                     </span>
                   </div>
@@ -211,9 +200,9 @@ export function FleetShowcaseSection() {
 
               {/* Engine spec */}
               <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-3">
-                <span className="w-1.5 h-8 rounded-full" style={{ background: primaryColor }} />
+                <span className="w-1.5 h-8 rounded-full bg-[#E0681C]" />
                 <div>
-                  <p className="font-sans text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Architecture Motrice</p>
+                  <p className="font-sans text-[10px] uppercase tracking-wider text-[#6D8080] font-semibold">Architecture Motrice</p>
                   <p className="font-mono text-xs text-white font-medium">{selectedModel.engine}</p>
                 </div>
               </div>
@@ -228,12 +217,12 @@ export function FleetShowcaseSection() {
                     <circle
                       cx="50" cy="50" r="40"
                       stroke="rgba(255,255,255,0.06)"
-                      strokeWidth="6" fill="none"
+                      strokeWidth="5" fill="none"
                     />
                     <motion.circle
                       cx="50" cy="50" r="40"
-                      stroke={primaryColor}
-                      strokeWidth="6" fill="none"
+                      stroke="#E0681C"
+                      strokeWidth="5" fill="none"
                       strokeDasharray="251.2"
                       animate={{
                         strokeDashoffset: isLaunching ? [251.2, 20, 251.2] : 80,
@@ -247,43 +236,41 @@ export function FleetShowcaseSection() {
                   </svg>
 
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <span className="text-[10px] font-mono tracking-widest text-gray-400 uppercase">
+                    <span className="text-[10px] font-mono tracking-widest text-[#6D8080] uppercase">
                       {isLaunching
                         ? 'MONTÉE EN PUISSANCE'
                         : launched
                         ? 'FULL POWER'
                         : isElectric
-                        ? 'MOTEUR ÉLECTRIQUE'
+                        ? 'PROPULSION E4'
                         : 'MOTEUR ACTIF'}
                     </span>
                     <span
                       className={`font-outfit text-3xl sm:text-4xl font-black tracking-tight transition-colors ${
-                        isLaunching ? 'animate-pulse' : ''
+                        isLaunching ? 'animate-pulse text-[#E0681C]' : 'text-white'
                       }`}
-                      style={{ color: isLaunching ? primaryColor : launched ? '#3D8B37' : '#ffffff' }}
                     >
                       {isLaunching ? (isElectric ? '830' : '700') : launched ? '100%' : isElectric ? '830' : '700'}
                     </span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest font-mono" style={{ color: primaryColor }}>
-                      {isElectric ? 'NM INSTANT' : 'NM COUPLE'}
+                    <span className="text-[10px] font-bold uppercase tracking-widest font-mono text-[#E0681C]">
+                      {isElectric ? 'NM INSTANTANÉ' : 'NM COUPLE'}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Shift light indicators */}
+              {/* Status indicators */}
               <div className="w-full flex flex-col gap-3">
-                <div className="flex items-center justify-center gap-1.5 py-1 px-3 bg-black/40 border border-white/10 rounded-xl">
-                  {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-                    const isLit = isLaunching ? i <= 6 : launched ? true : i <= 2
-                    const colorMap = [primaryColor, primaryColor, primaryColor, '#3D8B37', '#3D8B37', '#A8D5E2', '#ffffff', '#ffffff']
+                <div className="flex items-center justify-center gap-2 py-1.5 px-3 bg-black/40 border border-white/10 rounded-xl">
+                  {[0, 1, 2, 3, 4, 5].map((i) => {
+                    const isLit = isLaunching ? i <= 5 : launched ? true : i <= 2
                     return (
                       <div
                         key={i}
                         className="w-2 h-2 rounded-full transition-all duration-150"
                         style={{
-                          background: isLit ? colorMap[i] : 'rgba(255,255,255,0.06)',
-                          boxShadow: isLit ? `0 0 8px ${colorMap[i]}` : 'none',
+                          background: isLit ? (i < 4 ? '#E0681C' : '#FFFFFF') : 'rgba(255,255,255,0.08)',
+                          boxShadow: isLit ? '0 0 8px rgba(224,104,28,0.5)' : 'none',
                         }}
                       />
                     )
@@ -294,29 +281,28 @@ export function FleetShowcaseSection() {
                 <button
                   onClick={handleDriveSimulation}
                   disabled={isLaunching}
-                  className={`w-full py-4 px-6 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 border cursor-pointer`}
-                  style={
+                  className={`w-full py-3.5 px-6 rounded-xl font-sans font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 border cursor-pointer ${
                     isLaunching
-                      ? { background: `${primaryColor}30`, borderColor: primaryColor, boxShadow: `0 0 35px ${primaryColor}60`, color: '#fff' }
+                      ? 'bg-[#E0681C]/20 border-[#E0681C] text-white'
                       : launched
-                      ? { background: 'rgba(61,139,55,0.3)', borderColor: '#3D8B37', boxShadow: '0 0 25px rgba(61,139,55,0.4)', color: '#fff' }
-                      : { background: 'rgba(255,255,255,0.06)', borderColor: 'rgba(255,255,255,0.15)', color: '#fff' }
-                  }
+                      ? 'bg-white/10 border-white/30 text-white'
+                      : 'bg-white/5 border-white/10 text-gray-300 hover:text-white hover:border-white/25'
+                  }`}
                 >
                   {isLaunching ? (
                     <>
-                      <Activity className="w-4 h-4 animate-spin" />
+                      <Activity className="w-4 h-4 animate-spin text-[#E0681C]" />
                       {isElectric ? 'ACCÉLÉRATION ÉLECTRIQUE SILENCIEUSE...' : 'MONTÉE EN PUISSANCE...'}
                     </>
                   ) : launched ? (
                     <>
-                      <CheckCircle2 className="w-4 h-4" style={{ color: '#3D8B37' }} />
-                      SIMULATION TERMINÉE — PUISSANCE MAXIMALE !
+                      <CheckCircle2 className="w-4 h-4 text-[#E0681C]" />
+                      PUISSANCE MAXIMALE DÉPLOYÉE
                     </>
                   ) : (
                     <>
-                      <Zap className="w-4 h-4" style={{ color: primaryColor }} />
-                      {isElectric ? 'Simuler le Départ Électrique' : 'Simuler la Puissance'}
+                      <Zap className="w-4 h-4 text-[#E0681C]" />
+                      {isElectric ? 'Tester l\'Accélération E4' : 'Tester la Puissance'}
                     </>
                   )}
                 </button>
@@ -324,12 +310,7 @@ export function FleetShowcaseSection() {
                 {/* CTA */}
                 <button
                   onClick={scrollToConfirm}
-                  className="w-full py-4 px-6 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-widest text-white transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
-                  style={{
-                    background: `linear-gradient(135deg, ${primaryColor} 0%, ${isElectric ? '#3D8B37' : '#D5001C'} 100%)`,
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 30px ${primaryColor}80`)}
-                  onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+                  className="w-full py-4 px-6 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-widest text-white transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer bg-[#E0681C] hover:bg-[#ff7a26] shadow-[0_0_25px_rgba(224,104,28,0.35)]"
                 >
                   Piloter le {selectedModel.name} sur Piste
                 </button>
@@ -341,13 +322,13 @@ export function FleetShowcaseSection() {
         {/* Track Day Info */}
         <div className="mt-10 max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           {[
-            { label: 'Vagues / Jour', value: '6', sub: 'Sessions organisées' },
+            { label: 'Accès Exclusif', value: 'VIP', sub: 'Sur invitation nominative' },
             { label: 'Jours d\'Événement', value: '4', sub: 'Dates de lancement' },
-            { label: 'Participants / Jour', value: '73', sub: 'Places limitées' },
+            { label: 'Invités d\'Honneur', value: '290', sub: 'Capacité prestige' },
           ].map((stat, i) => (
             <div key={i} className="text-center p-4 rounded-2xl bg-white/[0.03] border border-white/5">
               <p className="font-outfit text-3xl font-black text-white">{stat.value}</p>
-              <p className="font-mono text-[10px] uppercase tracking-wider text-[#00B4C6] font-bold mt-1">{stat.label}</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-[#6D8080] font-bold mt-1">{stat.label}</p>
               <p className="font-sans text-[10px] text-gray-500 mt-0.5">{stat.sub}</p>
             </div>
           ))}

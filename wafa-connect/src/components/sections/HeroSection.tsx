@@ -56,7 +56,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
             {/* 01. Refined Luxury Eyebrow Pill */}
             <div className="inline-flex items-center gap-2 xs:gap-2.5 px-3 xs:px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/15 mb-3 sm:mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)] max-w-full">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E0681C] animate-pulse flex-shrink-0" />
-              <span className="font-outfit text-[9px] xs:text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] xs:tracking-[0.28em] sm:tracking-[0.35em] text-[#C4A882] truncate">
+              <span className="font-outfit text-[9px] xs:text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] xs:tracking-[0.28em] sm:tracking-[0.35em] text-[#6D8080] truncate">
                 THE FULLY ELECTRIC · E4 ERA
               </span>
               <span className="w-1 h-1 rounded-full bg-white/30 hidden xs:inline-block flex-shrink-0" />
@@ -81,7 +81,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
               {/* Primary: Clean RSVP Button */}
               <button
                 onClick={scrollToConfirm}
-                className="group relative px-6 xs:px-8 py-3.5 sm:px-9 sm:py-4 rounded-full font-outfit font-black text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white bg-black/80 hover:bg-[#E0681C] border border-white/20 hover:border-[#E0681C] backdrop-blur-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.7)] hover:shadow-[0_0_35px_rgba(224, 104, 28,0.6)] flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer w-full sm:w-auto"
+                className="group relative px-6 xs:px-8 py-3.5 sm:px-9 sm:py-4 rounded-full font-outfit font-black text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white bg-[#E0681C] hover:bg-[#ff7a26] transition-all duration-300 shadow-[0_0_25px_rgba(224,104,28,0.4)] flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer w-full sm:w-auto"
               >
                 <span>Sécuriser Ma Place · RSVP</span>
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

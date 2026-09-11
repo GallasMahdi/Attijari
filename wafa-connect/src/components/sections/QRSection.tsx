@@ -21,12 +21,12 @@ export function QRSection({ guest }: QRSectionProps) {
           </div>
 
           <h2 className="font-outfit text-3xl sm:text-4xl font-black text-white uppercase tracking-wider mb-2">
-            Votre Invitation <span className="text-gradient-red italic">VIP Exclusive</span>
+            Votre Invitation <span className="text-gradient-terracotta italic">VIP Exclusive</span>
           </h2>
           
           <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="font-mono text-[11px] font-bold text-red-500 uppercase tracking-widest">{EVENT.dateLabel}</span>
-            <div className="w-1 h-1 rounded-full bg-red-500" />
+            <span className="font-mono text-[11px] font-bold text-[#E0681C] uppercase tracking-widest">{EVENT.dateLabel}</span>
+            <div className="w-1 h-1 rounded-full bg-[#E0681C]" />
             <span className="font-mono text-[11px] font-bold text-gray-300 uppercase tracking-widest">{EVENT.timeLabel}</span>
           </div>
 

@@ -6,7 +6,6 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-
 import { Menu, X } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
 import { PorscheWordmark } from '@/components/ui/PorscheLogo'
 
 import { smoothScrollTo } from '@/lib/scroll'
@@ -106,11 +105,8 @@ export function Navbar() {
             ))}
             <button
               onClick={() => handleNavClick('#confirmer')}
-              className="ml-3 px-6 py-2.5 text-white font-outfit font-black text-xs uppercase tracking-widest
-                         rounded-xl transition-all duration-200 hover:scale-[1.03] active:scale-95 focus:outline-none cursor-pointer shadow-lg"
-              style={{ background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)' }}
-              onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 25px rgba(224, 104, 28,0.6)')}
-              onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.boxShadow = 'none')}
+              className="ml-3 px-5 py-2 text-white font-outfit font-bold text-xs uppercase tracking-widest
+                         rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-95 focus:outline-none cursor-pointer bg-[#E0681C] hover:bg-[#ff7525] shadow-[0_4px_16px_rgba(224,104,28,0.35)]"
             >
               RSVP VIP
             </button>
@@ -149,9 +145,9 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Checkered hairline at bottom of navbar when scrolled */}
+        {/* Minimalist luxury hairline at bottom of navbar when scrolled */}
         {scrolled && (
-          <div className="absolute bottom-0 left-0 right-0 h-[2px] porsche-checkered-ribbon opacity-80" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10" />
         )}
       </motion.nav>
 
@@ -218,12 +214,11 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                   onClick={() => handleNavClick('#confirmer')}
-                  className="mt-2 w-full py-4 text-white
+                  className="mt-2 w-full py-3.5 text-white
                              font-outfit font-bold text-xs uppercase tracking-widest rounded-xl
-                             transition-colors cursor-pointer shadow-lg"
-                  style={{ background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)' }}
+                             bg-[#E0681C] hover:bg-[#ff7525] transition-colors cursor-pointer shadow-lg"
                 >
-                  RSVP Now · Sécuriser Ma Place
+                  RSVP VIP · Sécuriser Ma Place
                 </motion.button>
               </div>
             </motion.div>

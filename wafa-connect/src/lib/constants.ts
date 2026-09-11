@@ -11,7 +11,7 @@ export const EVENT = {
   agency: '2K Events',
   date: new Date('2026-06-18T09:00:00+01:00'),
   dateLabel: '18 — 21 Juin 2026 (4 Jours)',
-  timeLabel: '6 Vagues par Jour · Dès 09h00',
+  timeLabel: 'Dès 18h30 · Soirée & Dévoilement Officiel',
   venue: 'Le Domaine Neferis',
   venueSubtitle: 'Avenue SUV & Salon d\'Honneur Heritage × Future',
   city: 'Grombalia / Tunis — Domaine Neferis',
@@ -28,25 +28,25 @@ export const EVENT = {
 export const COLORS = {
   black: '#08090C',
   dark: '#0E1015',
-  card: '#14171F',
+  card: '#12151D',
   terracotta: '#E0681C',      // Official Porsche Cayenne Copper / Terracotta
-  terracottaGlow: 'rgba(224, 104, 28,0.45)',
-  mysticGreen: '#6D8080',     // Mystic Green (Terre / Domaine)
-  slate: '#6D8080',           // Slate Grey-Green (Checkered Flag)
-  paleBlue: '#A8D5E2',        // Pale Blue (Énergie / Futur)
-  electricCyan: '#00B4C6',    // Digital 800V Teal
-  heritageStone: '#8B7355',   // Pierre brute Domaine Neferis
-  heritageWarm: '#C4A882',    // Warm stone light
-  heritageDark: '#2C2318',    // Warm stone shadow
-  silver: '#F4F5F7',
-  gray: '#8E95A5',
+  terracottaGlow: 'rgba(224, 104, 28, 0.25)',
+  mysticGreen: '#6D8080',     // Mystic Slate (Terre / Domaine)
+  slate: '#6D8080',           // Slate Grey-Green
+  paleBlue: '#FFFFFF',
+  electricCyan: '#E0681C',
+  heritageStone: '#6D8080',
+  heritageWarm: '#E0681C',
+  heritageDark: '#0E1015',
+  silver: '#FFFFFF',
+  gray: '#6D8080',
   white: '#FFFFFF',
-  red: '#D5001C',
-  redBright: '#E4002B',
-  yellow: '#FFCC00',
+  red: '#E0681C',
+  redBright: '#E0681C',
+  yellow: '#E0681C',
   // Backwards compatibility aliases
   gold: '#E0681C',
-  goldLight: '#FF7A45',
+  goldLight: '#E0681C',
   cream: '#08090C',
   veryDark: '#040507',
 } as const
@@ -170,7 +170,7 @@ export const PORSCHE_FLEET: PorscheModel[] = [
     torque: '830 Nm',
     highlight: 'Équipement télémétrie embarquée · Liaison radio instructeur instructeur',
     tag: 'Instructeur Officiel',
-    accentColor: '#00B4C6',
+    accentColor: '#E0681C',
     isElectric: true,
     range: '500 km',
     eventUnits: 3,
@@ -210,8 +210,8 @@ export const PROGRAM = [
   },
   {
     time: '10h00',
-    label: 'Vague de Conduite Wave 1 — Piste & Avenue SUV',
-    sublabel: 'Prise en main dynamique des 8 véhicules Cayenne E4 Electric · #PorscheSUVExperience',
+    label: 'Session d\'Essais Dynamiques — Piste & Avenue SUV',
+    sublabel: 'Prise en main des 8 véhicules Cayenne E4 Electric · #PorscheSUVExperience',
     icon: '⚡',
     highlight: true,
   },
@@ -231,7 +231,7 @@ export const PROGRAM = [
   },
   {
     time: '14h45',
-    label: 'Vague de Conduite Wave 2 — Session Avancée',
+    label: 'Essais Tout-Terrain & Performance Track',
     sublabel: 'Essais tout-terrain et relances instantanées 830 Nm sur le tracé dédié du Domaine',
     icon: '🏁',
     highlight: true,
@@ -278,5 +278,4 @@ export const NAV_LINKS = [
   { label: 'Expérience', href: '#experience' },
   { label: 'Domaine Neferis', href: '#domaine' },
   { label: 'Programme', href: '#programme' },
-  { label: 'RSVP VIP', href: '#confirmer' },
 ] as const

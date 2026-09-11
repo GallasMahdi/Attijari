@@ -18,10 +18,10 @@ const EXPERIENCES = [
     description:
       "Longez l'allée séculaire de pins méditerranéens du Domaine Neferis au volant du Cayenne E4. La transmission intégrale à 4 moteurs électriques domine chaque ornière, chaque dévers, chaque texture de sol.",
     icon: Mountain,
-    accent: '#8B7355',
-    glow: 'rgba(139,115,85,0.35)',
-    bg: 'rgba(139,115,85,0.08)',
-    border: 'rgba(139,115,85,0.25)',
+    accent: '#6D8080',
+    glow: 'rgba(109,128,128,0.2)',
+    bg: 'rgba(109,128,128,0.06)',
+    border: 'rgba(109,128,128,0.2)',
     stat: { label: 'Couple disponible', value: '830 Nm', sub: 'dès 0 tr/min' },
   },
   {
@@ -33,9 +33,9 @@ const EXPERIENCES = [
       "Expérimentez les 517 CH de propulsion électrique sur la piste haute performance du Domaine. Passage de 0 à 100 km/h en 4,0 secondes — dans un silence saisissant que seul le Cayenne E4 peut offrir.",
     icon: Gauge,
     accent: '#E0681C',
-    glow: 'rgba(224,104,28,0.35)',
+    glow: 'rgba(224,104,28,0.25)',
     bg: 'rgba(224,104,28,0.08)',
-    border: 'rgba(224,104,28,0.28)',
+    border: 'rgba(224,104,28,0.3)',
     stat: { label: '0 — 100 km/h', value: '4.0 s', sub: '517 CH · 380 kW' },
   },
   {
@@ -46,10 +46,10 @@ const EXPERIENCES = [
     description:
       "Vivez la démonstration de recharge ultra-rapide 270 kW DC en conditions réelles. En 21 minutes, le Cayenne E4 récupère 80% d'autonomie — une révolution silencieuse face au moteur thermique.",
     icon: BatteryCharging,
-    accent: '#00B4C6',
-    glow: 'rgba(0,180,198,0.35)',
-    bg: 'rgba(0,180,198,0.07)',
-    border: 'rgba(0,180,198,0.25)',
+    accent: '#E0681C',
+    glow: 'rgba(224,104,28,0.25)',
+    bg: 'rgba(224,104,28,0.08)',
+    border: 'rgba(224,104,28,0.3)',
     stat: { label: 'Recharge 10→80%', value: '21 min', sub: '800V · 270 kW DC' },
   },
   {
@@ -60,19 +60,19 @@ const EXPERIENCES = [
     description:
       "Dévoilement officiel du Cayenne E4 dans la Cour d'Honneur du Domaine Neferis. Networking avec les représentants Porsche Middle East & Africa, gastronomie fine et remise de votre pass accréditation.",
     icon: Trophy,
-    accent: '#A8D5E2',
-    glow: 'rgba(168,213,226,0.30)',
-    bg: 'rgba(168,213,226,0.06)',
-    border: 'rgba(168,213,226,0.22)',
-    stat: { label: 'Invités VIP', value: '290', sub: '6 vagues · 4 jours' },
+    accent: '#6D8080',
+    glow: 'rgba(109,128,128,0.2)',
+    bg: 'rgba(109,128,128,0.06)',
+    border: 'rgba(109,128,128,0.2)',
+    stat: { label: 'Invités VIP', value: '290', sub: 'Accréditation exclusive' },
   },
 ]
 
 const COUNTERS = [
   { value: 517,  suffix: ' CH',  label: 'Puissance Totale',  sub: '380 kW combinés',  icon: Zap,            color: '#E0681C' },
-  { value: 830,  suffix: ' Nm',  label: 'Couple Instantané', sub: 'Dès 0 tr/min',     icon: Wind,           color: '#00B4C6' },
+  { value: 830,  suffix: ' Nm',  label: 'Couple Instantané', sub: 'Dès 0 tr/min',     icon: Wind,           color: '#FFFFFF' },
   { value: 4,    suffix: '.0 s', label: '0 — 100 km/h',      sub: 'En silence total', icon: Timer,          color: '#6D8080' },
-  { value: 270,  suffix: ' kW',  label: 'Recharge DC Ultra', sub: 'Architecture 800V',icon: BatteryCharging,color: '#A8D5E2' },
+  { value: 270,  suffix: ' kW',  label: 'Recharge DC Ultra', sub: 'Architecture 800V',icon: BatteryCharging,color: '#E0681C' },
 ]
 
 function AnimatedCounter({ target, suffix, trigger }: { target: number; suffix: string; trigger: boolean }) {
@@ -256,12 +256,10 @@ export function CayenneExperienceSection() {
           </div>
           <button
             onClick={() => smoothScrollTo('#confirmer', -70, 0.9)}
-            className="group relative flex items-center gap-3 px-8 py-4 rounded-2xl font-outfit font-black text-xs uppercase tracking-widest text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-xl overflow-hidden flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)' }}
+            className="group relative flex items-center gap-3 px-8 py-4 rounded-2xl font-outfit font-black text-xs uppercase tracking-widest text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-xl overflow-hidden flex-shrink-0 bg-[#E0681C] hover:bg-[#ff7a26] shadow-[0_0_25px_rgba(224,104,28,0.35)]"
           >
             <span className="relative z-10">Sécuriser Mon Expérience · RSVP</span>
             <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           </button>
         </motion.div>
 

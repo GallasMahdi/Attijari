@@ -30,8 +30,8 @@ export function CountdownUnit({ value, label }: CountdownUnitProps) {
         {/* Top split reflection */}
         <div className="absolute top-0 left-0 right-0 h-1/2 bg-white/[0.04] border-b border-black/60 pointer-events-none" />
         
-        {/* Subtle red corner glow */}
-        <div className="absolute -inset-1 bg-red-600/5 group-hover:bg-red-600/15 transition-colors pointer-events-none rounded-xl sm:rounded-2xl" />
+        {/* Subtle terracotta corner glow */}
+        <div className="absolute -inset-1 bg-[#E0681C]/5 group-hover:bg-[#E0681C]/15 transition-colors pointer-events-none rounded-xl sm:rounded-2xl" />
 
         <AnimatePresence mode="popLayout">
           <motion.span

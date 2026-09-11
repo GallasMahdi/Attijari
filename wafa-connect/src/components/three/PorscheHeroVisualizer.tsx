@@ -84,10 +84,10 @@ export function PorscheHeroVisualizer({
 
             {/* Matrix LED Headlight Glows */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-[40%] sm:top-[44%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-44 h-44 sm:w-64 sm:h-64 bg-cyan-200/30 blur-2xl rounded-full" />
-              <div className="absolute top-[40%] sm:top-[44%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[340px] h-[2px] bg-gradient-to-r from-transparent via-cyan-300 to-transparent blur-[1px] opacity-75" />
-              <div className="absolute top-[42%] sm:top-[46%] left-[48%] -translate-x-1/2 -translate-y-1/2 w-44 h-44 sm:w-64 sm:h-64 bg-cyan-200/30 blur-2xl rounded-full" />
-              <div className="absolute top-[42%] sm:top-[46%] left-[48%] -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[340px] h-[2px] bg-gradient-to-r from-transparent via-cyan-300 to-transparent blur-[1px] opacity-75" />
+              <div className="absolute top-[40%] sm:top-[44%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-44 h-44 sm:w-64 sm:h-64 bg-white/30 blur-2xl rounded-full" />
+              <div className="absolute top-[40%] sm:top-[44%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[340px] h-[2px] bg-gradient-to-r from-transparent via-white to-transparent blur-[1px] opacity-75" />
+              <div className="absolute top-[42%] sm:top-[46%] left-[48%] -translate-x-1/2 -translate-y-1/2 w-44 h-44 sm:w-64 sm:h-64 bg-white/30 blur-2xl rounded-full" />
+              <div className="absolute top-[42%] sm:top-[46%] left-[48%] -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[340px] h-[2px] bg-gradient-to-r from-transparent via-white to-transparent blur-[1px] opacity-75" />
               <div className="absolute bottom-[4%] right-[10%] w-[550px] h-36 bg-[#E0681C]/18 blur-[90px] rounded-full pointer-events-none" />
             </div>
           </motion.div>
@@ -200,7 +200,7 @@ export function PorscheHeroVisualizer({
           onClick={() => setActiveMode('3d-chamber')}
           className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-outfit text-[10px] uppercase font-bold tracking-wider transition-all duration-200 ${
             activeMode === '3d-chamber'
-              ? 'bg-[#00B4C6] text-white shadow-[0_0_12px_rgba(0,180,198,0.5)]'
+              ? 'bg-[#6D8080] text-white shadow-[0_0_12px_rgba(109,128,128,0.5)]'
               : 'text-gray-400 hover:text-white'
           }`}
         >

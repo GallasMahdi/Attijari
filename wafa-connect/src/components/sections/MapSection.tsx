@@ -114,7 +114,7 @@ export function MapSection() {
                   label: 'Hub de Recharge Électrique',
                   value: 'Bornes Ultra-Rapides 270 kW DC',
                   sub: 'Architecture 800V · Recharge 10-80% en 21 minutes',
-                  color: '#00B4C6',
+                  color: '#E0681C',
                 },
                 {
                   icon: Car,

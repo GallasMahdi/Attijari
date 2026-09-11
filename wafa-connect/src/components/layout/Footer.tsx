@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronUp, MapPin, Clock, Calendar, Users, Award, ArrowRight, ShieldCheck, Sparkles, Zap } from 'lucide-react'
 import { EVENT, COLORS } from '@/lib/constants'
-import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
 import { PorscheWordmark } from '@/components/ui/PorscheLogo'
 import { smoothScrollTo } from '@/lib/scroll'
 
@@ -23,12 +22,6 @@ export function Footer() {
 
   return (
     <footer className="relative bg-[#050608] overflow-hidden border-t border-white/10 text-white">
-      {/* Carbon weave overlay */}
-      <div className="absolute inset-0 carbon-pattern opacity-25 pointer-events-none" />
-
-      {/* Top Checkered Banner */}
-      <PorscheCheckeredBand variant="slim" />
-
       {/* ── 1. Welcome & Motto Banner ─────────────────────────────── */}
       <div className="relative border-b border-white/5 py-16 md:py-20">
         <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -59,7 +52,7 @@ export function Footer() {
               { label: 'LIEU D\'EXCELLENCE', val: 'Domaine Neferis', sub: 'Tunisie' },
               { label: 'DATES OFFICIELLES', val: '18 — 21 Juin 2026', sub: '4 Jours d\'Essais' },
               { label: 'FLOTTE D\'ESSAIS', val: '8 Cayenne E4', sub: '3 Instructor Cars' },
-              { label: 'CAPACITÉ STRICTE', val: '290 Invités VIP', sub: '6 Vagues / Jour' },
+              { label: 'ACCÈS PRIVÉ', val: '290 Invités VIP', sub: 'Sur Invitation Privée' },
             ].map((stat, i) => (
               <div key={i} className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
                 <span className="font-mono text-[8px] uppercase tracking-widest text-gray-500 block mb-1">
@@ -115,9 +108,9 @@ export function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-3 xs:gap-4 sm:gap-6 text-[10px] xs:text-xs font-outfit uppercase tracking-wider sm:tracking-widest text-gray-400">
             <a href="#flotte" className="hover:text-[#E0681C] transition-colors">Cayenne E4</a>
             <a href="#concept" className="hover:text-[#E0681C] transition-colors">Heritage × Future</a>
+            <a href="#experience" className="hover:text-[#E0681C] transition-colors">Expérience</a>
             <a href="#domaine" className="hover:text-[#E0681C] transition-colors">Domaine Neferis</a>
             <a href="#programme" className="hover:text-[#E0681C] transition-colors">Programme</a>
-            <a href="#simulateur" className="hover:text-[#E0681C] transition-colors">Fleet Calculator</a>
             <a href="#confirmer" className="hover:text-[#E0681C] transition-colors">RSVP VIP</a>
           </div>
         </div>

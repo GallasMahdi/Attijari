@@ -15,15 +15,15 @@ export function ProgramSection() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#E0681C]/30 bg-[#E0681C]/10 backdrop-blur-md mb-4">
             <span className="w-2 h-2 rounded-full bg-[#E0681C]" />
             <span className="font-outfit text-[10px] font-bold uppercase tracking-[0.35em] text-[#F4F5F7]">
-              DOMAINE NEFERIS · TIMETABLE DES VAGUES
+              DOMAINE NEFERIS · PROGRAMME DE LA SOIRÉE VIP
             </span>
           </div>
 
           <h2 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-wider mb-4">
-            Déroulé d'une <span className="text-gradient-terracotta italic">Vague de Lancement</span>
+            Déroulé de la <span className="text-gradient-terracotta italic">Soirée d'Excellence</span>
           </h2>
           <p className="font-sans text-sm md:text-base text-gray-300 max-w-xl mx-auto leading-relaxed">
-            De l'arrivée solennelle sous l'arche Porsche aux essais dynamiques sur l'avenue tout-terrain et au salon d'honneur.
+            De l'accueil VIP sur le tapis rouge au salon d'honneur et aux essais dynamiques sur l'avenue dédiée.
           </p>
         </div>
 

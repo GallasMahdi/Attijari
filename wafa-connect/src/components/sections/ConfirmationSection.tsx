@@ -35,7 +35,7 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
       prenom: '',
       email: '',
       fonction: 'Invité VIP — Dynamic Launch',
-      sessionSlot: 'Vague Matin — Wave 1 (09h00)'
+      sessionSlot: 'Pass VIP Prestige — Accès Intégral'
     }
   })
 
@@ -55,14 +55,14 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
     if (externalOnReset) externalOnReset()
   }
 
-  const inputClasses = "w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3.5 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:border-[#00B4C6] transition-all font-sans text-sm"
-  const labelClasses = "block text-xs font-semibold text-gray-300 mb-2 font-sans uppercase tracking-wider"
+  const inputClasses = "w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3.5 text-white placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-[#E0681C] focus:border-[#E0681C] transition-all font-sans text-sm"
+  const labelClasses = "block text-xs font-semibold text-[#6D8080] mb-2 font-sans uppercase tracking-wider"
 
   return (
     <section id="confirmer" className="py-16 md:py-24 relative bg-[#08090C] overflow-hidden border-t border-white/5 z-10">
-      {/* Background atmosphere — Heritage × Future */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[450px] bg-[#8B7355]/[0.06] blur-[160px] pointer-events-none rounded-full" />
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[450px] bg-[#00B4C6]/[0.06] blur-[160px] pointer-events-none rounded-full" />
+      {/* Background atmosphere */}
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[400px] bg-[#6D8080]/[0.05] blur-[160px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[550px] h-[400px] bg-[#E0681C]/[0.05] blur-[160px] pointer-events-none rounded-full" />
       <div className="absolute inset-0 carbon-pattern opacity-20 pointer-events-none" />
 
       <SectionWrapper className="container mx-auto px-4 max-w-3xl relative z-10">
@@ -77,14 +77,14 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
               transition={{ duration: 0.3 }}
               className="rounded-2xl sm:rounded-3xl p-5 xs:p-6 sm:p-8 md:p-12 bg-[#0E1015] border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.95)] relative overflow-hidden"
             >
-              {/* Top Heritage × Future dual accent line */}
+              {/* Subtle top hairline */}
               <div className="absolute top-0 left-0 right-0 h-[2px]"
-                style={{ background: 'linear-gradient(90deg, transparent, #8B7355 30%, #ffffff 50%, #00B4C6 70%, transparent)' }}
+                style={{ background: 'linear-gradient(90deg, transparent, #6D8080 30%, #ffffff 50%, #E0681C 70%, transparent)' }}
               />
 
               <div className="text-center mb-8 sm:mb-10 relative z-10">
                 {/* Co-branding pill */}
-                <div className="inline-flex items-center flex-wrap justify-center gap-2 xs:gap-3 px-3 xs:px-4 py-1.5 rounded-full border border-[#00B4C6]/30 bg-[#00B4C6]/10 backdrop-blur-md mb-5 max-w-full">
+                <div className="inline-flex items-center flex-wrap justify-center gap-2 xs:gap-3 px-3 xs:px-4 py-1.5 rounded-full border border-[#6D8080]/30 bg-[#6D8080]/10 backdrop-blur-md mb-5 max-w-full">
                   <div className="relative w-7 h-3.5 xs:w-8 xs:h-4 flex items-center justify-center flex-shrink-0">
                     <Image
                       src="/2k.png"
@@ -100,17 +100,17 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
                     PORSCHE
                   </span>
                   <div className="h-2.5 w-px bg-white/20" />
-                  <span className="font-mono text-[8px] xs:text-[9px] font-bold uppercase tracking-[0.2em] xs:tracking-[0.25em] text-[#A8D5E2]">
+                  <span className="font-mono text-[8px] xs:text-[9px] font-bold uppercase tracking-[0.2em] xs:tracking-[0.25em] text-[#6D8080]">
                     CAYENNE E4 LAUNCH
                   </span>
                 </div>
 
                 <h2 className="font-outfit text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black text-white uppercase tracking-wider mb-4 leading-tight">
                   Spaces Are{' '}
-                  <span className="text-gradient-electric italic">Limited</span>
+                  <span className="text-gradient-terracotta italic">Limited</span>
                 </h2>
                 <p className="font-outfit italic text-lg text-gray-300 mb-2">
-                  "The next chapter for Cayenne."
+                  &ldquo;The next chapter for Cayenne.&rdquo;
                 </p>
                 <p className="font-sans text-sm text-gray-400 max-w-lg mx-auto leading-relaxed">
                   RSVP now to secure your space at the Porsche Cayenne E4 Dynamic Launch. Complétez ce formulaire pour recevoir votre QR Pass d'accès officiel.
@@ -139,7 +139,6 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
                       id="prenom"
                       {...register('prenom')}
                       className={inputClasses}
-                      style={{ '--tw-ring-color': '#00B4C6' } as any}
                       placeholder="Ex: Marc"
                       autoComplete="given-name"
                     />
@@ -190,38 +189,30 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
                   </div>
 
                   <div>
-                    <label htmlFor="sessionSlot" className={labelClasses}>Session Choisie (6 Vagues / Jour)</label>
-                    <select id="sessionSlot" {...register('sessionSlot')} className={`${inputClasses} cursor-pointer`}>
-                      <option value="Wave 1 — 09h00 (Briefing & Conduite)" className="bg-[#0E1015] text-white">
-                        Wave 1 — 09h00 (Briefing & Conduite Domaine)
-                      </option>
-                      <option value="Wave 2 — 10h30 (Session Dynamique)" className="bg-[#0E1015] text-white">
-                        Wave 2 — 10h30 (Session Dynamique #PorscheSUVExperience)
-                      </option>
-                      <option value="Wave 3 — 12h00 (Conduite & Déjeuner VIP)" className="bg-[#0E1015] text-white">
-                        Wave 3 — 12h00 (Conduite & Déjeuner VIP)
-                      </option>
-                      <option value="Wave 4 — 14h00 (Session Après-Midi)" className="bg-[#0E1015] text-white">
-                        Wave 4 — 14h00 (Session Après-Midi)
-                      </option>
-                      <option value="Wave 5 — 15h30 (Session Avancée)" className="bg-[#0E1015] text-white">
-                        Wave 5 — 15h30 (Session Avancée Piste & Avenue)
-                      </option>
-                      <option value="Wave 6 — 17h00 (Cocktail & Clôture)" className="bg-[#0E1015] text-white">
-                        Wave 6 — 17h00 (Cocktail & Révélation Soirée)
-                      </option>
-                    </select>
+                    <label className={labelClasses}>Formule d'Accès</label>
+                    <input type="hidden" {...register('sessionSlot')} value="Pass VIP Prestige — Accès Intégral" />
+                    <div className="w-full px-4 py-3.5 rounded-xl bg-[#0E1015] border border-[#E0681C]/30 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-2 h-2 rounded-full bg-[#E0681C] animate-pulse flex-shrink-0" />
+                        <span className="font-outfit text-xs sm:text-sm font-bold text-white tracking-wide">
+                          Pass VIP Prestige · Accès Intégral
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-[#E0681C]/15 border border-[#E0681C]/40 text-[#E0681C] font-mono text-[9px] font-bold uppercase tracking-wider flex-shrink-0">
+                        Inclus
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Event Info Badge & Campaign ID (Slide 3) */}
+                {/* Event Info Badge & Campaign ID */}
                 <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 font-mono gap-2">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-3.5 h-3.5 text-[#E0681C]" />
                     <span>{EVENT.dateLabel}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[#A8D5E2]">
-                    <Clock className="w-3.5 h-3.5 text-[#00B4C6]" />
+                  <div className="flex items-center gap-2 text-[#6D8080]">
+                    <Clock className="w-3.5 h-3.5 text-[#6D8080]" />
                     <span>{EVENT.timeLabel}</span>
                   </div>
                   <div className="text-[10px] text-gray-500 font-bold uppercase">
@@ -232,12 +223,7 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="w-full mt-4 py-4 px-8 rounded-xl font-outfit font-black text-xs md:text-sm tracking-[0.2em] uppercase text-white transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 hover:scale-[1.01] active:scale-[0.99] cursor-pointer shadow-lg"
-                  style={{
-                    background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 35px rgba(224, 104, 28,0.6)')}
-                  onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+                  className="w-full mt-4 py-4 px-8 rounded-xl font-outfit font-black text-xs md:text-sm tracking-[0.2em] uppercase text-white transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 hover:scale-[1.01] active:scale-[0.99] cursor-pointer bg-[#E0681C] hover:bg-[#ff7a26] shadow-[0_0_25px_rgba(224,104,28,0.35)]"
                 >
                   {status === 'loading' ? (
                     <>
@@ -268,7 +254,7 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
               <div className="text-center mb-6">
                 <h2 className="font-outfit text-2xl sm:text-3xl font-black text-white uppercase tracking-wider mb-1">
                   Votre Place est{' '}
-                  <span className="text-gradient-electric italic">Sécurisée</span>
+                  <span className="text-gradient-terracotta italic">Sécurisée</span>
                 </h2>
                 <p className="font-sans text-xs sm:text-sm text-gray-400 max-w-md mx-auto">
                   Présentez ce QR Code à l'entrée du circuit le jour de l'événement.

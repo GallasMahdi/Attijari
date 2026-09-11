@@ -4,7 +4,6 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, QrCode, ShieldCheck, ArrowRight, Sparkles, ScanLine, Clock, MapPin } from 'lucide-react'
 import { PorscheWordmark } from '@/components/ui/PorscheLogo'
-import { PorscheCheckeredBand } from '@/components/ui/PorscheCheckeredBand'
 import { smoothScrollTo } from '@/lib/scroll'
 import { EVENT } from '@/lib/constants'
 
@@ -25,17 +24,17 @@ const perks = [
   },
   {
     icon: ScanLine,
-    color: '#A8D5E2',
-    bg: 'rgba(168,213,226,0.10)',
-    border: 'rgba(168,213,226,0.25)',
+    color: '#6D8080',
+    bg: 'rgba(109,128,128,0.12)',
+    border: 'rgba(109,128,128,0.25)',
     title: 'Pass Essais Dynamiques',
     desc: 'Déblocage des créneaux d\'essai Cayenne E4 lors du scan.',
   },
   {
     icon: Clock,
-    color: '#6D8080',
-    bg: 'rgba(109,128,128,0.12)',
-    border: 'rgba(109,128,128,0.25)',
+    color: '#E0681C',
+    bg: 'rgba(224,104,28,0.12)',
+    border: 'rgba(224,104,28,0.3)',
     title: 'Confirmation Instantanée',
     desc: 'Reçu par e-mail dès validation — valable jusqu\'au jour J.',
   },
@@ -72,8 +71,8 @@ export function InvitationUnboxingModal({ isOpen, onClose, onRSVPClick }: Invita
             transition={{ type: 'spring', damping: 25, stiffness: 280 }}
             className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0E1015] border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.95)] z-10 flex flex-col"
           >
-            {/* Checkered top bar */}
-            <div className="relative h-2 w-full porsche-checkered-ribbon" />
+            {/* Clean top hairline */}
+            <div className="h-[2px] w-full bg-[#E0681C]" />
 
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10">
@@ -110,7 +109,7 @@ export function InvitationUnboxingModal({ isOpen, onClose, onRSVPClick }: Invita
               <div className="flex flex-col items-center justify-center gap-4">
                 <div className="relative w-full max-w-[260px] mx-auto">
                   {/* Glow ring */}
-                  <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-[#E0681C]/20 via-transparent to-[#A8D5E2]/15 blur-xl pointer-events-none" />
+                  <div className="absolute -inset-3 rounded-3xl bg-[#E0681C]/15 blur-xl pointer-events-none" />
 
                   <div className="relative rounded-2xl bg-white p-5 shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-white/10">
                     {/* Mock QR grid */}
@@ -233,8 +232,7 @@ export function InvitationUnboxingModal({ isOpen, onClose, onRSVPClick }: Invita
                   </div>
                   <button
                     onClick={handleCTA}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl font-outfit text-xs font-bold uppercase tracking-widest text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-                    style={{ background: 'linear-gradient(135deg, #E0681C 0%, #6D8080 100%)' }}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl font-outfit text-xs font-bold uppercase tracking-widest text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer bg-[#E0681C] hover:bg-[#ff7a26] shadow-[0_0_20px_rgba(224,104,28,0.35)]"
                   >
                     <QrCode className="w-3.5 h-3.5" />
                     <span>Générer Mon QR · RSVP</span>

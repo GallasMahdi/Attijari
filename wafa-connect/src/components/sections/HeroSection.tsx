@@ -29,7 +29,7 @@ export function HeroSection({ startAnimation = true }: HeroSectionProps) {
   }, [])
 
   const scrollToConfirm = () => smoothScrollTo('#confirmer', -70, 0.95)
-  const scrollToNext = () => smoothScrollTo('#flotte', -70, 0.95)
+  const scrollToNext = () => smoothScrollTo('#teaser', -70, 0.95)
 
   return (
     <>

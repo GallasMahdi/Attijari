@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
       prenom,
       email,
       fonction,
-      sessionSlot: sessionSlot || 'Cocktail & Révélation (19h30)',
+      sessionSlot: sessionSlot || 'Pass VIP Prestige — Accès Intégral',
       token,
       confirmedAt: timestamp,
     })
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       prenom,
       email,
       fonction,
-      sessionSlot: sessionSlot || 'Cocktail & Révélation (19h30)',
+      sessionSlot: sessionSlot || 'Pass VIP Prestige — Accès Intégral',
       qrData: `2K-P911:${guestId}:${token}`,
       message: `Bienvenue ${prenom} ! Votre invitation officielle à la révélation Porsche est prête.`,
     }

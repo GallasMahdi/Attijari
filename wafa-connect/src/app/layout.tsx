@@ -63,6 +63,54 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${jetbrainsMono.variable}`}>
       <head>
+        {/* Schema.org Structured Data for Rich Event & Venue Google Indexing */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Event',
+              name: 'Porsche Cayenne E4 Launch Event — Heritage × Future',
+              description:
+                'Lancement exclusif du nouveau Porsche Cayenne E4 Electric au Domaine Neferis par 2K Events × Porsche Middle East & Africa.',
+              startDate: '2026-06-18T18:30:00+01:00',
+              endDate: '2026-06-21T23:00:00+01:00',
+              eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+              eventStatus: 'https://schema.org/EventScheduled',
+              image: ['https://porsche-experience.com/porsche-cayenne-e4-hero.jpg'],
+              location: {
+                '@type': 'Place',
+                name: 'Le Domaine Neferis',
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress: 'Route de Grombalia',
+                  addressLocality: 'Grombalia',
+                  addressRegion: 'Tunis',
+                  addressCountry: 'TN',
+                },
+              },
+              organizer: [
+                {
+                  '@type': 'Organization',
+                  name: '2K Events',
+                  url: 'https://porsche-experience.com',
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Porsche Middle East & Africa',
+                  url: 'https://www.porsche.com',
+                },
+              ],
+              offers: {
+                '@type': 'Offer',
+                url: 'https://porsche-experience.com/#confirmer',
+                availability: 'https://schema.org/PreOrder',
+                category: 'VIP Private Accreditation',
+              },
+            }),
+          }}
+        />
+
         {/* Preload Avenue — LCP hero (first image shown on mount) */}
         <link
           rel="preload"

@@ -1,6 +1,6 @@
 // src/components/ui/GuestQRCard.tsx
 'use client'
-import { useRef, useCallback, useState } from 'react'
+import { useRef, useCallback, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { QRCodeSVG } from 'qrcode.react'
 import { motion } from 'framer-motion'
@@ -44,6 +44,15 @@ export function GuestQRCard({ guest, onReset }: GuestQRCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const isDownloading = useRef(false)
   const [copied, setCopied] = useState(false)
+
+  // Auto-cache confirmed guest for offline resilience at Domaine Neferis
+  useEffect(() => {
+    if (guest?.qrData && typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('porsche_vip_pass', JSON.stringify(guest))
+      } catch {}
+    }
+  }, [guest])
 
   // Download high-resolution PNG of the luxury pass
   const handleDownload = useCallback(async () => {

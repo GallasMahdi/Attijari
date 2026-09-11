@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -49,7 +49,22 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
     }
   }
 
+  // Auto-restore cached VIP pass for instant offline access at Domaine Neferis
+  useEffect(() => {
+    try {
+      const cached = localStorage.getItem('porsche_vip_pass')
+      if (cached && !externalGuestData) {
+        const parsed = JSON.parse(cached)
+        if (parsed?.qrData) {
+          setInternalGuest(parsed)
+          onSuccess(parsed)
+        }
+      }
+    } catch {}
+  }, [])
+
   const handleReset = () => {
+    try { localStorage.removeItem('porsche_vip_pass') } catch {}
     setInternalGuest(null)
     resetHook()
     if (externalOnReset) externalOnReset()

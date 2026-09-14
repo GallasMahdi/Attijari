@@ -193,40 +193,45 @@ export const FLEET_CALCULATOR_DEFAULT = {
   instructorCars: 3,
 }
 
-export const PROGRAM = [
+export interface ProgramMilestone {
+  time: string
+  label: string
+  tag: string
+  highlight?: boolean
+  badge?: string
+}
+
+export const PROGRAM: readonly ProgramMilestone[] = [
   {
-    time: '18h30',
-    label: 'Accueil d\'Honneur & Tapis Rouge',
-    sublabel: 'Arrivée au Domaine Neferis sous l\'Arche Porsche · Service Voiturier VIP & Enregistrement',
-    icon: '🏛️',
+    time: '18:30',
+    label: 'Accueil VIP',
+    tag: 'Voiturier & Champagne',
     highlight: false,
   },
   {
-    time: '19h15',
-    label: 'Dévoilement Officiel & Révélation E4',
-    sublabel: 'Révélation mondiale du nouveau Cayenne E4 Electric par la direction Porsche & 2K Events',
-    icon: '✨',
+    time: '19:15',
+    label: 'World Première',
+    tag: 'Reveal Officiel E4',
     highlight: true,
+    badge: 'Reveal',
   },
   {
-    time: '20h00',
-    label: 'Essais Dynamiques Privés & Exposition',
-    sublabel: 'Prise en main sur piste privée & visite du musée vivant Heritage × Future',
-    icon: '⚡',
+    time: '20:00',
+    label: 'Essais Piste 800V',
+    tag: 'Drive Privé Exclusif',
     highlight: true,
+    badge: 'Track',
   },
   {
-    time: '21h00',
-    label: 'Cocktail Dînatoire Gastronomique',
-    sublabel: 'Hospitalité d\'exception dans le Salon d\'Honneur avec gastronomie fine et accords mets-vins',
-    icon: '🍽️',
+    time: '21:00',
+    label: 'Dîner Neferis',
+    tag: 'Gastronomie & Vins',
     highlight: false,
   },
   {
-    time: '22h30',
-    label: 'Remise du Coffret Collector & Clôture',
-    sublabel: 'Remise du cadeau exclusif numéroté, shooting photo officiel et départ privilégié',
-    icon: '📸',
+    time: '22:30',
+    label: 'Coffret Collector',
+    tag: 'Édition VIP Numérotée',
     highlight: false,
   },
 ] as const

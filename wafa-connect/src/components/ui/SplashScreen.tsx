@@ -30,20 +30,25 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     const mobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window)
     setIsMobile(mobile)
 
-    // Luxury Porsche Ignition timing: exactly 3000ms (2500ms smooth rev sweep + 500ms peak hold)
-    const duration = 3000
-    const sweepDuration = 2500
+    // Mobile duration 1200ms; desktop duration 2400ms for luxury ignition
+    const duration = mobile ? 1200 : 2400
+    const sweepDuration = mobile ? 1000 : 2000
     const startTime = performance.now()
 
     let reqId: number
+    let lastUpdate = 0
 
     const animateSweep = (currentTime: number) => {
       const elapsed = currentTime - startTime
-      // Ultra-smooth C2-continuous smootherstep curve (silky gradual surge + cushion at peak)
       const t = Math.min(1, elapsed / sweepDuration)
       const eased = t * t * t * (t * (t * 6 - 15) + 10)
       const progress = Math.min(100, Math.round(eased * 100))
-      setRevProgress(progress)
+
+      // Throttle React state updates to ~30-40ms intervals to eliminate main-thread lockup
+      if (currentTime - lastUpdate > 35 || progress === 100) {
+        setRevProgress(progress)
+        lastUpdate = currentTime
+      }
 
       if (elapsed < duration && !isFinishedRef.current) {
         reqId = requestAnimationFrame(animateSweep)

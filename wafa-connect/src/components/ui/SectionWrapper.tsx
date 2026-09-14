@@ -29,7 +29,7 @@ export function SectionWrapper({ children, className, delay = 0, direction = 'up
       variants={variant}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
+      viewport={{ once: true, margin: '-20px' }}
       transition={{ delay }}
     >
       {children}

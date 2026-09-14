@@ -16,7 +16,8 @@ export function Navbar() {
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 80)
+    const isOver = latest > 80
+    setScrolled((prev) => (prev !== isOver ? isOver : prev))
   })
 
   // Close menu on route change / resize
@@ -29,21 +30,17 @@ export function Navbar() {
   const handleNavClick = (href: string) => {
     if (menuOpen) {
       setMenuOpen(false)
-      setTimeout(() => {
-        smoothScrollTo(href, -70)
-      }, 60)
-    } else {
-      smoothScrollTo(href, -70)
     }
+    smoothScrollTo(href, -70)
   }
 
   return (
     <>
       <motion.nav
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
-            ? 'bg-[#08090C]/95 backdrop-blur-xl border-b border-white/10 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.85)]'
+            ? 'bg-[#08090C]/98 md:backdrop-blur-xl border-b border-white/10 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.85)]'
             : 'bg-transparent py-5'
         )}
         initial={{ y: -100, opacity: 0 }}
@@ -157,23 +154,24 @@ export function Navbar() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/85 md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
               onClick={() => setMenuOpen(false)}
             />
 
             {/* Drawer */}
             <motion.div
               className={cn(
-                "fixed left-0 right-0 z-40 md:hidden bg-[#0E1015]/98 border-b border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.95)] overflow-hidden will-change-transform",
+                "fixed left-0 right-0 z-40 md:hidden bg-[#0E1015] border-b border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.95)] overflow-hidden will-change-transform",
                 scrolled ? "top-[64px]" : "top-[80px]"
               )}
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
             >
               <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
                 {/* Mobile Drawer Co-Branding */}

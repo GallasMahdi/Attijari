@@ -72,48 +72,60 @@ export function EventExperienceClient() {
         <HeroSection startAnimation={isSplashFinished} />
 
         {/* 1. Interactive Shrouded Silhouette Teaser */}
-        <Suspense fallback={<SectionSkeleton title="DÉVOILEMENT DU MODÈLE" height="h-[500px]" />}>
-          <MysteryTeaserSection />
-        </Suspense>
+        <div className="section-cv">
+          <Suspense fallback={<SectionSkeleton title="DÉVOILEMENT DU MODÈLE" height="h-[500px]" />}>
+            <MysteryTeaserSection />
+          </Suspense>
+        </div>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* 2. Official Collection Lineup: 8 Cayenne E4 vehicles */}
-        <Suspense fallback={<SectionSkeleton title="COLLECTION CAYENNE E4" height="h-[600px]" />}>
-          <FleetShowcaseSection />
-        </Suspense>
+        <div className="section-cv">
+          <Suspense fallback={<SectionSkeleton title="COLLECTION CAYENNE E4" height="h-[600px]" />}>
+            <FleetShowcaseSection />
+          </Suspense>
+        </div>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* 3. Heritage × Future Concept */}
-        <Suspense fallback={<SectionSkeleton title="HERITAGE × FUTURE" height="h-[500px]" />}>
-          <HeritageConceptSection />
-        </Suspense>
+        <div className="section-cv">
+          <Suspense fallback={<SectionSkeleton title="HERITAGE × FUTURE" height="h-[500px]" />}>
+            <HeritageConceptSection />
+          </Suspense>
+        </div>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* 4. Soirée Program & Milestones */}
-        <Suspense fallback={<SectionSkeleton title="PROGRAMME DE LA SOIRÉE VIP" height="h-[500px]" />}>
-          <ProgramSection />
-        </Suspense>
+        <div className="section-cv">
+          <Suspense fallback={<SectionSkeleton title="PROGRAMME DE LA SOIRÉE VIP" height="h-[500px]" />}>
+            <ProgramSection />
+          </Suspense>
+        </div>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* 5. VIP RSVP Portal with Instant Pass QR */}
-        <Suspense fallback={<SectionSkeleton title="PORTAIL D'ACCRÉDITATION OFFICIEL" height="h-[500px]" />}>
-          <ConfirmationSection
-            onSuccess={handleConfirmationSuccess}
-            guestData={guestData}
-            onReset={() => setGuestData(null)}
-          />
-        </Suspense>
+        <div className="section-cv">
+          <Suspense fallback={<SectionSkeleton title="PORTAIL D'ACCRÉDITATION OFFICIEL" height="h-[500px]" />}>
+            <ConfirmationSection
+              onSuccess={handleConfirmationSuccess}
+              guestData={guestData}
+              onReset={() => setGuestData(null)}
+            />
+          </Suspense>
+        </div>
 
         <div className="w-full max-w-6xl mx-auto px-4"><div className="h-px bg-white/[0.08]" /></div>
 
         {/* 6. Domaine Neferis Venue & Access */}
-        <Suspense fallback={<SectionSkeleton title="LE DOMAINE NEFERIS & ACCÈS" height="h-[500px]" />}>
-          <MapSection />
-        </Suspense>
+        <div className="section-cv">
+          <Suspense fallback={<SectionSkeleton title="LE DOMAINE NEFERIS & ACCÈS" height="h-[500px]" />}>
+            <MapSection />
+          </Suspense>
+        </div>
       </main>
 
       {/* Minimalist Floating scroll progress bar — Terracotta to Slate */}
@@ -132,7 +144,7 @@ function ScrollProgressBar() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 z-[100] h-[2px] 
+      className="hidden md:block fixed top-0 left-0 right-0 z-[100] h-[2px] 
                  bg-gradient-to-r from-[#E0681C] to-[#6D8080] origin-left will-change-transform opacity-80"
       style={{ scaleX }}
     />

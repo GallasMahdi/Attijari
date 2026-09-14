@@ -276,30 +276,30 @@ export function GuestQRCard({ guest, onReset }: GuestQRCardProps) {
         </div>
 
         {/* Middle Section: Guest Identification */}
-        <div className="px-6 py-4 text-center border-b border-dashed border-white/15 relative bg-black/30">
+        <div className="px-4 xs:px-6 py-4 text-center border-b border-dashed border-white/15 relative bg-black/30">
           <p className="font-sans text-gray-400 text-[9px] uppercase tracking-[0.28em] mb-1 font-semibold">
             TITULAIRE DE L'INVITATION
           </p>
-          <h4 className="font-outfit font-black text-white text-2xl sm:text-3xl tracking-wide uppercase leading-tight">
+          <h4 className="font-outfit font-black text-white text-xl xs:text-2xl sm:text-3xl tracking-wide uppercase leading-tight">
             {guest.prenom} {guest.nom}
           </h4>
           
           <div className="flex items-center justify-center gap-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#E0681C]/15 border border-[#E0681C]/40 font-mono text-[11px] font-bold text-[#FF7A45] uppercase tracking-wider shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E0681C] animate-ping" />
-              {guest.fonction}
+            <span className="inline-flex items-center gap-1.5 px-3 xs:px-3.5 py-1 rounded-full bg-[#E0681C]/15 border border-[#E0681C]/40 font-mono text-[10px] xs:text-[11px] font-bold text-[#FF7A45] uppercase tracking-wider shadow-sm max-w-full truncate">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E0681C] animate-ping flex-shrink-0" />
+              <span className="truncate">{guest.fonction}</span>
             </span>
           </div>
 
           {guest.sessionSlot && (
-            <p className="font-sans text-[11px] text-gray-300 mt-2 font-medium">
+            <p className="font-sans text-[10px] xs:text-[11px] text-gray-300 mt-2 font-medium">
               {guest.sessionSlot}
             </p>
           )}
         </div>
 
         {/* Bottom Section: QR Code & Event Specs */}
-        <div className="px-6 pt-4 pb-5 flex flex-col items-center gap-4 bg-[#0B0D12]">
+        <div className="px-4 xs:px-6 pt-4 pb-5 flex flex-col items-center gap-4 bg-[#0B0D12]">
           {/* QR Code Container with Terracotta Precision Brackets */}
           <div className="relative p-3.5 bg-white rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.8)] border border-white/20">
             {/* Corner brackets in Porsche Terracotta */}

@@ -18,13 +18,16 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
-    const isMobile = window.innerWidth < 768
+    const isTouchOrMobile =
+      window.innerWidth < 1024 ||
+      'ontouchstart' in window ||
+      (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
 
-    // ── MOBILE STRATEGY (100% Native 120Hz Compositor Scrolling) ─────────────
+    // ── MOBILE & TOUCH STRATEGY (100% Native 120Hz Compositor Scrolling) ─────
     // On touch/mobile devices, Lenis JS touch interception causes frame drops & freezing.
     // We use native hardware compositor scrolling for 0ms input latency & 120fps fluid speed,
     // while exposing a compliant scrollTo API for all section buttons & nav links.
-    if (isMobile) {
+    if (isTouchOrMobile) {
       const mobileScroller = {
         scrollTo: (target: any, options?: any) => {
           const offset = options?.offset ?? -70

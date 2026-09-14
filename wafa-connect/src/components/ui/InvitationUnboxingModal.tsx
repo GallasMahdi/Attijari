@@ -75,27 +75,27 @@ export function InvitationUnboxingModal({ isOpen, onClose, onRSVPClick }: Invita
             <div className="h-[2px] w-full bg-[#E0681C]" />
 
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/10">
-              <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-[#E0681C]/15 border border-[#E0681C]/30 flex items-center justify-center text-[#E0681C]">
-                  <QrCode className="w-5 h-5" />
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#E0681C]/15 border border-[#E0681C]/30 flex items-center justify-center text-[#E0681C] flex-shrink-0">
+                  <QrCode className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <PorscheWordmark className="h-2.5 w-auto text-white/80" />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5 sm:mb-1">
+                    <PorscheWordmark className="h-2 sm:h-2.5 w-auto text-white/80" />
                     <span className="text-[#E0681C] font-bold text-[8px]">·</span>
-                    <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-[#E0681C] font-bold">
+                    <span className="font-mono text-[7px] sm:text-[8px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#E0681C] font-bold truncate">
                       INVITATION DIGITALE
                     </span>
                   </div>
-                  <h3 className="font-outfit text-lg sm:text-xl font-black text-white uppercase tracking-wider">
+                  <h3 className="font-outfit text-base sm:text-lg md:text-xl font-black text-white uppercase tracking-wider truncate">
                     Votre Pass QR Code · Cayenne E4
                   </h3>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors flex-shrink-0"
                 aria-label="Fermer"
               >
                 <X className="w-4 h-4" />
@@ -103,7 +103,7 @@ export function InvitationUnboxingModal({ isOpen, onClose, onRSVPClick }: Invita
             </div>
 
             {/* Body */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 p-4 xs:p-6 md:p-8 items-center">
 
               {/* Left: QR Preview */}
               <div className="flex flex-col items-center justify-center gap-4">

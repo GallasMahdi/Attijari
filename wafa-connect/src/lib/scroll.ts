@@ -8,10 +8,13 @@
 export function smoothScrollTo(target: string | number | HTMLElement, offset: number = -70, duration: number = 0.9) {
   if (typeof window === 'undefined') return
 
-  const isMobile = window.innerWidth < 768
+  const isTouchOrMobile =
+    window.innerWidth < 1024 ||
+    'ontouchstart' in window ||
+    (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
 
   // 1. Mobile devices: native hardware compositor thread (never drops frames or lags)
-  if (isMobile) {
+  if (isTouchOrMobile) {
     if (typeof target === 'number') {
       window.scrollTo({ top: target, behavior: 'smooth' })
       return

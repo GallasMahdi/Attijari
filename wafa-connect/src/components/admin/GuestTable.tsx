@@ -151,16 +151,19 @@ export function GuestTable({ adminToken, refreshTrigger }: GuestTableProps) {
 
       {/* ── Stats Bar ──────────────────────────────────────────────────────── */}
       {stats && (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {[
-            { label: 'Accréditations VIP', value: stats.total, icon: Users, color: 'text-white', bg: 'bg-white/5', border: 'border-white/10' },
-            { label: 'Présents au Domaine', value: stats.arrived, icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
-            { label: 'En Attente d’Arrivée', value: stats.pending, icon: Clock, color: 'text-[#E0681C]', bg: 'bg-[#E0681C]/10', border: 'border-[#E0681C]/25' },
-          ].map(({ label, value, icon: Icon, color, bg, border }) => (
-            <div key={label} className={`rounded-2xl ${bg} border ${border} p-3 sm:p-4 flex flex-col items-center text-center gap-1 shadow-sm backdrop-blur-sm`}>
-              <Icon className={`w-4 sm:w-5 h-4 sm:h-5 ${color}`} />
-              <p className={`font-outfit text-xl sm:text-2xl font-black ${color}`}>{value}</p>
-              <p className="font-mono text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-wider">{label}</p>
+            { label: 'Accréditations VIP', shortLabel: 'Accréditations', value: stats.total, icon: Users, color: 'text-white', bg: 'bg-white/5', border: 'border-white/10' },
+            { label: 'Présents au Domaine', shortLabel: 'Présents', value: stats.arrived, icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+            { label: 'En Attente d’Arrivée', shortLabel: 'En Attente', value: stats.pending, icon: Clock, color: 'text-[#E0681C]', bg: 'bg-[#E0681C]/10', border: 'border-[#E0681C]/25' },
+          ].map(({ label, shortLabel, value, icon: Icon, color, bg, border }) => (
+            <div key={label} className={`rounded-xl sm:rounded-2xl ${bg} border ${border} p-2.5 sm:p-4 flex flex-col items-center text-center gap-1 shadow-sm backdrop-blur-sm`}>
+              <Icon className={`w-3.5 sm:w-5 h-3.5 sm:h-5 ${color}`} />
+              <p className={`font-outfit text-lg xs:text-xl sm:text-2xl font-black ${color}`}>{value}</p>
+              <p className="font-mono text-[7.5px] xs:text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-wider line-clamp-1 sm:line-clamp-none">
+                <span className="xs:hidden">{shortLabel}</span>
+                <span className="hidden xs:inline">{label}</span>
+              </p>
             </div>
           ))}
         </div>

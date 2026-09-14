@@ -245,17 +245,17 @@ export default function AdminPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
             {/* Device / Station Selector */}
-            <div className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 bg-white/5 border border-white/10 rounded-xl">
-              <div className="relative flex h-2 w-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-white/5 border border-white/10 rounded-xl max-w-[140px] xs:max-w-[180px] sm:max-w-none">
+              <div className="relative flex h-2 w-2 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E0681C] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E0681C]"></span>
               </div>
               <select
                 value={scannerName}
                 onChange={(e) => setScannerName(e.target.value)}
-                className="font-outfit text-[11px] bg-transparent text-gray-200 font-bold focus:outline-none cursor-pointer pr-1 tracking-wider"
+                className="font-outfit text-[10px] sm:text-[11px] bg-transparent text-gray-200 font-bold focus:outline-none cursor-pointer pr-1 tracking-wider truncate w-full"
               >
                 {[
                   'Accueil Principal Domaine',

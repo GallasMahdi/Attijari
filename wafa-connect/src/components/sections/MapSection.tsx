@@ -10,7 +10,12 @@ export function MapSection() {
   const [mapInteractive, setMapInteractive] = useState(false)
   const [hovered, setHovered] = useState(false)
   const [iframeVisible, setIframeVisible] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+  }, [])
 
   useEffect(() => {
     if (!mapInteractive) return
@@ -70,7 +75,7 @@ export function MapSection() {
             <div>
               <h2
                 className="font-outfit font-black text-white leading-tight uppercase"
-                style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)' }}
+                style={{ fontSize: 'clamp(1.75rem, 5.5vw, 3.8rem)' }}
               >
                 Accès au <span className="text-gradient-terracotta italic">Domaine Neferis</span>
               </h2>
@@ -209,7 +214,7 @@ export function MapSection() {
                   height="100%"
                   style={{
                     border: 0,
-                    filter: 'invert(90%) hue-rotate(180deg) contrast(1.1) brightness(0.9)',
+                    filter: isMobile ? 'none' : 'invert(90%) hue-rotate(180deg) contrast(1.1) brightness(0.9)',
                     pointerEvents: mapInteractive ? 'auto' : 'none',
                   }}
                   allowFullScreen

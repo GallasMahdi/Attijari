@@ -426,7 +426,7 @@ canvas {
   }
 }
 
-/* Mobile touch improvements */
+/* Mobile touch & rendering performance optimizations */
 @media (max-width: 768px) {
   * {
     -webkit-tap-highlight-color: transparent;
@@ -436,6 +436,29 @@ canvas {
   select,
   textarea {
     font-size: 16px !important;
+  }
+
+  /* Clamp expensive Gaussian blur radii on mobile GPUs to prevent frame drops */
+  .blur-\[140px\],
+  .blur-\[150px\],
+  .blur-\[160px\],
+  .blur-\[170px\],
+  .blur-\[180px\] {
+    filter: blur(45px) !important;
+  }
+
+  .blur-3xl {
+    filter: blur(28px) !important;
+  }
+
+  .blur-2xl {
+    filter: blur(18px) !important;
+  }
+
+  /* Below-the-fold section render containment for 120fps mobile scrolling */
+  .section-cv {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 650px;
   }
 }
 
@@ -450,5 +473,9 @@ canvas {
 
   .gpu {
     transform: translateZ(0);
+  }
+
+  .touch-pan-y {
+    touch-action: pan-y;
   }
 }

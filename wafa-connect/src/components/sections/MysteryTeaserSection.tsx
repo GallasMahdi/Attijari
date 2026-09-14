@@ -15,18 +15,11 @@ export function MysteryTeaserSection() {
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return
+    // Skip on touch/mobile devices to keep compositor thread at 120fps
+    if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) return
     const rect = containerRef.current.getBoundingClientRect()
     const x = ((e.clientX - rect.left) / rect.width) * 100
     const y = ((e.clientY - rect.top) / rect.height) * 100
-    setMousePos({ x, y })
-  }, [])
-
-  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
-    if (!containerRef.current || e.touches.length === 0) return
-    const rect = containerRef.current.getBoundingClientRect()
-    const touch = e.touches[0]
-    const x = ((touch.clientX - rect.left) / rect.width) * 100
-    const y = ((touch.clientY - rect.top) / rect.height) * 100
     setMousePos({ x, y })
   }, [])
 
@@ -82,11 +75,10 @@ export function MysteryTeaserSection() {
           <div
             ref={containerRef}
             onMouseMove={handleMouseMove}
-            onTouchMove={handleTouchMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={toggleLights}
-            className="relative w-full aspect-[16/9] overflow-hidden cursor-crosshair bg-black"
+            className="relative w-full aspect-[16/9] overflow-hidden cursor-crosshair bg-black touch-pan-y"
           >
             {/* 1. Shrouded Cayenne E4 SUV Image */}
             <div className="absolute inset-0 z-0">
@@ -105,9 +97,9 @@ export function MysteryTeaserSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#07080B]/50 via-transparent to-[#07080B]/50 pointer-events-none" />
             </div>
 
-            {/* 2. Interactive Spotlight */}
+            {/* 2. Interactive Spotlight (Desktop only, static luxury subtle glow on mobile) */}
             <div
-              className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
+              className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-300 hidden sm:block"
               style={{
                 background: isLightsOn
                   ? `radial-gradient(circle 380px at ${mousePos.x}% ${mousePos.y}%, rgba(224,104,28,0.18) 0%, rgba(109,128,128,0.08) 40%, transparent 75%)`
@@ -131,12 +123,12 @@ export function MysteryTeaserSection() {
                   <span className="w-2 h-1 sm:w-3.5 sm:h-2 rounded-[2px] bg-white shadow-[0_0_10px_#ffffff]" />
                   <span className="w-2 h-1 sm:w-3.5 sm:h-2 rounded-[2px] bg-white shadow-[0_0_10px_#ffffff]" />
                 </div>
-                <div className="absolute inset-0 -m-3 rounded-full bg-white/20 blur-lg pointer-events-none" />
+                <div className="absolute inset-0 -m-3 rounded-full bg-white/20 blur-md sm:blur-lg pointer-events-none" />
               </div>
 
               {/* B. Electric beam projection forward */}
               <div
-                className="absolute top-[42%] left-[-4%] w-[25%] h-[24%] blur-2xl transform -rotate-6 origin-right pointer-events-none"
+                className="absolute top-[42%] left-[-4%] w-[25%] h-[24%] blur-lg sm:blur-2xl transform -rotate-6 origin-right pointer-events-none"
                 style={{ background: 'linear-gradient(to left, rgba(255,255,255,0.3), rgba(224,104,28,0.15), transparent)' }}
               />
 
@@ -148,17 +140,17 @@ export function MysteryTeaserSection() {
               </div>
 
               {/* D. Ground reflection */}
-              <div className="absolute top-[72%] left-[8%] w-[42%] h-[16%] rounded-full blur-3xl pointer-events-none"
+              <div className="absolute top-[72%] left-[8%] w-[42%] h-[16%] rounded-full blur-xl sm:blur-3xl pointer-events-none"
                 style={{ background: 'rgba(224,104,28,0.14)' }}
               />
 
               {/* E. Rear ambient flare */}
-              <div className="absolute top-[40%] left-[80%] w-[18%] h-[22%] blur-3xl rounded-full pointer-events-none"
+              <div className="absolute top-[40%] left-[80%] w-[18%] h-[22%] blur-xl sm:blur-3xl rounded-full pointer-events-none"
                 style={{ background: 'rgba(224,104,28,0.18)' }}
               />
 
               {/* F. Underbody glow */}
-              <div className="absolute top-[70%] left-[20%] right-[20%] h-[12%] blur-2xl rounded-full pointer-events-none"
+              <div className="absolute top-[70%] left-[20%] right-[20%] h-[12%] blur-lg sm:blur-2xl rounded-full pointer-events-none"
                 style={{ background: 'rgba(224,104,28,0.08)' }}
               />
             </div>

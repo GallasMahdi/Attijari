@@ -90,7 +90,7 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.3 }}
-              className="rounded-2xl sm:rounded-3xl p-5 xs:p-6 sm:p-8 md:p-12 bg-[#0E1015] border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.95)] relative overflow-hidden"
+              className="rounded-2xl sm:rounded-3xl p-4 xs:p-6 sm:p-8 md:p-12 bg-[#0E1015] border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.95)] relative overflow-hidden"
             >
               {/* Subtle top hairline */}
               <div className="absolute top-0 left-0 right-0 h-[2px]"
@@ -206,10 +206,10 @@ export function ConfirmationSection({ onSuccess, guestData: externalGuestData, o
                   <div>
                     <label className={labelClasses}>Formule d'Accès</label>
                     <input type="hidden" {...register('sessionSlot')} value="Pass VIP Prestige — Accès Intégral" />
-                    <div className="w-full px-4 py-3.5 rounded-xl bg-[#0E1015] border border-[#E0681C]/30 flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
+                    <div className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-xl bg-[#0E1015] border border-[#E0681C]/30 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
                         <span className="w-2 h-2 rounded-full bg-[#E0681C] animate-pulse flex-shrink-0" />
-                        <span className="font-outfit text-xs sm:text-sm font-bold text-white tracking-wide">
+                        <span className="font-outfit text-xs sm:text-sm font-bold text-white tracking-wide truncate">
                           Pass VIP Prestige · Accès Intégral
                         </span>
                       </div>

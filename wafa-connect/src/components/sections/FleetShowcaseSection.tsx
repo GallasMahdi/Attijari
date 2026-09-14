@@ -209,7 +209,7 @@ export function FleetShowcaseSection() {
             </div>
 
             {/* Right: Drive Simulation */}
-            <div className="lg:col-span-6 flex flex-col items-center justify-center gap-6 p-6 sm:p-8 rounded-2xl bg-black/60 border border-white/10 relative">
+            <div className="lg:col-span-6 flex flex-col items-center justify-center gap-5 sm:gap-6 p-4 xs:p-6 sm:p-8 rounded-2xl bg-black/60 border border-white/10 relative">
               {/* Visual Gauge Arc */}
               <div className="w-full relative py-6 flex flex-col items-center justify-center">
                 <div className="relative w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center">

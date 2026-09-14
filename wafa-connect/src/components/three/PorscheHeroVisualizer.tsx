@@ -153,7 +153,7 @@ export function PorscheHeroVisualizer({
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#08090C] via-[#08090C]/60 to-transparent pointer-events-none" />
 
       {/* ── Discreet Mode & Focus Switcher Pill (Top Right) ──────────────── */}
-      <div className="absolute top-24 sm:top-28 right-4 sm:right-8 z-30 flex items-center gap-1.5 p-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-lg">
+      <div className="absolute top-24 sm:top-28 right-2 xs:right-4 sm:right-8 z-30 flex items-center gap-1 sm:gap-1.5 p-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-lg max-w-[calc(100vw-1rem)] overflow-x-auto">
         {onToggleSharp && (
           <button
             onClick={onToggleSharp}

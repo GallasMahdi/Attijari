@@ -15,6 +15,11 @@ interface TimelineItemProps {
 
 export const TimelineItem = React.memo(function TimelineItem({ time, label, sublabel, icon, highlight, index }: TimelineItemProps) {
   const isEven = index % 2 === 0
+  const [isMobile, setIsMobile] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+  }, [])
 
   return (
     <div className={cn(
@@ -27,18 +32,18 @@ export const TimelineItem = React.memo(function TimelineItem({ time, label, subl
       <div className="absolute left-[15px] sm:left-[23px] md:left-1/2 -translate-x-1/2 flex items-center justify-center w-6 h-6 z-10">
         <div className={cn(
           "rounded-full transition-all duration-300",
-          highlight ? "w-4 h-4 bg-[#E0681C] shadow-[0_0_15px_#E0681C] animate-pulse" : "w-3 h-3 bg-[#6D8080] opacity-70"
+          highlight ? "w-4 h-4 bg-[#E0681C] shadow-[0_0_10px_#E0681C] md:animate-pulse" : "w-3 h-3 bg-[#6D8080] opacity-70"
         )} />
       </div>
 
       {/* Content */}
       <motion.div
-        initial={{ opacity: 0, x: isEven ? 40 : -40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.45, delay: 0.05 }}
+        initial={isMobile ? { opacity: 0, y: 12 } : { opacity: 0, x: isEven ? 35 : -35 }}
+        whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "60px" }}
+        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
         className={cn(
-          "w-[calc(100%-2.75rem)] sm:w-[calc(100%-4rem)] md:w-[calc(50%-1.5rem)] flex items-center gap-3 sm:gap-4 ml-10 sm:ml-16 md:ml-0 text-left",
+          "w-[calc(100%-2.75rem)] sm:w-[calc(100%-4rem)] md:w-[calc(50%-1.5rem)] flex items-center gap-3 sm:gap-4 ml-10 sm:ml-16 md:ml-0 text-left transform-gpu",
           isEven ? "md:pr-8 md:justify-end md:text-right" : "md:pl-8 md:justify-start"
         )}
       >

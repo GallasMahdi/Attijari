@@ -8,7 +8,7 @@ export function ProgramSection() {
   return (
     <section id="programme" className="py-24 md:py-32 bg-[#08090C] relative overflow-hidden border-t border-white/5">
       {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#E0681C]/[0.05] blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[700px] h-[200px] sm:h-[350px] bg-[#E0681C]/[0.05] blur-2xl sm:blur-[150px] rounded-full pointer-events-none" />
 
       <SectionWrapper className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-20 relative">
